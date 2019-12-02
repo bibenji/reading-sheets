@@ -125,8 +125,11 @@ Bad Comments :
 
 P. 106
 
+P. 112 (Instance variables)
 
+## 6 Objects and Data Structures
 
+P. 124
 
 
 
