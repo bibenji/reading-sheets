@@ -131,14 +131,61 @@ P. 112 (Instance variables)
 
 P. 124
 
+[...]
 
+The Law Of Demeter
 
+a method f of a class C should only call the methods of these:
+- C
+- An object created by f
+- An object passed as an argument to f
+- An object held in an instance variable of C
 
+The method should not invoke methods on objects that are returned by any of the allowed functions. In other words, talk to friends, not to strangers.
 
+= Train Wrecks
 
+## 7 Error Handling
 
+P. 134
 
+Use different classes only if there are times when you want to catch one exception and allow the other one to pass through.
 
+SPECIAL CASE PATTERN
 
+Don't Return Null
 
+If you are tempted to return null from a method, consider throwing an exception or returning a S PECIAL C ASE object instead.
 
+If you are calling a null -returning method from a third-party API, consider wrapping that method with a method that either throws an exception or returns a special case object.
+
+Don’t Pass Null
+
+## 8 Boundaries
+
+P. 144
+
+[...]
+
+learning tests...
+help learn and help detect bugs if the third-party evolve
+
+wrap third-party with custom code wrapper
+
+## 9 Unit Tests
+
+P. 152
+
+TDD : Test Driven Developpment
+
+[...]
+
+BUILD-OPERATE-CHECK pattern
+
+given-when-then convention
+
+FIRST (Fast Independent Repeatable Self-validating Timely)
+
+## 10 Classes
+
+P. 166
