@@ -189,3 +189,36 @@ FIRST (Fast Independent Repeatable Self-validating Timely)
 ## 10 Classes
 
 P. 166
+
+The Single Responsibility Principle -> classes should have one responsibility, one reason to change
+
+Cohesion
+
+Classes should have a small number of instance variables<br />
+Each of the methods of a class should manipulate one or more of those variables.
+
+découper en classes qui regroupent des fonctions qui utilisent les mêmes variables (= un bon procédé)
+
+OCP = Open-Closed Principle<br />
+Classes should be open for extension but closed for modification.
+
+Isolating from Change
+
+DIP = Dependency Inversion Principle
+-> our classes should depend upon abstractions, not on concrete details
+
+## 11 Systems
+
+P. 184
+
+
+
+
+
+
+
+Further Reading :
+---
+
+- Literate Programming by Knuth
+
