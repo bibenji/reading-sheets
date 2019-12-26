@@ -211,7 +211,35 @@ DIP = Dependency Inversion Principle
 
 P. 184
 
+The seperation of concerns = one of the oldest and most important design techniques in our craft
 
+The Single Responsibility Principle (déjà vu)
+
+Separation of Main : assume everything has been build correctly
+
+Factories
+
+Abstract Factory pattern...
+
+Dependency Injection (DI)
+
+Inversion of Control (IoC)
+
+JNDI = a "partial" implementation of DI where an object asks a directory server to provide a "service" matching a particular name
+
+Scaling Up
+
+Cross-Cutting Concernes
+
+[...] AOP (aspect-oriented programming)
+
+[...]
+
+...never forget to use the simplest thing that can possibly work.
+
+## 12 Emergence
+
+P. 202
 
 
 
