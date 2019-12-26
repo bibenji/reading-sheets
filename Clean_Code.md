@@ -241,6 +241,36 @@ Cross-Cutting Concernes
 
 P. 202
 
+Getting Clean via Emergent Design
+
+Simple Design Rules By Kent
+1. Runs All the Tests
+2. Contains no duplication
+3. Expresses the intent of the programmer
+4. Minimizes the number of classes and methods
+
+Simple Design Rules 2-4: Refactoring
+
+[...] Eliminate duplication, ensure expressiveness, and minimize the number of classes and methods.
+
+No Duplication
+
+the TEMPLATE METHOD pattern
+
+Expressive
+- choosing good names
+- keeping functions and classes small
+- using standard nomenclature
+- well-written unit tests are also expressive
+
+Minimal Classes and Methods
+
+## 13 Concurrency
+
+P. 208
+
+
+
 
 
 
