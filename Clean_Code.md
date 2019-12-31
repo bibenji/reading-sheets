@@ -269,6 +269,64 @@ Minimal Classes and Methods
 
 P. 208
 
+...
+
+servlets...
+
+Challenges... P. 211
+
+Single Responsibility Principle (again) = a given method/class/component should have a single reason to change
+
+Corollary: Limit the Scope of Data
+
+Take data encapsulation to heart; serverly limit the access of any data that may be shared.
+
+Corollary: Use Copies of Data
+
+Copy objects and treat them as read-only (if possible)
+
+If not possible, copy objects, collect results from multiple threads in these copies and then merge the results in a single thread.
+
+Corollary: Threads Should Be as Independent as Possible
+
+des outils dans JAVA : ConcurrentHashMap, ReentrantLock, Semaphore, CountDownLatch... See java.util.concurrent, java.util.concurrent.atomic, java.util.concurrent.locks
+
+Know Your Execution Models : Bound Resources, Mutual Exclusion, Starvation, Deadlock, Livelock
+
+Producer-Consumer: the queue is a bound resource
+
+Readers-Writers ...
+
+Dinning Philosophers
+
+Beware Dependencies Between Synchronized Methods :
+- avoid using more than on method on a shared object
+...
+
+Keep Synchronized Sections Small
+
+[...]
+
+Writing Correct Shut-Down Code Is Hard ...
+
+Testing Threaded Code ...
+
+- Treat Spurious Failures as Candidate Threading Issues ...
+- Get your nonthreaded code working first ...
+- Make your threaded code pluggable ...
+- Make your threaded code tunable ...
+- Run with more threads than processors ...
+- Run on different platforms ...
+- Instrument your code to try and force failures ...
+
+[...]
+
+## 14 Successive Refinement
+
+P. 224
+
+
+
 
 
 
