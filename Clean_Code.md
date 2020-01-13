@@ -325,7 +325,15 @@ Testing Threaded Code ...
 
 P. 224
 
+[...]
 
+remove the type-case...
+
+[...]
+
+## 15 JUnit Internals
+
+P. 282
 
 
 
