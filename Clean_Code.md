@@ -335,9 +335,78 @@ remove the type-case...
 
 P. 282
 
+## 16 Refactoring SerialDate
 
+P. 298
 
+P. 308
 
+## 17 Smells and Heuristics
+
+P. 316
+
+Comments
+
+C1: Inappropriate Information
+C2: Obsolete Comment
+C3: Redundant Comment
+C4: Poorly Written Comment
+C5: Commented-Out Code
+
+Environment
+
+E1: Build Requires More Than One Step -> no, just one command
+E2: Tests Require More Than One Step -> no, just one command to launch all
+
+Functions
+
+F1: Too Many Arguments -> should have a small number of arguments (more than three is not good)
+F2: Output Arguments -> output arguments are counterintuitive
+F3: Flag Arguments -> confusing, should be eliminated
+F4: Dead Function ->
+
+General
+
+G1: Multiple Languages in One Source File -> no, only one language in one file
+G2: Obvious Behavior Is Unimplemented
+G3: Incorrect Behavior at the Boundaries -> look for every boundary condition (corner case, etc.)
+G4: Overridden Safeties -> don't
+G5: Duplication -> DRY principle (Don't Repeat Yourself), NEVER
+G6: Code at Wrong Level of Abstraction -> higher level of abstraction in base class
+G7: Base Classes Depending on Their Derivatives
+G8: Too Much Information
+G9: Dead Code
+G10: Vertical Separation
+G11: Inconsistency -> avoid
+G12: Clutter -> should be removed (things not used, etc.)
+G13: Artificial Coupling
+G14: Feature Envy -> the methods of a class should be interested in the variables and functions of the class they belong to, and not the variables and functions of other classes.
+G15: Selector Arguments -> Better to have many functions than to pass some code into a function to select the behavior
+G16: Obscured Intent
+G17: Misplaced Responsibility
+G18: Inappropriate Static
+G19: Use Explanatory Variables
+G20: Function Names Should Say What They Do -> if you have to look at the implementation (or documentation) of the function to know what it does, then you should work to find a better name [...]
+G21: Understand the Algorithm
+G22 : Make Logical Dependencies Physical
+G23: Prefer Polymorphism to If/Else or Switch/Case -> Just one switch to have polymorphic objects used by the rest of the system
+G24: Follow Standard Conventions
+G25: Replace Magic Numbers with Named Constants
+G26: Be Precise
+G27: Structure over Convention > naming conventions are good, but they are inferior to structures that force compliance. For example, switch/cases with nicely named enumerations are inferior to base classes with abstract methods.
+G28: Encapsulate Conditionals
+G29: Avoid Negative Conditionals
+G30: Functions Should Do One Thing
+G31: Hidden Temporal Couplings
+G32: Don't Be Arbitrary
+G33: Encapsulate Boundary Conditions
+G34: Functions Should Descend Only One Level of Abstraction
+G35: Keep Configurable Data at High Levels
+G36: Avoid Transitive Navigation
+
+Java
+
+P. 338
 
 
 
