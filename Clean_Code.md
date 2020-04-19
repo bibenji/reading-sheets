@@ -408,6 +408,16 @@ Java
 
 P. 338
 
+J1: Avoid Long Import Lists By Using Wildcards
+J2: Don't Inherit Constants
+J3: Constants versus Enums
+
+N1: Choose Descriptive Names
+N2: Choose Names at the Appropriate Level of Abstraction
+N3: Use Standard Nomenclature Where Possible
+
+P. 343
+
 
 
 Further Reading :
