@@ -415,6 +415,31 @@ J3: Constants versus Enums
 N1: Choose Descriptive Names
 N2: Choose Names at the Appropriate Level of Abstraction
 N3: Use Standard Nomenclature Where Possible
+N4: Unambiguous Names
+N5: Use Long Names For Long Scopes (i it's ok in a small for)
+N6: Avoid Encodings
+N7: Names Should Describe Side-Effects
+
+Tests
+
+T1: Insufficient Tests (= test everythings)
+T2: Use a Coverage Tool!
+T3: Don't Skip Trivial Tests
+T4: An Ignored Test Is a Question about an Ambiguity
+T5: Test Boundary Conditions
+T6: Exhaustively Test Near Bugs
+T7: Patterns of Failure Are Revealing
+T8: Test Coverage Patterns Can Be Revealing
+T9: Tests Should Be Fast
+
+Appendix A! Concurrency II
+
+Client/Server Example
+Possible Paths of Execution
+
+P. 352
+
+
 
 P. 343
 
