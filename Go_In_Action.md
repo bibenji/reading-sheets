@@ -393,3 +393,248 @@ underlying array
 ### 4.3 Map internals and fundamentals
 
 P. 102
+
+A map is a data structure that provides you with an unordered collection of key/value
+pairs.
+
+map is implemented using a hash table
+so no real order
+
+```asp
+// Create a map with a key of type string and a value of type int.
+dict := make(map[string]int)
+
+// Create a map with a key and value of type string.
+// Initialize the map with 2 key/value pairs.
+dict := map[string]string{"Red": "#da1337", "Orange": "#e95a22"}
+
+// Create a map using a slice of strings as the value.
+dict := map[int][]string{}
+
+// Create an empty map to store colors and their color codes.
+colors := map[string]string{}
+// Add the Red color code to the map.
+colors["Red"] = "#da1337"
+```
+
+You can create a nil map by declaring a map without any initialization. A nil map
+can’t be used to store key/value pairs. Trying will produce a runtime error.
+
+```asp
+// Retrieve the value for the key "Blue".
+value, exists := colors["Blue"]
+// Did this key exist?
+if exists {
+    fmt.Println(value)
+}
+
+// Retrieve the value for the key "Blue".
+value := colors["Blue"]
+// Did this key exist?
+if value != "" {
+    fmt.Println(value)
+}
+```
+
+iterate over a map
+```asp
+// Create a map of colors and color hex codes.
+colors := map[string]string{
+"AliceBlue":
+"#f0f8ff",
+"Coral":
+"#ff7F50",
+"DarkGray":
+"#a9a9a9",
+"ForestGreen": "#228b22",
+}
+// Display all the colors in the map.
+for key, value := range colors {
+fmt.Printf("Key: %s Value: %s\n", key, value)
+}
+```
+
+removing an item from a map : delete
+`delete(colors, "Coral")`
+
+Passing a map between two functions doesn’t make a copy of the map.
+
+## 5 Go's type system
+
+P. 109
+
+struct
+
+```asp
+// user defines a user in the program.
+type user struct {
+    name        string
+    email       string
+    ext         int
+    privileged  bool
+}
+```
+
+eserve the use of the keyword var as a way to indicate that a variable
+is being set to its zero value. If the variable will be initialized to something other than
+its zero value, then use the short variable declaration operator with a struct literal.
+
+```asp
+// Declare a variable of type user and initialize all the fields.
+lisa := user{
+    name: "Lisa",
+    email: "lisa@email.com",
+    ext: 123,
+    privileged: true,
+}
+
+// Declare a variable of type user.
+lisa := user{"Lisa", "lisa@email.com", 123, true}
+```
+
+```asp
+// Declare a variable of type admin.
+fred := admin{
+    person: user{
+        name: "Lisa",
+        email: "lisa@email.com",
+        ext: 123,
+        privileged: true,
+    },
+    level: "super",
+}
+```
+
+Declaration of a new type based on an int64
+
+`type Duration int64`
+
+5.2 Methods
+
+```asp
+// user defines a user in the program.
+type user struct {
+    name string
+    email string
+}
+
+// notify implements a method with a value receiver.
+func (u user) notify() {
+    fmt.Printf("Sending User Email To %s<%s>\n", u.name, u.email=
+}
+
+func (u *user) changeEmail(email string) {
+    u.email = email
+}
+
+[...]
+
+in main :
+
+// Pointers of type user can also be used to call methods
+// declared with a value receiver.
+lisa := &user{"Lisa", "lisa@email.com"}
+lisa.notify()
+(you can call methods usign a pointer)
+
+```
+
+The parameter between
+the keyword func and the function name is called a receiver
+
+two types of receivers : value and pointer receivers
+
+= makes a copy
+
+(*lisa).notify() [to support the method call]
+
+...
+
+(&bill).notify() [to support the method call]
+
+5.3 The Nature of types
+
+Reference types
+
+...
+
+net package
+type IP []byte
+
+In the end, reference type values are treated like primitive data values.
+= copy
+
+Struct types
+
+```asp
+func Now() Time {
+    sec, nsec := now()
+    return Time{sec + unixToInternal, nsec, Local}
+}
+```
+
+```asp
+func (t Time) Add(d Duration) Time {
+    t.sec += int64(d / 1e9)
+    nsec := int32(t.nsec) + int32(d%1e9)
+    if nsec >= 1e9 {
+        t.sec++
+        nsec -= 1e9
+    } else if nsec < 0 {
+        t.sec--
+        nsec += 1e9
+    }
+    t.nsec = nsec
+    return t
+}
+```
+
+In most cases, struct types don’t exhibit a primitive nature, but a nonprimitive one.
+In these cases, adding or removing something from the value of the type should
+mutate the value.
+
+```asp
+// File represents an open file descriptor.
+type File struct {
+    *file
+}
+```
+
+Since there’s no way to pre-
+vent programmers from making copies, the implementation of the File type uses an
+embedded pointer of an unexported type. We’ll talk about embedding types later in
+this chapter, but this extra level of indirection provides protection from copies.
+
+```asp
+func Open(name string) (file *File, err error) {
+    return OpenFile(name, O_RDONLY, 0)
+}
+```
+
+```asp
+func (f *File) Chdir() error {
+    if f == nil {
+        return ErrInvalid
+    }
+
+    if e := syscall.Fchdir(f.fd); e != nil {
+        return &PathError{"chdir", f.name, e}
+    }
+    
+    return nil
+}
+```
+
+The decision to use a value or pointer receiver should not be based on whether the
+method is mutating the receiving value. The decision should be based on the nature
+of the type. One exception to this guideline is when you need the flexibility that value
+type receivers provide when working with interface values. In these cases, you may
+choose to use a value receiver even though the nature of the type is nonprimitive. It’s
+entirely based on the mechanics behind how interface values call methods for the val-
+ues stored inside of them.
+
+5.4 Interfaces
+
+P. 122
+
+
