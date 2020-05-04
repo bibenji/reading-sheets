@@ -439,9 +439,8 @@ Possible Paths of Execution
 
 P. 352
 
-
-
-P. 343
+REPRENDRE APPENDIX A si intérêt pour multithread en java
+P. 348
 
 
 
