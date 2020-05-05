@@ -4,6 +4,17 @@
 - Design Patterns
 - Refactoring, improving the design of existing code
 
+- Algo : cracking code interview ?
+- autres bouquins d'algo
+
+- Réseaux
+- Hacking
+- Cryptographie
+
+- Docker
+- Kubernetes
+- Rabbit
+
 ## For The Week-end :
 - Go
 
@@ -18,3 +29,5 @@
 - Revoir JAVA and Python
 - Finish Clean Code
 - Improve php
+
+## Big data puis machine learning car machine learning se base sur le big data puis après encore y'a le deep learning
