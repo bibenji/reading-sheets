@@ -97,3 +97,34 @@ Object & Behavioral : Chain of Responsibility, Command, Iterator, Mediator, Meme
 Determining Object Granularity
 
 P. 13
+
+Principles :
+- Program to an interface, not an implementation.
+- Favor object composition over class inheritance.
+
+Delegation
+
+Delegation is an extreme example of object composition. It shows that you can always
+replace inheritance with object composition as a mechanism for code reuse.
+
+Parametrized Types
+(or generics, or templates : =)
+
+Acquaintance and aggregation
+acquaintance is a weaker relationship than aggregation
+
+Causes of redesign with design pattern solution :
+- Creating an object by specifying a class explicitly.
+- Dependence on specific operations.
+- Dependence on hardware and software platform.
+- Dependence on object representations or implementations.
+- Algorithmic dependencies.
+- Tight coupling.
+- Extending functionality by subclassing.
+- Inability to alter classes conveniently.
+
+Application Programs
+
+P. 25
+
+
