@@ -20,3 +20,25 @@ Go uses single quotes for character literals
 byte, int32, int64
 
 P. 21
+
+```
+// without * means it's made on a copy of the instance
+func (stack Stack) IsEmpty() bool {
+	return len(stack) == 0
+}
+
+// with * means it's made on the instance itself
+func (stack *Stack) Push(x interface{}) {
+	*stack = append(*stack, x)
+}
+```
+
+Dereferencing (the pointer) is done by preceding the variable name with a star.
+
+References
+behave very much like pointers in that when they are passed to functions any
+changes made to them inside the function affect the original channel, map, or
+slice. However, references don’t need to be dereferenced, so in most cases there’s
+no need to use stars with them.
+
+P. 29

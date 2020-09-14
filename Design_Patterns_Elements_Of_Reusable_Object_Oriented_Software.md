@@ -127,4 +127,43 @@ Application Programs
 
 P. 25
 
+Inheritance and composition
+
+RULE : Favor object composition over class inheritance
+
+...
+
+Delegation...
+
+In other words, instead of a Window being a Rectangle, it would have a Rectangle.
+Window must now forward requests to its Rectangle instance explicitly, whereas before it would have inherited those operations.
+
+Delegation is an extreme example of object composition.
+
+Inheritance versus Parameterized Types
+
+Parameterized types give us a third way (in addition to class inheritance and object composition) to compose behavior in object-oriented systems.
+
+...
+
+Acquaintance is a weaker relationship than aggregation and suggests much looser coupling between objects.
+
+Aggregation relationships tend to be fewer and more permanent than acquaintance. Acquaintances, in contrast, are made and remade more frequently, sometimes existing only for the duration of an operation.
+
+some common causes of redesign :
+1. Creating an object by specifying a class explicitly.
+2. Dependence on specific operations.
+3. Dependence on hardware and software platform.
+4. Dependence on object representations or implementations.
+5. Algorithmic dependencies.
+6. Tight coupling.
+7. Extending functionality by subclassing.
+
+Object composition in general and delegation in particular provide flexible alternatives to inheritance for combining behavior.
+
+8. Inability to alter classes conveniently.
+
+2. A Case Study: Design a Document Editor
+
+P. 46
 
