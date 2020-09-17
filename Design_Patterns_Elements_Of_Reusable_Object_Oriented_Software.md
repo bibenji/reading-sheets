@@ -167,3 +167,7 @@ Object composition in general and delegation in particular provide flexible alte
 
 P. 46
 
+Embellishing the User Interface
+
+P. 56
+
