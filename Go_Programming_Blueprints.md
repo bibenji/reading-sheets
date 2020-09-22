@@ -13,3 +13,9 @@ go get github.com/gorilla/websocket
 P. 34
 
 P. 39
+
+go run main go -addr=":3000"
+
+Tracing code to get a look under the hood
+
+P. 44
