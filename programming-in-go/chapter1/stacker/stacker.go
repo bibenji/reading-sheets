@@ -2,7 +2,8 @@ package main
 
 import (
 	"fmt"
-	"stacker/stack"
+	// "stacker/stack"
+	"./stack"
 )
 
 func main() {

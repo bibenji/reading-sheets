@@ -42,3 +42,7 @@ slice. However, references don’t need to be dereferenced, so in most cases the
 no need to use stars with them.
 
 P. 29
+
+1.7. Polar to Cartesian - Concurrency
+
+P. 40
