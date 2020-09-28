@@ -46,3 +46,14 @@ P. 29
 1.7. Polar to Cartesian - Concurrency
 
 P. 40
+
+
+messages := make(chan string, 10)
+messages <- "Leader"
+messages <- "Follower"
+message1 := <-messages
+message2 := <-messages
+
+1.8. Exercice
+
+P. 48
