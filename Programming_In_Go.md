@@ -1,3 +1,5 @@
+# 1 An Overview in Five Examples
+
 slices and map
 
 `godoc -http=:8000`
@@ -57,3 +59,7 @@ message2 := <-messages
 1.8. Exercice
 
 P. 48
+
+# 2 Booleans and Numbers
+
+P. 51
