@@ -4,9 +4,12 @@ import (
 	"flag"
 	"log"
 	"net/http"
+	//"os"
 	"path/filepath"
 	"sync"
 	"text/template"
+
+	"../trace"
 )
 
 // templ represents a single template
@@ -29,7 +32,11 @@ func main() {
 	flag.Parse() // parse the flags
 
 	r := newRoom()
+	
+	// set tracer
 	// r.tracer = trace.New(os.Stdout)
+	// silent tracer
+	r.tracer = trace.Off()
 
 	http.Handle("/", &templateHandler{filename: "chat.html"})
 	http.Handle("/room", r)

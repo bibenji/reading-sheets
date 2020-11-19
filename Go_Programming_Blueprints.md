@@ -19,3 +19,11 @@ go run main go -addr=":3000"
 Tracing code to get a look under the hood
 
 P. 44
+
+`Trace(...interface{}) => take multiple args`
+
+`go test`
+
+`go test -cover`
+
+
