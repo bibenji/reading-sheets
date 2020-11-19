@@ -158,8 +158,78 @@ const (
 
 2.3.1. Integer Types
 
+P. 59
 
+11 separate integer types, five signed and five unsigned, plus an integer type for storing pointers!
 
+byte for synonym of unsigned uint8
+rune for synonym of int32 type
 
+int => represented by signed 32-bit integer
 
+byte 	Synonym for uint8
+int 	The int32 or int64 range depending on the implementation
+int8 	[−128, 127]
+int16 	[−32 768, 32 767]
+int32 	[−2 147 483 648, 2 147 483 647]
+int64 	[−9 223 372 036 854 775 808, 9 223 372 036 854 775 807]
+rune 	Synonym for int32
+uint 	The uint32 or uint64 range depending on the implementation
+uint8 	[0, 255]
+uint16 	[0, 65 535]
+uint32 	[0, 4 294 967 295]
+uint64 	[0, 18 446 744 073 709 551 615]
+uintptr An unsigned integer capable of storing a pointer value (advanced)
+
+^x 		The bitwise complement of x
+x %= y 	Sets x to be the remainder of dividing x by y ; division by zero causes
+		a runtime panic
+x &= y 	Sets x to the bitwise AND of x and y
+x |= y 	Sets x to the bitwise OR of x and y
+x ^= y 	Sets x to the bitwise XOR of x and y
+x &^= y Sets x to the bitwise clear ( AND NOT ) of x and y
+x >>= u Sets x to the result of right-shifting itself by unsigned int u shifts
+x <<= u Sets x to the result of left-shifting itself by unsigned int u shifts
+x % y 	The remainder of dividing x by y ; division by zero causes a runtime
+		panic
+x & y 	The bitwise AND of x and y
+x | y 	The bitwise OR of x and y
+x ^ y 	The bitwise XOR of x and y
+x &^ y 	The bitwise clear ( AND NOT ) of x and y
+x << u 	The result of left-shifting x by unsigned int u shifts
+x >> u 	The result of right-shifting x by unsigned int u shifts
+
+2.3.1.1. Big Integers
+
+big.Ints
+big.Rats
+
+math/big package
+
+[...] P. 63
+
+2.3.2. Floating-Point Types
+
+float32 	±3.402 823 466 385 288 598 117 041 834 845 169 254 40 × 10^38
+			The mantissa is reliably accurate to about 7 decimal places.
+float64 	±1.797 693 134 862 315 708 145 274 237 317 043 567 981 × 10^308
+			The mantissa is reliably accurate to about 15 decimal places.
+complex64	The real and imaginary parts are both of type float32 .
+complex128 	The real and imaginary parts are both of type float64 .
+
+The Math Package’s Constants and Functions [...] P. 65-67
+
+2.3.2.1. Complex Types
+
+P. 70
+
+[...]
+
+match/cmplx package
+
+The Complex Math Package’s Functions [...] P. 71
+
+2.4. Example Statistics
+
+P. 72
 
