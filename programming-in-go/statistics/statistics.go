@@ -60,12 +60,12 @@ func homePage(writer http.ResponseWriter, request *http.Request) {
 	fmt.Fprint(writer, pageBottom)
 }
 
-func processRequest(requet *http.Request) ([]float64, string, bool) {
+func processRequest(request *http.Request) ([]float64, string, bool) {
 	var numbers []float64
 	if slice, found := request.Form["numbers"]; found && len(slice) > 0 {
 		text := strings.Replace(slice[0], ",", " ", -1)
 		for _, field := range strings.Fields(text) {
-			if x, err := strconv.ParseFloat(field, 64); err != nul {
+			if x, err := strconv.ParseFloat(field, 64); err != nil {
 				return numbers, "'" + field + "' is invalid", false
 			} else {
 				numbers = append(numbers, x)
@@ -81,17 +81,15 @@ func processRequest(requet *http.Request) ([]float64, string, bool) {
 func formatStats(stats statistics) string {
 	return fmt.Sprintf(
 		`<table border="1">
-			<tr><th colspan="2">Results</th></tr>
-			<tr><td>Numbers</td><td>%v</td></tr>
-			<tr><td>Count</td><td>%d</td></tr>
-			<tr><td>Mean</td><td>%f</td></tr>
-			<tr><td>Median</td><td>%f</td></tr>
+		<tr><th colspan="2">Results</th></tr>
+		<tr><td>Numbers</td><td>%v</td></tr>
+		<tr><td>Count</td><td>%d</td></tr>
+		<tr><td>Mean</td><td>%f</td></tr>
+		<tr><td>Median</td><td>%f</td></tr>
 		</table>`,
 		stats.numbers,
 		len(stats.numbers),
-		stats.mean,
-		stats.median
-	)
+		stats.mean, stats.median)
 }
 
 func getStats(numbers []float64) (stats statistics) {
@@ -113,7 +111,7 @@ func median(numbers []float64) float64 {
 	middle := len(numbers) / 2
 	result := numbers[middle]
 	if len(numbers)%2 == 0 {
-		result = (result + numbers[middle-1]= / 2)
+		result = (result + numbers[middle-1] / 2)
 	}
 	return result
 }
