@@ -171,3 +171,27 @@ Embellishing the User Interface
 
 P. 56
 
+Transparent Enclosure
+
+Monoglyph
+
+Decorator Pattern
+
+Supporting Multiple Look-and-Feel Standards
+
+Abstracting Object Creation
+
+Factories and Product Classes
+
+This
+`ScrollBar* sb = guiFactory->CreateScrollBar();`
+is better than
+`ScrollBar* sb = new MotifScrollBar;`
+because there's no longer anything in the code that mentions Motif by name
+
+where guiFactory can be different type of factory for different look and fell
+-> MotifFactory, PMFactory, DefaultGUIFactory
+
+Abstract Factory Pattern
+
+P. 64
