@@ -8,6 +8,8 @@ go build -o chat
 ./chat
 ```
 
+# 1 Chat Application with Web Sockets
+
 go get github.com/gorilla/websocket
 
 P. 34
@@ -26,4 +28,8 @@ P. 44
 
 `go test -cover`
 
+Clean package APIs
 
+# 2 Adding User Accounts
+
+P. 57
