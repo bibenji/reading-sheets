@@ -233,3 +233,15 @@ The Complex Math Package’s Functions [...] P. 71
 
 P. 72
 
+2.4.1. Implementing Simple Statistics Functions
+
+2.4.2. Implementing a Basic HTTP Server
+
+see packages : html, net/http, html/template, text/template
+
+2.5. Exercises
+
+# 3 Strings
+
+P. 81
+
