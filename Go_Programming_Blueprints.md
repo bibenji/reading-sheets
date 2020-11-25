@@ -33,3 +33,9 @@ Clean package APIs
 # 2 Adding User Accounts
 
 P. 57
+
+for advanced routing situations, check: goweb, pat, routes or mux
+
+Getting started with OAuth2
+
+P. 66

@@ -4,41 +4,26 @@ import (
 	"flag"
 	"log"
 	"net/http"
-	//"os"
-	"path/filepath"
-	"sync"
-	"text/template"
 
 	"../trace"
 )
-
-// templ represents a single template
-type templateHandler struct {
-	once     sync.Once
-	filename string
-	templ    *template.Template
-}
-
-// ServeHTTP handles the HTTP request.
-func (t *templateHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	t.once.Do(func() {
-		t.templ = template.Must(template.ParseFiles(filepath.Join("templates", t.filename)))
-	})
-	t.templ.Execute(w, r)
-}
 
 func main() {
 	var addr = flag.String("addr", ":8080", "The addr of the application.")
 	flag.Parse() // parse the flags
 
 	r := newRoom()
-	
+
 	// set tracer
 	// r.tracer = trace.New(os.Stdout)
 	// silent tracer
 	r.tracer = trace.Off()
 
-	http.Handle("/", &templateHandler{filename: "chat.html"})
+	http.Handle("/assets/", http.StripPrefix("/assets", http.FileServer(http.Dir("/assets/"))))
+
+	http.Handle("/login", &templateHandler{filename: "login.html"})
+	http.Handle("/chat", MustAuth(&templateHandler{filename: "chat.html"}))
+	http.HandleFunc("/auth/", loginHandler)
 	http.Handle("/room", r)
 
 	// get the room going
@@ -49,5 +34,4 @@ func main() {
 	if err := http.ListenAndServe(*addr, nil); err != nil {
 		log.Fatal("ListenAndServe:", err)
 	}
-
 }
