@@ -39,3 +39,14 @@ for advanced routing situations, check: goweb, pat, routes or mux
 Getting started with OAuth2
 
 P. 66
+
+1. user selects the provider
+2. user is redirected to provider's website (with a URL that includes the client app ID) where they are asked to give permission to the client app
+3. user signs in from the OAuth2 service provider and accepts the permissions requested by the third-party application
+4. user is redirected to the client app with a request code
+5. in the background, the client app sends the grant code to the provider, who sends back an authentication token
+6. client app uses access token to make authorized requests to provider, such as to get user information or wall posts
+
+check golang/oauth2 or stretchr/gomniauth 
+
+P. 69
