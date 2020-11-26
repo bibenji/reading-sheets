@@ -34,7 +34,13 @@
                 <h2 class="card-subtitle">In order to chat, you must be signed in.</p>
                 <p class="card-text">Select the service you would like to sign in with:</p>
                 <ul>
-                    <li>
+                    {{range $key,$value:=.Providers}}
+                        <li>
+                            <a href="/auth/{{$value}}">Log in with {{index $.ProvidersMap $value}}</a>
+                        </li>
+                    {{end}}
+
+                    <!-- <li>
                         <a href="/auth/login/facebook">Facebook</a>
                     </li>
                     <li>
@@ -42,7 +48,7 @@
                     </li>
                     <li>
                         <a href="/auth/login/google">Google</a>
-                    </li>
+                    </li> -->
                 </ul>                
               </div>
           </div>

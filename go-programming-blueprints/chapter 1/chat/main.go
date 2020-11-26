@@ -12,6 +12,8 @@ func main() {
 	var addr = flag.String("addr", ":8080", "The addr of the application.")
 	flag.Parse() // parse the flags
 
+	providerIndex := newProviderIndex()
+
 	r := newRoom()
 
 	// set tracer
@@ -21,7 +23,8 @@ func main() {
 
 	http.Handle("/assets/", http.StripPrefix("/assets", http.FileServer(http.Dir("/assets/"))))
 
-	http.Handle("/login", &templateHandler{filename: "login.html"})
+	http.Handle("/login", &templateHandler{filename: "login.html", data: providerIndex})
+
 	http.Handle("/chat", MustAuth(&templateHandler{filename: "chat.html"}))
 	http.HandleFunc("/auth/", loginHandler)
 	http.Handle("/room", r)
