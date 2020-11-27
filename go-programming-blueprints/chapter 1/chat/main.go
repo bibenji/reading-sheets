@@ -23,9 +23,10 @@ func main() {
 
 	http.Handle("/assets/", http.StripPrefix("/assets", http.FileServer(http.Dir("/assets/"))))
 
-	http.Handle("/login", &templateHandler{filename: "login.html", data: providerIndex})
+	http.Handle("/login", &templateHandler{filename: "login.template", data: providerIndex})
 
 	http.Handle("/chat", MustAuth(&templateHandler{filename: "chat.html"}))
+	http.Handle("/user", MustAuth(&templateHandler{filename: "user.template"}))
 	http.HandleFunc("/auth/", loginHandler)
 	http.Handle("/room", r)
 

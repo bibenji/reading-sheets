@@ -36,7 +36,7 @@
                 <ul>
                     {{range $key,$value:=.Providers}}
                         <li>
-                            <a href="/auth/{{$value}}">Log in with {{index $.ProvidersMap $value}}</a>
+                            <a href="/auth/login?provider={{$value}}">Log in with {{index $.ProvidersMap $value}}</a>
                         </li>
                     {{end}}
 

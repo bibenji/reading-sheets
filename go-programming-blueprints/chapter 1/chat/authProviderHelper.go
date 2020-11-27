@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"log"
-	"os"
 	"sort"
 
 	"github.com/gorilla/sessions"
@@ -14,9 +13,9 @@ import (
 	"../gotenv"
 )
 
-const facebookKey = ""
-const facebookSecret = ""
-const sessionSecret = ""
+var facebookKey = ""
+var facebookSecret = ""
+var sessionSecret = ""
 
 func init() {
 	env, err := gotenv.Load(".env")
@@ -25,6 +24,9 @@ func init() {
 	}
 
 	fmt.Println(env)
+	facebookKey = env["FACEBOOK_KEY"]
+	facebookSecret = env["FACEBOOK_SECRET"]
+	sessionSecret = env["SESSION_SECRET"]
 
 	key := sessionSecret // Replace with your SESSION_SECRET or similar
 	maxAge := 86400 * 30 // 30 days
@@ -42,8 +44,8 @@ func init() {
 // newProviderIndex return a ProviderIndex
 func newProviderIndex() *providerIndex {
 	goth.UseProviders(
-		facebook.New(os.Getenv("FACEBOOK_KEY"), os.Getenv("FACEBOOK_SECRET"), "http://localhost:3000/auth/facebook/callback"),
-		// facebook.New(facebookKey, facebookSecret, "http://localhost:8080/auth/facebook/callback"),
+		// facebook.New(os.Getenv("FACEBOOK_KEY"), os.Getenv("FACEBOOK_SECRET"), "http://localhost:8080/auth/callback?provider=facebook"),
+		facebook.New(facebookKey, facebookSecret, "http://localhost:8080/auth/callback?provider=facebook"),
 	)
 
 	m := make(map[string]string)
