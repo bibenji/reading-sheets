@@ -245,3 +245,65 @@ see packages : html, net/http, html/template, text/template
 
 P. 81
 
+3.1. Literals, Operators, and Escapes
+
+With " (double quotes) or ` (backticks)
+
+double quotes supports escape sequences ( \\, \ooo, \', \", \a, \b, \f, \n, \r, \t, \uhhh, \Uhhhhhhhh, \v, \xhh)
+backsticks support multiple lines
+
++ concatenation operator
+
+you can do strings comparisons too ("Josey" < "José", "Josey" == "José")
+
+- len([]rune(s)) The number of characters in string s —use the faster utf8. RuneCountInString() instead
+- []rune(s) Converts string s into a slice of Unicode code points
+- []byte(s) Converts string s into a slice of raw bytes without copying; there’s no guarantee that the bytes are valid UTF-8
+- string(bytes) Converts a []byte or []uint8 into a string without copying; there’s no guarantee that the bytes are valid UTF-8
+- string(i) Converts i of any integer type into a string ; assumes that i is a Unicode code point; e.g., if i is 65 , it returns "A" ★
+- strconv.Itoa(i) The string representation of i of type int and an error ; e.g., if i is 65 , it returns ( "65" , nil )
+
+3.2. Comparing Strings
+
+Some problems can occur
+
+[...]
+
+3.3. Characters and Strings
+
+character, code point, Unicode character, Unicode code point interchangeably to refer to a rune (or int32) that holds a single character
+
+we can convert a single character into a one-character string using Go's standard conversion syntax (string(char)) (P. 87 for example)
+
+An entire string can be converted to a slice of rune s (i.e., code points) using the syntax chars := []rune(s) where s is of type string .
+
+And reverse conversion is equally simple using the syntax s := string(chars) where chars is of type []rune or []int32
+
+Better to make []string and strings.Join() than use string +=
+
+And even better :
+```
+var buffer bytes.Buffer
+for {
+	if piece, ok := getNextValidString(); ok {
+		buffer.WriteString(piece)
+	} else {
+		break
+	}
+}
+fmt.Print(buffer.String(), "\n")
+``` 
+
+Accumulating strings in a bytes.Buffer is potentially much more memory- and CPU-efficient than using the += operator, especially if the number of strings to concatenate is large.
+
+for ...range loop to iterate over a string character by character
+
+Big-O Notation [...] P. 89
+- O(1) means constant time, that is, the fastest possible time no matter what n’s size.
+- O(log n) means logarithmic time; this is very fast and in proportion to log n.
+- O(n) means linear time; this is fast and in proportion to n.
+- O( n 2 ) means quadratic time; this is starting to get slow and is in proportion to n 2 .
+- O( n m ) means polynomial time which quickly becomes slow as n grows, especially if m ≥ 3.
+- O(n!) means factorial time; even for small values of n this can become too slow to be practical.
+
+3.4. Indexing and Slicing Strings
