@@ -10,7 +10,7 @@ import (
 )
 
 type authHandler struct {
-	next http.Handler
+	next HandlerWithData
 }
 
 func (h *authHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
@@ -18,7 +18,7 @@ func (h *authHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	firstName, err1 := gothic.GetFromSession("first_name", r)
 	lastName, err2 := gothic.GetFromSession("last_name", r)
 	nickname, err3 := gothic.GetFromSession("nickname", r)
-	avatarUrl, err4 := gothic.GetFromSession("avatar_url", r)
+	AvatarURL, err4 := gothic.GetFromSession("avatar_url", r)
 
 	// session, _ := gothic.Store.Get(r, "123456789")
 	// log.Println(session.Values)
@@ -26,7 +26,7 @@ func (h *authHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	log.Println(firstName, err1)
 	log.Println(lastName, err2)
 	log.Println(nickname, err3)
-	log.Println(avatarUrl, err4)
+	log.Println(AvatarURL, err4)
 
 	// _, err := r.Cookie("auth")
 
@@ -44,11 +44,14 @@ func (h *authHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	// }
 
 	// success - call the next handler
+
+	i := []interface{}{"Crosby", "Stills", "Nash", "Young"}
+	h.next.SetData(i)
 	h.next.ServeHTTP(w, r)
 }
 
 // MustAuth mark auth as required
-func MustAuth(handler http.Handler) http.Handler {
+func MustAuth(handler HandlerWithData) http.Handler {
 	return &authHandler{next: handler}
 }
 

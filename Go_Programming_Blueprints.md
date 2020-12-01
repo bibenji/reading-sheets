@@ -50,3 +50,6 @@ P. 66
 check golang/oauth2 or stretchr/gomniauth 
 
 P. 69
+
+Try a watcher to work better...
+canthefason / go-watcher 

@@ -15,6 +15,10 @@ type templateHandler struct {
 	data     interface{}
 }
 
+func (t *templateHandler) SetData(data []interface{}) {
+	t.data = data
+}
+
 // ServeHTTP handles the HTTP request.
 func (t *templateHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	t.once.Do(func() {
