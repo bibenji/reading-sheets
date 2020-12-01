@@ -307,3 +307,281 @@ Big-O Notation [...] P. 89
 - O(n!) means factorial time; even for small values of n this can become too slow to be practical.
 
 3.4. Indexing and Slicing Strings
+
+One way to be sure to use slice indexes that slice on character boundaries is to use functions from Go’s strings package, such as strings.Index() or strings.LastIndex()
+
+with naïve
+
+n	a	ï		v	e
+0	1	2	3	4	5
+
+We should use utf8.DecodeRuneInString() to get the first character (as a rune , along with the number of UTF-8 bytes used to represent it), and utf8.DecodeLastRuneInString() to get the last character
+
+For strings that contain only 7-bit ASCII we can simply use the [] index operator which gives us very fast (O(1)) lookups. For non-ASCII strings we can convert the string to a []rune and use the [] index operator.<br />
+This delivers very fast (O(1)) lookup performance, but at the expense of the one-off conversion which costs both CPU and memory (O(n)).
+
+In the case of our example, if we wrote chars := []rune(s) , the chars variable would be created as a rune (i.e., int32 ) slice with the five code points—compared with six bytes.<br />
+Recall that we can easily convert any rune (code point) back to a string —containing one character—using the string(char) syntax.
+
+it isn’t suitable for working with arbitrary Unicode whitespace characters such as U+2028 (Line Separator, LS ) or U+2029 (Paragraph Separator, PS ). (string slicing)
+
+i := strings.IndexFunc(line, unicode.IsSpace)<br />
+strings.LastIndexFunc(line, unicode.IsSpace)
+
+3.5. String Formatting with the Fmt Package
+
+The fmt package also provides various scan functions (such as fmt.Scan() , fmt.Scanf() , and fmt.Scanln() ) for reading data from the console, from files, and from strings.
+
+strings.Fields()
+
+the strconv package
+
+we can read input typed at the keyboard by creating a bufio.Reader to read from os.Stdin and use the bufio.Reader.ReadString() function to read each line entered
+
+to print to os.Stdout (i.e., to the console)
+fmt.Print()
+fmt.Printf()
+fmt.Println()
+
+to output to a given io.Writer (e.g., to a file)
+fmt.Fprint()
+fmt.Fprintf()
+fmt.Fprintf()
+
+to output as a string
+fmt.Sprint()
+fmt.Sprintf()
+fmt.Sprintln()
+
+fmt.Errorf()
+
+Verb Description/result
+%% 	A literal % character
+%b 	An integer value as a binary (base 2) number, or (advanced) a floating-
+	point number in scientific notation with a power of 2 exponent
+%c 	An integer code point value as a Unicode character
+%d 	An integer value as a decimal (base 10) number
+%e 	A floating-point or complex value in scientific notation with e
+%E 	A floating-point or complex value in scientific notation with E
+%f 	A floating-point or complex value in standard notation
+%g 	A floating-point or complex value using %e or %f , whichever produces the
+	most compact output
+%G 	A floating-point or complex value using %E or %f , whichever produces the
+	most compact output
+%o 	An integer value as an octal (base 8) number
+%p 	A value’s address as a hexadecimal (base 16) number with a prefix of 0x
+	and using lowercase for the digits a – f (for debugging)
+%q 	The string or []byte as a double-quoted string, or the integer as a single-
+	quoted string, using Go syntax and using escapes where necessary
+%s 	The string or []byte as raw UTF-8 bytes; this will produce correct
+	Unicode output for a text file or on a UTF-8-savvy console
+%t 	A bool value as true or false
+%T 	A value’s type using Go syntax
+%U 	An integer code point value using Unicode notation defaulting to four
+	digits; e.g., fmt.Printf("%U", '¶' ) outputs U+00B6
+%v 	A built-in or custom type’s value using a default format, or a custom
+	value using its type’s String() method if it exists
+%x 	An integer value as a hexadecimal (base 16) number or a string or
+	[]byte value as hexadecimal digits (two per byte), using lowercase for
+	the digits a – f
+%X 	An integer value as a hexadecimal (base 16) number or a string or
+	[]byte value as hexadecimal digits (two per byte), using uppercase for
+	the digits A – F
+
+Modifier Description/result
+space	Makes the verb output “ - ” before negative numbers and a space before
+		positive numbers or to put spaces between the bytes printed when
+		using the %x or %X verbs; e.g., fmt.Printf("% X", "←" ) outputs E2 86 92
+#		Makes the verb use an “alternative” output format:
+%#o 	outputs octal with a leading 0
+%#p		outputs a pointer without the leading 0x
+%#q 	outputs a string or []byte as a raw string (using backticks) if
+		possible—otherwise outputs a double-quoted string
+%#v 	outputs a value as itself using Go syntax
+%#x 	outputs hexadecimal with a leading 0x
+%#X		outputs hexadecimal with a leading 0X
++		Makes the verb output + or - for numbers, ASCII characters (with
+		others escaped) for strings, and field names for struct s
+-		Makes the verb left-justify the value (the default is to right-justify)
+0		Makes the verb pad with leading 0 s instead of spaces
+
+n.m, n .m
+		For numbers, makes the verb output a floating-point or complex
+		value using n (of type int ) characters (or more if necessary to avoid
+		truncation) and with m (of type int ) digits after the decimal point(s).
+		For strings n specifies the minimum field width, and will result in
+		space padding if the string has too few characters, and .m specifies the
+		maximum number of the string’s characters to use (going from left to
+		right), and will result in the string being truncated if it is too long.
+		Either or both of m and n can be replaced with * in which case their
+		values are taken from the arguments.
+		Either n or .m may be omitted.
+
+The way that fmt.Print() and fmt.Fprint() handle whitespace is subtly different from the fmt.Println() and fmt.Fprintln() functions. As a rule of thumb the former are most useful for printing a single value or for “converting” a value to a string without error checking
+
+3.5.1. Formatting Booleans
+
+```
+fmt.Printf("%t %t\n", true, false)=
+=> true false
+
+fmt.Printf("%d %d\n", IntForBool(true), IntForBool(false))
+=> 1 0
+
+func IntForBool(b bool) int {
+	if b {
+		return 1
+	}
+	return 0
+}
+```
+
+strconv.ParseBool()
+
+3.5.2. Formatting Integers
+
+fmt.Printf("|%b|%9b|%-9b|%09b|% 9b|\n", 37, 37, 37, 37, 37)
+|100101|···100101|100101···|000100101|···100101|
+
+fmt.Printf("|%o|%#o|%# 8o|%#+ 8o|%+08o|\n", 41, 41, 41, 41, -41)
+|51|051|·····051|····+051|-0000051|
+
+i := 3931
+fmt.Printf("|%x|%X|%8x|%08x|%#04X|0x%04X|\n", i, i, i, i, i, i)
+|f5b|F5B|·····f5b|00000f5b|0X0F5B|0x0F5B|
+
+i = 569
+fmt.Printf("|$%d|$%06d|$%+06d|$%s|\n", i, i, i, Pad(i, 6, '*'))
+|$569|$000569|$+00569|$***569|
+
+```
+func Pad(number, width int, pad rune) string {
+	s := fmt.Sprint(number)
+	gap := width - utf8.RuneCountInString(s)
+	if gap > 0 {
+		return strings.Repeat(string(pad), gap) + s
+	}
+	return s
+}
+```
+
+3.5.3. Formatting Characters
+
+fmt.Printf("%d %#04x %U '%c'\n", 0x3A6, 934, '\u03A6', '\U000003A6')
+934·0x03a6·U+03A6·'Φ'
+
+3.5.4. Formatting Floating-Point Numbers
+
+```
+for _, x := range []float64{-.258, 7194.84, -60897162.0218, 1.500089e-8} {
+	fmt.Printf("|%20.5e|%20.5f|%s|\n", x, x, Humanize(x, 20, 5, '*', ','))
+}
+
+|········-2.58000e-01|············-0.25800|************-0.25800|
+|·········7.19484e+03|··········7194.84000|*********7,194.84000|
+|········-6.08972e+07|·····-60897162.02180|***-60,897,162.02180|
+|·········1.50009e-08|·············0.00000|*************0.00000|
+
+func Humanize(amount float64, width, decimals int, pad, separator rune) string {
+	dollars, cents := math.Modf(amount)
+	whole := fmt.Sprintf("%+.0f", dollars)[1:] // Strip "±"
+	fraction := ""
+	if decimals > 0 {
+		fraction = fmt.Sprintf("%+.*f", decimals, cents)[2:] // Strip "±0"
+	}
+	sep := string(separator)
+	for i := len(whole) - 3; i > 0; i -= 3 {
+		whole = whole[:i] + sep + whole[i:]
+	}
+	if amount < 0.0 {
+		whole = "-" + whole
+	}
+	number := whole + fraction
+	gap := width - utf8.RuneCountInString(number)
+	if gap > 0 {
+		return strings.Repeat(string(pad), gap) + number
+	}
+	return number
+}
+```
+
+```asp
+for _, x := range []complex128{2 + 3i, 172.6 - 58.3019i, -.827e2 + 9.04831e-3i} {
+	fmt.Printf("|%15s|%9.3f|%.2f|%.1e|\n", fmt.Sprintf("%6.2f%+.3fi", real(x), imag(x)), x, x, x)
+}
+
+|····2.00+3.000i|(····2.000···+3.000i)|(2.00+3.00i)|(2.0e+00+3.0e+00i)|
+|·172.60-58.302i|(··172.600··-58.302i)|(172.60-58.30i)|(1.7e+02-5.8e+01i)|
+|··-82.70+0.009i|(··-82.700···+0.009i)|(-82.70+0.01i)|(-8.3e+01+9.0e-03i)|
+```
+
+3.5.5. Formatting Strings and Slices
+
+P. 101
+
+```
+slogan := "End Óréttlæti♥"
+fmt.Printf("%s\n%q\n%+q\n%#q\n", slogan, slogan, slogan, slogan)
+
+chars := []rune(slogan)
+fmt.Printf("%x\n%#x\n%#X\n", chars, chars, chars)
+
+bytes := []byte(slogan)
+fmt.Printf("%s\n%x\n%X\n% X\n%v\n", bytes, bytes, bytes, bytes, bytes)
+```
+
+3.5.6. Formatting for Debugging
+
+```
+p := polar{-83.40, 71.60}
+fmt.Printf("|%T|%v|%#v|\n", p, p, p)
+fmt.Printf("|%T|%v|%t|\n", false, false, false)
+fmt.Printf("|%T|%v|%d|\n", 7607, 7607, 7607)
+fmt.Printf("|%T|%v|%f|\n", math.E, math.E, math.E)
+fmt.Printf("|%T|%v|%f|\n", 5+7i, 5+7i, 5+7i)
+s := "Relativity"
+fmt.Printf("|%T|\"%v\"|\"%s\"|%q|\n", s, s, s, s)
+```
+
+Two of Go’s types have synonyms: byte for uint8 and rune for int32 .
+
+%p (pointer) verb
+
+i := 5
+f := -48.3124
+s := "Tomás Bretón"
+fmt.Printf("|%p → %d|%p → %f|%#p → %s|\n", &i, i, &f, f, &s, s)
+
+& address of operator is explained in the next chapter
+
+ability to outpu slices and maps, and even channels!
+
+```asp
+fmt.Println([]float64{math.E, math.Pi, math.Phi})
+fmt.Printf("%v\n", []float64{math.E, math.Pi, math.Phi})
+fmt.Printf("%#v\n", []float64{math.E, math.Pi, math.Phi})
+fmt.Printf("%.5f\n", []float64{math.E, math.Pi, math.Phi})
+```
+
+```asp
+fmt.Printf("%q\n", []string{"Software patents", "kill", "innovation"})
+fmt.Printf("%v\n", []string{"Software patents", "kill", "innovation"})
+fmt.Printf("%#v\n", []string{"Software patents", "kill", "innovation"})
+fmt.Printf("%17s\n", []string{"Software patents", "kill", "innovation"})
+```
+
+```asp
+fmt.Printf("%v\n", map[int]string{1: "A", 2: "B", 3: "C", 4: "D"})
+fmt.Printf("%#v\n", map[int]string{1: "A", 2: "B", 3: "C", 4: "D"})
+fmt.Printf("%v\n", map[int]int{1: 1, 2: 2, 3: 4, 4: 8})
+fmt.Printf("%#v\n", map[int]int{1: 1, 2: 2, 3: 4, 4: 8})
+fmt.Printf("%04b\n", map[int]int{1: 1, 2: 2, 3: 4, 4: 8})
+```
+
+only thing not possible with fmt package's print functions is padding with a particular character (other than zeros or spaces)
+
+but it's easy to do with functions
+
+3.6. Other String-Related Packages
+
+P. 106
