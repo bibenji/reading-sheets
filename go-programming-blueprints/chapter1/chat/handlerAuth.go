@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
@@ -15,18 +16,28 @@ type authHandler struct {
 
 func (h *authHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
-	firstName, err1 := gothic.GetFromSession("first_name", r)
-	lastName, err2 := gothic.GetFromSession("last_name", r)
-	nickname, err3 := gothic.GetFromSession("nickname", r)
-	AvatarURL, err4 := gothic.GetFromSession("avatar_url", r)
+	currentUserInformationsJSON, err0 := gothic.GetFromSession("current_user_informations", r)
+	log.Println("currentUserInformationsJSON", currentUserInformationsJSON, err0)
+
+	var currentUserInformations map[string]string
+
+	json.Unmarshal([]byte(currentUserInformationsJSON), &currentUserInformations)
+
+	log.Println("currentUserInformations.first_name", currentUserInformations["first_name"])
+
+	// firstName, err1 := gothic.GetFromSession("first_name", r)
+	// log.Println("firstName", firstName, err1)
+
+	// lastName, err2 := gothic.GetFromSession("last_name", r)
+	// nickname, err3 := gothic.GetFromSession("nickname", r)
+	// AvatarURL, err4 := gothic.GetFromSession("avatar_url", r)
 
 	// session, _ := gothic.Store.Get(r, "123456789")
 	// log.Println(session.Values)
 
-	log.Println(firstName, err1)
-	log.Println(lastName, err2)
-	log.Println(nickname, err3)
-	log.Println(AvatarURL, err4)
+	// log.Println("lastName", lastName, err2)
+	// log.Println("nickname", nickname, err3)
+	// log.Println("AvatarURL", AvatarURL, err4)
 
 	// _, err := r.Cookie("auth")
 
@@ -45,7 +56,12 @@ func (h *authHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 	// success - call the next handler
 
-	i := []interface{}{"Crosby", "Stills", "Nash", "Young"}
+	i := map[string]interface{}{
+		"FirstName": currentUserInformations["first_name"],
+		"LastName":  currentUserInformations["last_name"],
+		"Nickname":  currentUserInformations["nickname"],
+		"AvatarURL": currentUserInformations["avatar_url"],
+	}
 	h.next.SetData(i)
 	h.next.ServeHTTP(w, r)
 }
@@ -71,12 +87,19 @@ func loginHandler(resW http.ResponseWriter, req *http.Request) {
 				// t, _ := template.New("foo").ParseFiles(filepath.Join("templates", "user.template"))
 				// t.Execute(resW, gothUser)
 
-				log.Println(gothUser)
+				log.Println("AAAAAAAAAAAAAAAAAAAAAAAAAAA")
+				log.Println("gothUser.FirstName", gothUser.FirstName)
+				log.Println("AAAAAAAAAAAAAAAAAAAAAAAAAAA")
 
-				gothic.StoreInSession("first_name", gothUser.FirstName, req, resW)
-				gothic.StoreInSession("last_name", gothUser.LastName, req, resW)
-				gothic.StoreInSession("nickname", gothUser.NickName, req, resW)
-				gothic.StoreInSession("avatar_url", gothUser.AvatarURL, req, resW)
+				currentUserInformations := map[string]string{
+					"first_name": gothUser.FirstName,
+					"last_name":  gothUser.LastName,
+					"nickname":   gothUser.NickName,
+					"avatar_url": gothUser.AvatarURL}
+
+				currentUserInformationsJSON, _ := json.Marshal(currentUserInformations)
+
+				gothic.StoreInSession("current_user_informations", string(currentUserInformationsJSON), req, resW)
 
 				// session, _ := gothic.Store.Get(req, "123456789")
 
@@ -113,12 +136,19 @@ func loginHandler(resW http.ResponseWriter, req *http.Request) {
 				return
 			}
 
-			log.Println(gothUser)
+			log.Println("IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIi")
+			log.Println(gothUser.FirstName)
+			log.Println("IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIi")
 
-			gothic.StoreInSession("first_name", gothUser.FirstName, req, resW)
-			gothic.StoreInSession("last_name", gothUser.LastName, req, resW)
-			gothic.StoreInSession("nickname", gothUser.NickName, req, resW)
-			gothic.StoreInSession("avatar_url", gothUser.AvatarURL, req, resW)
+			currentUserInformations := map[string]string{
+				"first_name": gothUser.FirstName,
+				"last_name":  gothUser.LastName,
+				"nickname":   gothUser.NickName,
+				"avatar_url": gothUser.AvatarURL}
+
+			currentUserInformationsJSON, _ := json.Marshal(currentUserInformations)
+
+			gothic.StoreInSession("current_user_informations", string(currentUserInformationsJSON), req, resW)
 
 			// session, _ := gothic.Store.Get(req, "123456789")
 

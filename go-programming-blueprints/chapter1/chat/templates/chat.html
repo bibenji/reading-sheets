@@ -1,48 +1,65 @@
-<html>
-	<head>
-		<title>Page</title>
-		<style>
-			input { display: block; }
-			ul { list-style: none; }
-		</style>
-	</head>
-	<body>
-		<h1>{{.Host}}</h1>
-		<ul id="messages"></ul>
-		<form id="chatbox">
-			<textarea></textarea>
-			<input type="submit" value="Send" />
-		</form>
+{{define "content"}}
+<body>
+	<style>
+		input { display: block; }
+		ul { list-style: none; }
+		#chatbox textarea {
+			width: 100%;
+		}
+	</style>
 
-		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js">
-		</script>
-		<script>
-			$(function() {
-				var socket = null;
-				var msgBox = $("#chatbox textarea");
-				var messages = $('#messages');
-				$("#chatbox").submit(function() {
-					if (!msgBox.val()) return false;
-					if (!socket) {
-						alert("Error: There is no socket connection.");
-						return false;
-					}
-					socket.send(msgBox.val());
-					msgBox.val("");
+	<div class="container">
+		<div class="card">
+			<div class="card-body">
+				<h2>{{.Host}}</h2>
+				<h3>Bonjour, {{.FirstName}}</h3>
+				<div>
+					<hr />
+					<h4>Messages</h4>
+					<hr />
+					<ul id="messages"></ul>
+
+				</div>
+				
+
+				<form class="mb-3" id="chatbox">
+					<textarea></textarea>
+					<input class="btn btn-primary" type="submit" value="Send" />
+				</form>
+				<a href="/auth/logout">Me déconnecter</a>
+			</div>
+		</div>
+	</div>
+
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js">
+	</script>
+	<script>
+		$(function() {
+			var socket = null;
+			var msgBox = $("#chatbox textarea");
+			var messages = $('#messages');
+			$("#chatbox").submit(function() {
+				if (!msgBox.val()) return false;
+				if (!socket) {
+					alert("Error: There is no socket connection.");
 					return false;
-				});
-				if (!window['WebSocket']) {
-					alert("Error: Your browser does not supper web sockets.")
-				} else {
-					socket = new WebSocket("ws://localhost:8080/room");
-					socket.onclose = function() {
-						alert("Connection has been closed.");
-					}
-					socket.onmessage = function(e) {
-						messages.append($("<li>").text(e.data));
-					}
 				}
+				socket.send(msgBox.val());
+				msgBox.val("");
+				return false;
 			});
-		</script>
-	</body>
-</html>
+			if (!window['WebSocket']) {
+				alert("Error: Your browser does not supper web sockets.")
+			} else {
+				socket = new WebSocket("ws://localhost:8080/room");
+				socket.onclose = function() {
+					alert("Connection has been closed.");
+				}
+				socket.onmessage = function(e) {
+					messages.append($("<li>").text(e.data));
+				}
+			}
+		});
+	</script>
+</body>
+{{end}}

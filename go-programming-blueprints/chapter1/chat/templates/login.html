@@ -1,0 +1,28 @@
+{{define "content"}}
+    <div class="container">
+        <div class="card card-danger">
+        <div class="card-body">
+            <h1 class="card-title">Sign in</h5>
+            <h2 class="card-subtitle">In order to chat, you must be signed in.</p>
+            <p class="card-text">Select the service you would like to sign in with:</p>
+            <ul>
+                {{range $key, $value := .providerIndex.Providers}}
+                    <li>
+                        <a href="/auth/login?provider={{$value}}">Log in with {{$value}}</a>
+                    </li>
+                {{end}}
+
+                <!-- <li>
+                    <a href="/auth/login/facebook">Facebook</a>
+                </li>
+                <li>
+                    <a href="/auth/login/github">GitHub</a>
+                </li>
+                <li>
+                    <a href="/auth/login/google">Google</a>
+                </li> -->
+            </ul>                
+            </div>
+        </div>
+    </div>
+{{end}}

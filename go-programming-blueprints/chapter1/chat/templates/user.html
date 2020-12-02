@@ -1,0 +1,35 @@
+{{define "content"}}
+    <div class="container">
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Vous êtes connecté !</h5>
+            <p>Name: {{.Name}} [{{.LastName}}, {{.FirstName}}]</p>
+            <p>Email: {{.Email}}</p>
+            <p>NickName: {{.NickName}}</p>
+            <p>Location: {{.Location}}</p>
+            <p>
+                AvatarURL: {{.AvatarURL}}<br />
+                <img src="{{.AvatarURL}}">
+            </p>
+            <p>Description: {{.Description}}</p>
+            <p>UserID: {{.UserID}}</p>
+            <p>AccessToken: {{.AccessToken}}</p>
+            <p>ExpiresAt: {{.ExpiresAt}}</p>
+            <p>RefreshToken: {{.RefreshToken}}</p>
+        </div>
+        <div class="card-footer">
+            <div class="row">
+                <div class="col">
+                    <a href="/chat">Chat</a>        
+                </div>
+                <div class="col">
+                    <a href="/auth/logout?provider={{.Provider}}">Logout</a>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+    
+    </div>
+{{end}}
