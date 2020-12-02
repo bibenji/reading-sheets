@@ -15,29 +15,16 @@ type authHandler struct {
 }
 
 func (h *authHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-
 	currentUserInformationsJSON, err0 := gothic.GetFromSession("current_user_informations", r)
-	log.Println("currentUserInformationsJSON", currentUserInformationsJSON, err0)
+
+	if err0 != nil {
+		// some other error
+		http.Error(w, err0.Error(), http.StatusInternalServerError)
+		return
+	}
 
 	var currentUserInformations map[string]string
-
 	json.Unmarshal([]byte(currentUserInformationsJSON), &currentUserInformations)
-
-	log.Println("currentUserInformations.first_name", currentUserInformations["first_name"])
-
-	// firstName, err1 := gothic.GetFromSession("first_name", r)
-	// log.Println("firstName", firstName, err1)
-
-	// lastName, err2 := gothic.GetFromSession("last_name", r)
-	// nickname, err3 := gothic.GetFromSession("nickname", r)
-	// AvatarURL, err4 := gothic.GetFromSession("avatar_url", r)
-
-	// session, _ := gothic.Store.Get(r, "123456789")
-	// log.Println(session.Values)
-
-	// log.Println("lastName", lastName, err2)
-	// log.Println("nickname", nickname, err3)
-	// log.Println("AvatarURL", AvatarURL, err4)
 
 	// _, err := r.Cookie("auth")
 
@@ -87,30 +74,13 @@ func loginHandler(resW http.ResponseWriter, req *http.Request) {
 				// t, _ := template.New("foo").ParseFiles(filepath.Join("templates", "user.template"))
 				// t.Execute(resW, gothUser)
 
-				log.Println("AAAAAAAAAAAAAAAAAAAAAAAAAAA")
-				log.Println("gothUser.FirstName", gothUser.FirstName)
-				log.Println("AAAAAAAAAAAAAAAAAAAAAAAAAAA")
-
 				currentUserInformations := map[string]string{
 					"first_name": gothUser.FirstName,
 					"last_name":  gothUser.LastName,
 					"nickname":   gothUser.NickName,
 					"avatar_url": gothUser.AvatarURL}
-
 				currentUserInformationsJSON, _ := json.Marshal(currentUserInformations)
-
 				gothic.StoreInSession("current_user_informations", string(currentUserInformationsJSON), req, resW)
-
-				// session, _ := gothic.Store.Get(req, "123456789")
-
-				// session.Values["first_name"] = gothUser.FirstName
-
-				// // Save it before we write to the response/return from the handler.
-				// err := session.Save(req, resW)
-				// if err != nil {
-				// 	http.Error(resW, err.Error(), http.StatusInternalServerError)
-				// 	return
-				// }
 
 				resW.Header().Set("Location", "/user")
 				resW.WriteHeader(http.StatusTemporaryRedirect)
@@ -136,30 +106,13 @@ func loginHandler(resW http.ResponseWriter, req *http.Request) {
 				return
 			}
 
-			log.Println("IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIi")
-			log.Println(gothUser.FirstName)
-			log.Println("IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIi")
-
 			currentUserInformations := map[string]string{
 				"first_name": gothUser.FirstName,
 				"last_name":  gothUser.LastName,
 				"nickname":   gothUser.NickName,
 				"avatar_url": gothUser.AvatarURL}
-
 			currentUserInformationsJSON, _ := json.Marshal(currentUserInformations)
-
 			gothic.StoreInSession("current_user_informations", string(currentUserInformationsJSON), req, resW)
-
-			// session, _ := gothic.Store.Get(req, "123456789")
-
-			// session.Values["first_name"] = gothUser.FirstName
-
-			// // Save it before we write to the response/return from the handler.
-			// err := session.Save(req, resW)
-			// if err != nil {
-			// 	http.Error(resW, err.Error(), http.StatusInternalServerError)
-			// 	return
-			// }
 
 			// t, _ := template.New("foo").ParseFiles(filepath.Join("templates", "user.template"))
 			// t.Execute(resW, user)

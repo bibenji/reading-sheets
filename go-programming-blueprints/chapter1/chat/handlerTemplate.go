@@ -1,7 +1,6 @@
 package main
 
 import (
-	"log"
 	"net/http"
 	"path/filepath"
 	"sync"
@@ -28,8 +27,6 @@ func (t *templateHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			filepath.Join("templates", t.filename)))
 	})
 
-	log.Println(t.templ)
-
 	rData := map[string]interface{}{
 		"Host": r.Host,
 	}
@@ -39,11 +36,6 @@ func (t *templateHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			rData[k] = v
 		}
 	}
-
-	log.Println(rData)
-
-	// t.templ.Execute(w, r)
-	// t.templ.Execute(w, t.data)
 
 	t.templ.Execute(w, rData)
 }
