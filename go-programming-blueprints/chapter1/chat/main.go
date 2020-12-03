@@ -4,6 +4,7 @@ import (
 	"flag"
 	"log"
 	"net/http"
+	"os"
 
 	"../trace"
 )
@@ -17,9 +18,9 @@ func main() {
 	r := newRoom()
 
 	// set tracer
-	// r.tracer = trace.New(os.Stdout)
+	r.tracer = trace.New(os.Stdout)
 	// silent tracer
-	r.tracer = trace.Off()
+	// r.tracer = trace.Off()
 
 	http.Handle("/assets/", http.StripPrefix("/assets", http.FileServer(http.Dir("/assets/"))))
 
@@ -30,7 +31,9 @@ func main() {
 	http.Handle("/chat", MustAuth(&templateHandler{filename: "chat.html"}))
 	http.Handle("/user", MustAuth(&templateHandler{filename: "user.html"}))
 	http.HandleFunc("/auth/", loginHandler)
-	http.Handle("/room", r)
+
+	// http.Handle("/room", r)
+	http.Handle("/room", MustAuth(r))
 
 	// get the room going
 	go r.run()

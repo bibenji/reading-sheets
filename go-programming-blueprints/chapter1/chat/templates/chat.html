@@ -2,7 +2,10 @@
 <body>
 	<style>
 		input { display: block; }
-		ul { list-style: none; }
+		ul {
+			text-align: left;
+			list-style: none;
+		}
 		#chatbox textarea {
 			width: 100%;
 		}
@@ -44,7 +47,7 @@
 					alert("Error: There is no socket connection.");
 					return false;
 				}
-				socket.send(msgBox.val());
+				socket.send(JSON.stringify({"Message": msgBox.val()}));
 				msgBox.val("");
 				return false;
 			});
@@ -52,11 +55,18 @@
 				alert("Error: Your browser does not supper web sockets.")
 			} else {
 				socket = new WebSocket("ws://localhost:8080/room");
-				socket.onclose = function() {
+				socket.onclose = function(err) {
+					console.log(err);
 					alert("Connection has been closed.");
 				}
 				socket.onmessage = function(e) {
-					messages.append($("<li>").text(e.data));
+					var msg = JSON.parse(e.data);
+					messages.append(
+						$("<li>").append(
+							$("<strong>").text(msg.Name + ": "),
+							$("<span>").text(msg.Message)
+						)
+					);
 				}
 			}
 		});

@@ -37,5 +37,10 @@ func (t *templateHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
+	// you can do something like that too
+	// if authCookie, err := r.Cookie("auth"); err == nil {
+	// 	data["UserData"] = objx.MustFromBase64(authCookie.Value)
+	// }
+
 	t.templ.Execute(w, rData)
 }

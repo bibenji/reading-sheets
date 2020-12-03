@@ -52,4 +52,12 @@ check golang/oauth2 or stretchr/gomniauth
 P. 69
 
 Try a watcher to work better...
-canthefason / go-watcher 
+canthefason / go-watcher
+
+[...]
+
+3 Three Ways to Implement Profile Picture
+
+P. 81
+
+ 

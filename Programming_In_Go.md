@@ -585,3 +585,75 @@ but it's easy to do with functions
 3.6. Other String-Related Packages
 
 P. 106
+
+3.6.1. The Strings Package
+
+strings.Split()
+strings.SplitN()
+strings.SplitAfter()
+strings.SplitAfterN()
+
+strings.FieldsFunc()
+```asp
+for _, record := range []string{"László Lajtha*1892*1963", "Édouard Lalo\t1823\t1892", "José Ángel Lamas|1775|1814"} {
+	fmt.Println(strings.FieldsFunc(record, func(char rune) bool {
+		switch char {
+			case '\t', '*', '|':
+				return true
+		}
+		return false
+	}))
+}
+```
+
+The Strings Package's Functions
+
+- strings.Contains(s, t) 		true if t occurs in s
+- strings.Count(s, t) 			How many (nonoverlapping) times t occurs in s
+- strings.EqualFold(s, t) 		true if the strings are case-insensitively equal
+- strings.Fields(s) 			The []string that results in splitting s on white-space strings.
+- FieldsFunc(s, f)				The []string that results in splitting s at every character where f returns true
+- strings.HasPrefix(s, t) 		true if s starts with t 
+- strings.HasSuffix(s, t) 		true if s ends with t
+- strings.Index(s, t) 			The index of the first occurrence of t in s
+- strings.IndexAny(s, t)		The first index in s of any character that is in t
+- strings.IndexFunc(s, f)		The index of the first character in s for which f returns true
+- strings.IndexRune(s, char)	The index of the first occurrence of character char of type rune in s
+- strings.Join(xs, t)			A string containing the concatenation of all the strings in xs , each separated by t (which can be "" )
+- strings.LastIndex(s, t)		The index of the last occurrence of t in s
+- strings.LastIndexAny(s, t)	The last index in s of any character that is in t
+- strings.LastIndexFunc(s, f)	The index of the last character in s for which f returns true
+- strings.Map(mf, t)			A copy of t with every character replaced or delet-ed according to the mapping function mf with the signature func(rune) rune (see text)
+- strings.NewReader(s) 			A pointer to a value that provides Read() , Read-Byte() , and ReadRune() methods that operate on s
+- strings.NewReplacer(...)		A pointer to a value that has methods for replacing each pair of old, new strings it is given
+- strings.Repeat(s, i) 			A string consisting of i concatenations of s
+
+- strings.Replace(s, old, new, i) 	A copy of s with every nonoverlapping occurrence of string old replaced by string new if i is -1 , or with at most i replacements otherwise
+- strings.Split(s, t)				The []string that results in splitting s on t as many times as t occurs in s
+- strings.SplitAfter(s, t)			Works like strings.Split() only the separator is kept in the resultant strings (see text)			
+- SplitAfterN(s, t, i) 				Works like strings.SplitN() only the separator is kept in the resultant strings
+- strings.SplitN(s, t, i)			The []string that results in splitting s on t , i -1 times
+- strings.Title(s)					A copy of s with the first letter of every word title-cased
+- strings.ToLower(s)				A lowercased copy of s
+- strings.ToLowerSpecial(r, s)		A lowercased copy of s , prioritizing the rules in r (advanced)
+- strings.ToTitle(s)				A title-cased copy of s
+- strings.ToTitleSpecial(r, s)		A title-cased copy of s , prioritizing the rules in r (advanced)
+- strings.ToUpper(s)				An uppercased copy of s
+- strings.ToUpperSpecial(r, s)		An uppercased copy of s , prioritizing the rules in r (advanced)
+- strings.Trim(s, t)				A copy of s with the characters in t removed from both ends
+- strings.TrimFunc(s, f)			A copy of s with the characters for which f returns true removed from both ends
+- strings.TrimLeft(s, t)			A copy of s with the characters in t removed from the start
+- strings.TrimLeftFunc(s, f)		A copy of s with the characters for which f returns true removed from the start
+- strings.TrimRight(s, t)			A copy of s with the characters in t removed from the end
+- strings.TrimRightFunc(s, f)		A copy of s with the characters for which f returns true removed from the end
+- strings.TrimSpace(s)				A copy of s with whitespace removed from both ends
+
+Thing to simplify whitespace... P. 111
+
+[...] About reading data from types that implement the ReadRune() function such as the bufio.Reader
+Also, bufio.NewReader()
+`reader := strings.NewReader("Café)`
+
+3.6.2. The Strconv Package
+
+P. 113
