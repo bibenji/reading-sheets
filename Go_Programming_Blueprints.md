@@ -60,6 +60,8 @@ canthefason / go-watcher
 
 P. 81
 
+Refactoring and optimizing our code
 
+P. 106
 
  
