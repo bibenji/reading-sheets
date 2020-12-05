@@ -1,6 +1,7 @@
 package main
 
 import (
+	"log"
 	"time"
 
 	"../trace"
@@ -28,13 +29,20 @@ func (c *client) read() {
 	for {
 		// _, msg, err := c.socket.ReadMessage()
 		var msg *message
-		err := c.socket.ReadJSON(&msg)
-		if err != nil {
+		if err := c.socket.ReadJSON(&msg); err != nil {
 			c.tracer.Trace("client.go: read inside for err: ", err)
 			return
 		}
+
 		msg.When = time.Now()
 		msg.Name = c.UserData["FirstName"].(string)
+		// if avatarURL, ok := c.UserData["AvatarURL"]; ok {
+		// 	msg.AvatarURL = avatarURL.(string)
+		// }
+		msg.AvatarURL, _ = c.room.avatar.GetAvatarURL(c)
+
+		log.Println(c.UserData)
+
 		c.room.forward <- msg
 	}
 }

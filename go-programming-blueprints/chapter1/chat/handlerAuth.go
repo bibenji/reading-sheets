@@ -1,8 +1,10 @@
 package main
 
 import (
+	"crypto/md5"
 	"encoding/json"
 	"fmt"
+	"io"
 	"log"
 	"net/http"
 	"strings"
@@ -44,10 +46,12 @@ func (h *authHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	// success - call the next handler
 
 	i := map[string]interface{}{
+		"UserID":    currentUserInformations["user_id"],
 		"FirstName": currentUserInformations["first_name"],
 		"LastName":  currentUserInformations["last_name"],
 		"Nickname":  currentUserInformations["nickname"],
 		"AvatarURL": currentUserInformations["avatar_url"],
+		"Email":     currentUserInformations["email"],
 	}
 	h.next.SetData(i)
 	h.next.ServeHTTP(w, r)
@@ -74,10 +78,16 @@ func loginHandler(resW http.ResponseWriter, req *http.Request) {
 				// t, _ := template.New("foo").ParseFiles(filepath.Join("templates", "user.template"))
 				// t.Execute(resW, gothUser)
 
+				m := md5.New()
+				io.WriteString(m, strings.ToLower(gothUser.Email))
+				userID := fmt.Sprintf("%x", m.Sum(nil))
+
 				currentUserInformations := map[string]string{
+					"user_id":    userID,
 					"first_name": gothUser.FirstName,
 					"last_name":  gothUser.LastName,
 					"nickname":   gothUser.NickName,
+					"email":      gothUser.Email,
 					"avatar_url": gothUser.AvatarURL}
 				currentUserInformationsJSON, _ := json.Marshal(currentUserInformations)
 				gothic.StoreInSession("current_user_informations", string(currentUserInformationsJSON), req, resW)
@@ -106,10 +116,16 @@ func loginHandler(resW http.ResponseWriter, req *http.Request) {
 				return
 			}
 
+			m := md5.New()
+			io.WriteString(m, strings.ToLower(gothUser.Email))
+			userID := fmt.Sprintf("%x", m.Sum(nil))
+
 			currentUserInformations := map[string]string{
+				"user_id":    userID,
 				"first_name": gothUser.FirstName,
 				"last_name":  gothUser.LastName,
 				"nickname":   gothUser.NickName,
+				"email":      gothUser.Email,
 				"avatar_url": gothUser.AvatarURL}
 			currentUserInformationsJSON, _ := json.Marshal(currentUserInformations)
 			gothic.StoreInSession("current_user_informations", string(currentUserInformationsJSON), req, resW)

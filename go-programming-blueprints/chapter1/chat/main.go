@@ -15,25 +15,36 @@ func main() {
 
 	providerIndex := newProviderIndex()
 
-	r := newRoom()
+	// r := newRoom(UserAuthAvatar)
+	// r := newRoom(UserGravatar)
+	r := newRoom(UserFileSystemAvatar)
 
 	// set tracer
 	r.tracer = trace.New(os.Stdout)
 	// silent tracer
 	// r.tracer = trace.Off()
 
-	http.Handle("/assets/", http.StripPrefix("/assets", http.FileServer(http.Dir("/assets/"))))
+	http.Handle("/assets/", http.StripPrefix("/assets", http.FileServer(http.Dir("./assets/"))))
+
+	http.Handle("/avatars/", http.StripPrefix("/avatars/", http.FileServer(http.Dir("./avatars"))))
 
 	http.Handle("/login", &templateHandler{
 		filename: "login.html",
 		data:     map[string]interface{}{"providerIndex": providerIndex}})
 
-	http.Handle("/chat", MustAuth(&templateHandler{filename: "chat.html"}))
-	http.Handle("/user", MustAuth(&templateHandler{filename: "user.html"}))
 	http.HandleFunc("/auth/", loginHandler)
 
-	// http.Handle("/room", r)
+	http.Handle("/user", MustAuth(&templateHandler{filename: "user.html"}))
+
+	http.Handle("/chat", MustAuth(&templateHandler{filename: "chat.html"}))
+
 	http.Handle("/room", MustAuth(r))
+
+	http.Handle("/upload", MustAuth(&templateHandler{filename: "upload.html"}))
+
+	http.Handle("/uploader", &uploaderHandler{})
+
+	// http.Handle("/room", r)
 
 	// get the room going
 	go r.run()
