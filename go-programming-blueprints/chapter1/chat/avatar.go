@@ -13,7 +13,20 @@ var ErrNoAvatarURL = errors.New("chat: Unable to get an avatar URL")
 // Avatar represents types capable of representing user profile pictures
 type Avatar interface {
 	// GetAvatarURL gets the avatar URL for the specified client
-	GetAvatarURL(c *client) (string, error)
+	GetAvatarURL(ChatUser) (string, error)
+}
+
+// TryAvatars to try each strategy
+type TryAvatars []Avatar
+
+// GetAvatarURL for TryAvatars
+func (a TryAvatars) GetAvatarURL(u ChatUser) (string, error) {
+	for _, avatar := range a {
+		if url, err := avatar.GetAvatarURL(u); err == nil {
+			return url, nil
+		}
+	}
+	return "", ErrNoAvatarURL
 }
 
 // AuthAvatar struct of AuthAvatar
@@ -34,18 +47,25 @@ var UserAuthAvatar AuthAvatar
 
 // GetAvatarURL do the thing for user
 // refacto with line of sight, the happy at the end and not too much if else imbricated
-func (AuthAvatar) GetAvatarURL(c *client) (string, error) {
-	url, ok := c.UserData["AvatarURL"]
-	if !ok {
+func (AuthAvatar) GetAvatarURL(u ChatUser) (string, error) {
+	url := u.GetAvatarURL()
+
+	if len(url) == 0 {
 		return "", ErrNoAvatarURL
 	}
 
-	urlStr, ok := url.(string)
-	if !ok {
-		return "", ErrNoAvatarURL
-	}
+	return url, nil
 
-	return urlStr, nil
+	// if !ok {
+	// 	return "", ErrNoAvatarURL
+	// }
+
+	// urlStr, ok := url.(string)
+	// if !ok {
+	// 	return "", ErrNoAvatarURL
+	// }
+
+	// return urlStr, nil
 }
 
 // GravatarAvatar struc for gravatar
@@ -68,18 +88,26 @@ var UserGravatar GravatarAvatar
 // }
 
 // GetAvatarURL for gravatar do the thing for the user (with refacto)
-func (GravatarAvatar) GetAvatarURL(c *client) (string, error) {
-	userID, ok := c.UserData["UserID"]
-	if !ok {
+func (GravatarAvatar) GetAvatarURL(u ChatUser) (string, error) {
+	uniqueID := u.UniqueID()
+
+	if len(uniqueID) == 0 {
 		return "", ErrNoAvatarURL
 	}
 
-	userIDStr, ok := userID.(string)
-	if !ok {
-		return "", ErrNoAvatarURL
-	}
+	return fmt.Sprintf("//www.gravatar.com/avatar/%s", uniqueID), nil
 
-	return fmt.Sprintf("//www.gravatar.com/avatar/%s", userIDStr), nil
+	// userID, ok := c.UserData["UserID"]
+	// if !ok {
+	// 	return "", ErrNoAvatarURL
+	// }
+
+	// userIDStr, ok := userID.(string)
+	// if !ok {
+	// 	return "", ErrNoAvatarURL
+	// }
+
+	// return fmt.Sprintf("//www.gravatar.com/avatar/%s", userIDStr), nil
 }
 
 // FileSystemAvatar a file system avatar
@@ -89,22 +117,35 @@ type FileSystemAvatar struct{}
 var UserFileSystemAvatar FileSystemAvatar
 
 // GetAvatarURL getAvatarURL for FileSystemAvatar
-func (FileSystemAvatar) GetAvatarURL(c *client) (string, error) {
-	if userid, ok := c.UserData["UserID"]; ok {
-		if useridStr, ok := userid.(string); ok {
-			files, err := ioutil.ReadDir("avatars")
-			if err != nil {
-				return "", ErrNoAvatarURL
+func (FileSystemAvatar) GetAvatarURL(u ChatUser) (string, error) {
+	if files, err := ioutil.ReadDir("avatars"); err == nil {
+		for _, file := range files {
+			if file.IsDir() {
+				continue
 			}
-			for _, file := range files {
-				if file.IsDir() {
-					continue
-				}
-				if match, _ := path.Match(useridStr+"*", file.Name()); match {
-					return "/avatars/" + file.Name(), nil
-				}
+			if match, _ := path.Match(u.UniqueID()+"*", file.Name()); match {
+				return "/avatars/" + file.Name(), nil
 			}
 		}
 	}
+
 	return "", ErrNoAvatarURL
+
+	// if userid, ok := c.UserData["UserID"]; ok {
+	// 	if useridStr, ok := userid.(string); ok {
+	// 		files, err := ioutil.ReadDir("avatars")
+	// 		if err != nil {
+	// 			return "", ErrNoAvatarURL
+	// 		}
+	// 		for _, file := range files {
+	// 			if file.IsDir() {
+	// 				continue
+	// 			}
+	// 			if match, _ := path.Match(useridStr+"*", file.Name()); match {
+	// 				return "/avatars/" + file.Name(), nil
+	// 			}
+	// 		}
+	// 	}
+	// }
+	// return "", ErrNoAvatarURL
 }

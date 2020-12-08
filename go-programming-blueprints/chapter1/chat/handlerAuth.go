@@ -9,11 +9,32 @@ import (
 	"net/http"
 	"strings"
 
+	"github.com/markbates/goth"
+
 	"github.com/markbates/goth/gothic"
 )
 
 type authHandler struct {
 	next HandlerWithData
+}
+
+// ChatUser interface for a chat user
+type ChatUser interface {
+	UniqueID() string
+	GetAvatarURL() string
+}
+
+type chatUser struct {
+	*goth.User
+	uniqueID string
+}
+
+func (u chatUser) UniqueID() string {
+	return u.uniqueID
+}
+
+func (u chatUser) GetAvatarURL() string {
+	return u.AvatarURL
 }
 
 func (h *authHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
@@ -62,6 +83,35 @@ func MustAuth(handler HandlerWithData) http.Handler {
 	return &authHandler{next: handler}
 }
 
+func handleLoginOrCallback(resW http.ResponseWriter, req *http.Request, gothUser goth.User) {
+
+	m := md5.New()
+	io.WriteString(m, strings.ToLower(gothUser.Email))
+	userID := fmt.Sprintf("%x", m.Sum(nil))
+
+	chatUser := &chatUser{User: &gothUser}
+	avatarURL, err := avatars.GetAvatarURL(chatUser)
+	if err != nil {
+		log.Fatalln("Error when trying to GetAvatarURL", "_", err)
+	}
+
+	currentUserInformations := map[string]string{
+		"user_id":    userID,
+		"first_name": gothUser.FirstName,
+		"last_name":  gothUser.LastName,
+		"nickname":   gothUser.NickName,
+		"email":      gothUser.Email,
+		"avatar_url": avatarURL}
+	currentUserInformationsJSON, _ := json.Marshal(currentUserInformations)
+	gothic.StoreInSession("current_user_informations", string(currentUserInformationsJSON), req, resW)
+
+	// t, _ := template.New("foo").ParseFiles(filepath.Join("templates", "user.template"))
+	// t.Execute(resW, gothUser)
+
+	resW.Header().Set("Location", "/user")
+	resW.WriteHeader(http.StatusTemporaryRedirect)
+}
+
 // loginHandler handles the third-party login process.
 // format: /auth/{action}/{provider}
 func loginHandler(resW http.ResponseWriter, req *http.Request) {
@@ -72,28 +122,11 @@ func loginHandler(resW http.ResponseWriter, req *http.Request) {
 	switch action {
 	case "login":
 		{
-			// log.Println("TODO handle login for", provider)
 			// try to get the user without re-authenticating
-			if gothUser, err := gothic.CompleteUserAuth(resW, req); err == nil {
-				// t, _ := template.New("foo").ParseFiles(filepath.Join("templates", "user.template"))
-				// t.Execute(resW, gothUser)
+			gothUser, err := gothic.CompleteUserAuth(resW, req)
 
-				m := md5.New()
-				io.WriteString(m, strings.ToLower(gothUser.Email))
-				userID := fmt.Sprintf("%x", m.Sum(nil))
-
-				currentUserInformations := map[string]string{
-					"user_id":    userID,
-					"first_name": gothUser.FirstName,
-					"last_name":  gothUser.LastName,
-					"nickname":   gothUser.NickName,
-					"email":      gothUser.Email,
-					"avatar_url": gothUser.AvatarURL}
-				currentUserInformationsJSON, _ := json.Marshal(currentUserInformations)
-				gothic.StoreInSession("current_user_informations", string(currentUserInformationsJSON), req, resW)
-
-				resW.Header().Set("Location", "/user")
-				resW.WriteHeader(http.StatusTemporaryRedirect)
+			if err == nil {
+				handleLoginOrCallback(resW, req, gothUser)
 			} else {
 				gothic.BeginAuthHandler(resW, req)
 			}
@@ -101,7 +134,6 @@ func loginHandler(resW http.ResponseWriter, req *http.Request) {
 		}
 	case "logout":
 		{
-			// log.Println("TODO handle logout for", provider)
 			gothic.Logout(resW, req)
 			resW.Header().Set("Location", "/login")
 			resW.WriteHeader(http.StatusTemporaryRedirect)
@@ -109,32 +141,15 @@ func loginHandler(resW http.ResponseWriter, req *http.Request) {
 		}
 	case "callback":
 		{
-			// log.Println("TODO handle callback for", provider)
 			gothUser, err := gothic.CompleteUserAuth(resW, req)
+
 			if err != nil {
 				fmt.Fprintln(resW, err)
 				return
 			}
 
-			m := md5.New()
-			io.WriteString(m, strings.ToLower(gothUser.Email))
-			userID := fmt.Sprintf("%x", m.Sum(nil))
+			handleLoginOrCallback(resW, req, gothUser)
 
-			currentUserInformations := map[string]string{
-				"user_id":    userID,
-				"first_name": gothUser.FirstName,
-				"last_name":  gothUser.LastName,
-				"nickname":   gothUser.NickName,
-				"email":      gothUser.Email,
-				"avatar_url": gothUser.AvatarURL}
-			currentUserInformationsJSON, _ := json.Marshal(currentUserInformations)
-			gothic.StoreInSession("current_user_informations", string(currentUserInformationsJSON), req, resW)
-
-			// t, _ := template.New("foo").ParseFiles(filepath.Join("templates", "user.template"))
-			// t.Execute(resW, user)
-
-			resW.Header().Set("Location", "/user")
-			resW.WriteHeader(http.StatusTemporaryRedirect)
 			break
 		}
 	default:

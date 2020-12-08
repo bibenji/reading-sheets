@@ -28,12 +28,9 @@ type room struct {
 
 	// data to pass to the handler
 	data map[string]interface{}
-
-	// avatar is how avatar information will be obtained
-	avatar Avatar
 }
 
-func newRoom(avatar Avatar) *room {
+func newRoom() *room {
 	return &room{
 		// forward: make(chan []byte),
 		forward: make(chan *message),
@@ -41,7 +38,6 @@ func newRoom(avatar Avatar) *room {
 		leave:   make(chan *client),
 		clients: make(map[*client]bool),
 		// tracer: trace.Off(),
-		avatar: avatar,
 	}
 }
 

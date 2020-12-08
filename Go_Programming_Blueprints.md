@@ -56,7 +56,7 @@ canthefason / go-watcher
 
 [...]
 
-3 Three Ways to Implement Profile Picture
+# 3 Three Ways to Implement Profile Picture
 
 P. 81
 
@@ -64,4 +64,11 @@ Refactoring and optimizing our code
 
 P. 106
 
+Tidying up and testing
+
+P. 116
+
+# 4 Command-Line Tools to Find Domain Names
+
+ P. 117
  

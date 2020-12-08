@@ -9,6 +9,13 @@ import (
 	"../trace"
 )
 
+// var avatars Avatar = UserFileSystemAvatar
+
+var avatars Avatar = TryAvatars{
+	UserFileSystemAvatar,
+	UserAuthAvatar,
+	UserGravatar}
+
 func main() {
 	var addr = flag.String("addr", ":8080", "The addr of the application.")
 	flag.Parse() // parse the flags
@@ -17,7 +24,8 @@ func main() {
 
 	// r := newRoom(UserAuthAvatar)
 	// r := newRoom(UserGravatar)
-	r := newRoom(UserFileSystemAvatar)
+	// r := newRoom(UserFileSystemAvatar)
+	r := newRoom()
 
 	// set tracer
 	r.tracer = trace.New(os.Stdout)
@@ -43,8 +51,6 @@ func main() {
 	http.Handle("/upload", MustAuth(&templateHandler{filename: "upload.html"}))
 
 	http.Handle("/uploader", &uploaderHandler{})
-
-	// http.Handle("/room", r)
 
 	// get the room going
 	go r.run()

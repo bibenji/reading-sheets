@@ -36,10 +36,11 @@ func (c *client) read() {
 
 		msg.When = time.Now()
 		msg.Name = c.UserData["FirstName"].(string)
-		// if avatarURL, ok := c.UserData["AvatarURL"]; ok {
-		// 	msg.AvatarURL = avatarURL.(string)
-		// }
-		msg.AvatarURL, _ = c.room.avatar.GetAvatarURL(c)
+
+		if avatarURL, ok := c.UserData["AvatarURL"]; ok {
+			msg.AvatarURL = avatarURL.(string)
+		}
+		// msg.AvatarURL, _ = c.room.avatar.GetAvatarURL(c)
 
 		log.Println(c.UserData)
 
