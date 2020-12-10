@@ -607,3 +607,70 @@ The Regexp Package’s Flags and Groups
 - (?:e) Group but don’t capture the match for expression e 
 
 P. 124
+
+The * regexp.Regexp Type’s Methods #1
+
+rx.Expand(...) 					Performs the $ replacements done by the ReplaceAll() method—rarely used directly (advanced)
+rx.ExpandString(...) 			Performs the $ replacements done by the ReplaceAllString() method—rarely used directly (advanced)
+rx.Find(b) 						A []byte with the leftmost match or nil
+rx.FindAll(b, n) 				A [][]byte of all nonoverlapping matches or nil
+rx.FindAllIndex(b, n) 			An [][]int (a slice of 2-item slices) each identifying a match or nil ; e.g., b[pos[0]:pos[1]] where pos is one of the 2-item slices
+rx.FindAllString(s, n) 			A []string of all nonoverlapping matches or nil
+rx.FindAllStringIndex(s, n) 	An [][]int (a slice of 2-item slices) each identifying a match or nil ; e.g., s[pos[0]:pos[1]] where pos is one of the 2-item slices
+rx.FindAllStringSubmatch(s, n) 	A [][]string (a slice of string slices where each string corresponds to a capture) or nil
+rx.FindAllStringSubmatchIndex(s, n) An [][]int (a slice of 2-item int slices that correspond to captures) or nil
+rx.FindAllSubmatch(b, n) 		A [][][]byte (a slice of slices of []byte s where each []byte corresponds to a capture) or nil
+rx.FindAllSubmatchIndex(b, n) 	An [][]int (a slice of 2-item int slices that correspond to captures) or nil
+rx.FindIndex(b) 				A 2-item []int identifying the leftmost match; e.g., b[pos[0]:pos[1]] where pos is the 2-item slice, or nil
+rx.FindReaderIndex(r) 			A 2-item []int identifying the leftmost match or nil
+rx.FindReaderSubmatchIndex(r) 	An []int identifying the leftmost match and captures or nil
+rx.FindString(s)				The leftmost match or an empty string
+rx.FindStringIndex(s)			A 2-item []int identifying the leftmost match or nil
+rx.FindStringSubmatch(s)		A []string with the leftmost match and captures or nil
+rx.FindStringSubmatchIndex(s)	An []int identifying the leftmost match and captures or nil
+
+
+
+
+rx.FindSubmatch(b)					A [][]byte with the leftmost match and captures or nil
+rx.FindSubmatchIndex(b)				A [][]byte with the leftmost match and captures or nil
+rx.LiteralPrefix()					The possibly empty prefix string that the regexp must begin with and a bool indicating whether the whole regexp is a literal string match
+rx.Match(b) 						true if the regexp matches b
+rx.MatchReader(r) 					true if the regexp matches r of type io.RuneReader
+rx.MatchString(s) 					true if the regexp matches s
+rx.NumSubexp() 						How many parenthesized groups the regexp has
+rx.ReplaceAll(b, br) 				A []byte that is a copy of b with every match replaced with br of type []byte with $ replacements (see text)
+rx.ReplaceAllFunc(b, f) 			A []byte that is a copy of b with every match replaced with the return value of a call to function f of type func([]byte) []byte and whose argument is a match
+rx.ReplaceAllLiteral(b, br)			A []byte that is a copy of b with every match replaced with br of type []byte
+rx.ReplaceAllLiteralString(s, sr)	A string that is a copy of s with every match replaced with sr of type string replacements 
+rx.ReplaceAllString(s, sr) 			A string that is a copy of s with every match replaced with sr of type string with $ replacements (see text)
+rx.ReplaceAllStringFunc(s, f) 		A string that is a copy of s with every match replaced with the return value of a call to function f of type func(string) string and whose argument is a match
+rx.String()							A string containing the regexp pattern
+rx.SubexpNames()					A []string (which must not be modified), containing the names of all the named subexpressions
+
+regexp to find duplicate words... P. 126-127
+
+for key:value
+
+```
+keyValueRx := regexp.MustCompile(`\s*([[:alpha:]]\w*)\s*:\s*(.+)`)
+```
+
+for name="value" or name='value'
+
+```
+attrValueRx := regexp.MustCompile(regexp.QuoteMeta(attrName) + `=(?:"([^"]+)"|'([^']+)')`)
+```
+
+how to simplify whitespaces with regexp
+
+[...]
+
+unaccented := UnaccentedLatin1(latin1) to perform the conversion
+
+for every "String" regexp function there is a function that operates on []bytes
+
+## 3.7. Example: M3u2pls
+
+P. 130
+
