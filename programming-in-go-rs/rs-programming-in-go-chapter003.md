@@ -608,7 +608,7 @@ The Regexp Package’s Flags and Groups
 
 P. 124
 
-The * regexp.Regexp Type’s Methods #1
+The * regexp.Regexp Type’s Methods
 
 rx.Expand(...) 					Performs the $ replacements done by the ReplaceAll() method—rarely used directly (advanced)
 rx.ExpandString(...) 			Performs the $ replacements done by the ReplaceAllString() method—rarely used directly (advanced)
@@ -628,9 +628,6 @@ rx.FindString(s)				The leftmost match or an empty string
 rx.FindStringIndex(s)			A 2-item []int identifying the leftmost match or nil
 rx.FindStringSubmatch(s)		A []string with the leftmost match and captures or nil
 rx.FindStringSubmatchIndex(s)	An []int identifying the leftmost match and captures or nil
-
-
-
 
 rx.FindSubmatch(b)					A [][]byte with the leftmost match and captures or nil
 rx.FindSubmatchIndex(b)				A [][]byte with the leftmost match and captures or nil
@@ -673,4 +670,15 @@ for every "String" regexp function there is a function that operates on []bytes
 ## 3.7. Example: M3u2pls
 
 P. 130
+
+done the m3u2pls prog
+
+## 3.8. Exercices
+
+1. prog to do the conversion from .pls to .m3u
+
+2. Soundex algorithm
+
+
+
 

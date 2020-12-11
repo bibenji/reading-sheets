@@ -1,5 +1,12 @@
 # 1 An Overview in Five Examples
 
+#### 1.1. Getting Going
+#### 1.2. Editing, Compiling, and Running
+#### 1.3. Hello Who?
+#### 1.4. Big Digits - Two Dimensional Slices
+#### 1.5. Stack - Custom Types with Methods
+#### 1.6. Americanise - Files, Maps, and Closures
+
 slices and map
 
 `godoc -http=:8000`
@@ -45,10 +52,9 @@ no need to use stars with them.
 
 P. 29
 
-1.7. Polar to Cartesian - Concurrency
+## 1.7. Polar to Cartesian - Concurrency
 
 P. 40
-
 
 messages := make(chan string, 10)
 messages <- "Leader"
@@ -56,13 +62,13 @@ messages <- "Follower"
 message1 := <-messages
 message2 := <-messages
 
-1.8. Exercice
+## 1.8. Exercice
 
 P. 48
 
 # 2 Booleans and Numbers
 
-2.1. Constants and Variables
+## 2.1. Constants and Variables
 
 P. 51
 
@@ -125,11 +131,11 @@ func (flag BitFlag) String() string {
 }
 ```
 
-2.2. Boolean Values and Expressions
+## 2.2. Boolean Values and Expressions
 
 reflect.DeepEqual()
 
-2.3. Numeric Types
+## 2.3. Numeric Types
 
 Rat which are of unbounded size (i.e., limited only by the machine’s memory).
 
@@ -229,7 +235,7 @@ match/cmplx package
 
 The Complex Math Package’s Functions [...] P. 71
 
-2.4. Example Statistics
+## 2.4. Example Statistics
 
 P. 72
 
@@ -239,11 +245,32 @@ P. 72
 
 see packages : html, net/http, html/template, text/template
 
-2.5. Exercises
+## 2.5. Exercises
 
-# 3 Strings
+# <a href="/programming-in-go-rs/rs-programming-in-go-chapter003.md">3 Strings</a>
 
-<a href="/programming-in-go-rs/rs-programming-in-go-chapter003.md">Go to chapter 3</a>
+#### 3.1. Literals, Operators, and Escapes
+#### 3.2. Comparing Strings
+#### 3.3. Characters and Strings
+#### 3.4. Indexing and Slicing Strings
+#### 3.5. String Formatting with the Fmt Package
+#### 3.6. Other String-Related Packages
+#### 3.7. Example: M3u2pls
+#### 3.8. Exercices
 
+# 4 Collection Types
+
+P. 139
+
+Go does not support pointer arithmetic, thus eliminating a whole category of potential bugs that can affect C and C++ programs.
+
+## 4.1. Values, Pointers, and Reference Types
+
+
+
+
+4.2.
+4.3.
+4.4.
 
 
