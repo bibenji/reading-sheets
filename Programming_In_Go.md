@@ -264,13 +264,83 @@ P. 139
 
 Go does not support pointer arithmetic, thus eliminating a whole category of potential bugs that can affect C and C++ programs.
 
+container/heap , container/list , and container/ring
+
 ## 4.1. Values, Pointers, and Reference Types
 
+Go variables hold values
+channels, functions, methods, maps and slices hold references
+and variables that hold pointers
+
+& used as a binary operator performs a bitwise AND
+
+& used as a unary operator returns memory address of its operand
+
+*int = pointer to int
+
+* operator
+* multiplies operands when used as binary operator
+* provides access to value pointed to by the variable it is applied to as unary operator
+
+x := 3
+pi := &x (pi est un *int)
+
+si on fait x++, ça change aussi la valeur de *pi (pas la valeur de pi qui est une adresse quoi)
+
+si on fait *pi++, ça change la valeur de x du coup
+
+& sert à obtenir pointeur sur une variable
+et * pi valeur de la variable pointée
+
+and pointers to pointers, and pointers to pointers to pointers (**int i.e.)
+
+swapAndProduct1(&x, &y, &product), call with:
+```asp
+func swapAndProduct1(x, y, product *int) {
+	if *x > *y {
+		*x, *y = *y, *x
+	}
+	*product = *x * *y // The compiler would be happy with: *product=*x**y
+}
+```
+
+type composer struct { }
+
+to have a value, init with :
+- composer{}
+
+to have a pointer to composer :
+- agnes := new(composer)
+- julia := &composer{}
+- augusta := &composer{"Blibli", 1847}
+
+julia.name, julia.birthYear = "Blabla", 1819
+
+go has reference types (and interfaces)
+
+passing slice or pointer to a struct is cheap
+
+maps and slices are reference types
+
+for index, item ... range loop make a copy of each item
+
+but not for i := range
+
+```asp
+func resizeRect(rect *rectangle, Δwidth, Δheight int) {
+	(*rect).x1 += Δwidth // Ugly explicit dereference
+	rect.y1 += Δheight // . automatically dereferences structs
+}
+```
+
+## 4.2. Arrays and Slices
+
+P. 148
 
 
 
-4.2.
 4.3.
+
 4.4.
 
 
