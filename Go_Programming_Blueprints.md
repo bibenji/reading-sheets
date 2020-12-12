@@ -92,4 +92,8 @@ echo "chat" | ./sprinkle
 
 TLD = top level domain
 
+./synonyms/synonyms | ./sprinkle/sprinkle | ./coolify/coolify | ./domainify/domainify 
 
+Available
+
+P. 134
