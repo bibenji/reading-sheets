@@ -90,3 +90,6 @@ crypto/rand
 
 echo "chat" | ./sprinkle
 
+TLD = top level domain
+
+
