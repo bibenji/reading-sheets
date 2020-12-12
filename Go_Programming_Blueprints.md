@@ -70,5 +70,23 @@ P. 116
 
 # 4 Command-Line Tools to Find Domain Names
 
- P. 117
+P. 117
  
+redirection metacharacters
+
+echo -n "Hello" | md5
+
+create the programs inside the $GOPATH/src directory
+
+use the current time as a random seed.
+
+Computers can't actually generate random numbers, but changing the seed number of random algorithms gives the illusion that it can
+
+bufio.ScanWords
+
+crypto/rand
+
+`go build -o sprinkle ./sprinkle`
+
+echo "chat" | ./sprinkle
+
