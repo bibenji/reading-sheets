@@ -97,3 +97,13 @@ TLD = top level domain
 Available
 
 P. 134
+
+./synonyms/synonyms | ./sprinkle/sprinkle | ./coolify/coolify | ./domainify/domainify | ./available/available
+
+exec.Command
+
+and cmd.Start (run in the background instead of cmd.Run)
+
+# 5 Building Distributed Systems and Working with Flexible Data
+
+P. 144
