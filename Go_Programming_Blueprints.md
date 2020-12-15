@@ -107,3 +107,17 @@ and cmd.Start (run in the background instead of cmd.Run)
 # 5 Building Distributed Systems and Working with Flexible Data
 
 P. 144
+
+Horizontal scaling
+Vertical scaling
+
+nsqlookupd => manages topology information about the distributed NSQ environment, keeps track of all the nsqd producers for specific topics and provides interfaces for clients to query such information
+
+nsqd => does the heavy lifting for NSQ, receiving, queuing, delivering messages from and to interested parties
+
+Reading from MongoDB
+
+P. 156
+
+a lot of things to review for oauth in twitter.go
+and wait for validation of twitter's dev account
