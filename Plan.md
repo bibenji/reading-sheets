@@ -1,13 +1,23 @@
-## For The Week :
+## En cours :
+
+- Go programming blueprints
+
+- Programming in Go
+
+- Design Patterns - Elements of reusable object oriented software
+
+- Microservices from day one
+
 - 100 Things Every Designer Needs To Know About People
 
-- Design Patterns
+## For later :
+
 - Refactoring, improving the design of existing code
 
 - Algo : cracking code interview ?
-- autres bouquins d'algo
+- Other algo books
 
-- Réseaux
+- Réseaux / Network
 - Hacking
 - Cryptographie
 
@@ -15,19 +25,13 @@
 - Kubernetes
 - Rabbit
 
-## For The Week-end :
-- Go
-
-## Later :
-- Lire sur les réseaux
-
-## Others :
 - Algorithm and maths
-- Network
-- Finir You don't know js
+- You don't know js to finish
 - Design
-- Revoir JAVA and Python
-- Finish Clean Code
 - Improve php
 
-## Big data puis machine learning car machine learning se base sur le big data puis après encore y'a le deep learning
+## Finished :
+
+- Clean Code
+
+## Big data > Machine learning (basé sur big data) > Deep learning (basé sur machine learning)

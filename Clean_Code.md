@@ -1,16 +1,16 @@
 # Clean Code
 
-p. 40
+P. 40
 
-p. 48
+P. 48
 
-p. 62
+P. 62
 
 FUNCTIONS SHOULD DO ONE THING. THEY SHOULD DO IT WELL. THEY SHOULD DO IT ONLY.
 
 The Step-down Rule
 
-p. 68
+P. 68
 
 it does more than one thing<br />
 Single Responsibility Principle (SRP)<br />
@@ -347,10 +347,10 @@ P. 316
 
 Comments
 
-C1: Inappropriate Information
-C2: Obsolete Comment
-C3: Redundant Comment
-C4: Poorly Written Comment
+C1: Inappropriate Information<br />
+C2: Obsolete Comment<br />
+C3: Redundant Comment<br />
+C4: Poorly Written Comment<br />
 C5: Commented-Out Code
 
 Environment
@@ -360,76 +360,76 @@ E2: Tests Require More Than One Step -> no, just one command to launch all
 
 Functions
 
-F1: Too Many Arguments -> should have a small number of arguments (more than three is not good)
-F2: Output Arguments -> output arguments are counterintuitive
-F3: Flag Arguments -> confusing, should be eliminated
+F1: Too Many Arguments -> should have a small number of arguments (more than three is not good)<br />
+F2: Output Arguments -> output arguments are counterintuitive<br />
+F3: Flag Arguments -> confusing, should be eliminated<br />
 F4: Dead Function ->
 
 General
 
-G1: Multiple Languages in One Source File -> no, only one language in one file
-G2: Obvious Behavior Is Unimplemented
-G3: Incorrect Behavior at the Boundaries -> look for every boundary condition (corner case, etc.)
-G4: Overridden Safeties -> don't
-G5: Duplication -> DRY principle (Don't Repeat Yourself), NEVER
-G6: Code at Wrong Level of Abstraction -> higher level of abstraction in base class
-G7: Base Classes Depending on Their Derivatives
-G8: Too Much Information
-G9: Dead Code
-G10: Vertical Separation
-G11: Inconsistency -> avoid
-G12: Clutter -> should be removed (things not used, etc.)
-G13: Artificial Coupling
-G14: Feature Envy -> the methods of a class should be interested in the variables and functions of the class they belong to, and not the variables and functions of other classes.
-G15: Selector Arguments -> Better to have many functions than to pass some code into a function to select the behavior
-G16: Obscured Intent
-G17: Misplaced Responsibility
-G18: Inappropriate Static
-G19: Use Explanatory Variables
-G20: Function Names Should Say What They Do -> if you have to look at the implementation (or documentation) of the function to know what it does, then you should work to find a better name [...]
-G21: Understand the Algorithm
-G22 : Make Logical Dependencies Physical
-G23: Prefer Polymorphism to If/Else or Switch/Case -> Just one switch to have polymorphic objects used by the rest of the system
-G24: Follow Standard Conventions
-G25: Replace Magic Numbers with Named Constants
-G26: Be Precise
-G27: Structure over Convention > naming conventions are good, but they are inferior to structures that force compliance. For example, switch/cases with nicely named enumerations are inferior to base classes with abstract methods.
-G28: Encapsulate Conditionals
-G29: Avoid Negative Conditionals
-G30: Functions Should Do One Thing
-G31: Hidden Temporal Couplings
-G32: Don't Be Arbitrary
-G33: Encapsulate Boundary Conditions
-G34: Functions Should Descend Only One Level of Abstraction
-G35: Keep Configurable Data at High Levels
+G1: Multiple Languages in One Source File -> no, only one language in one file<br />
+G2: Obvious Behavior Is Unimplemented<br />
+G3: Incorrect Behavior at the Boundaries -> look for every boundary condition (corner case, etc.)<br />
+G4: Overridden Safeties -> don't<br />
+G5: Duplication -> DRY principle (Don't Repeat Yourself), NEVER<br />
+G6: Code at Wrong Level of Abstraction -> higher level of abstraction in base class<br />
+G7: Base Classes Depending on Their Derivatives<br />
+G8: Too Much Information<br />
+G9: Dead Code<br />
+G10: Vertical Separation<br />
+G11: Inconsistency -> avoid<br />
+G12: Clutter -> should be removed (things not used, etc.)<br />
+G13: Artificial Coupling<br />
+G14: Feature Envy -> the methods of a class should be interested in the variables and functions of the class they belong to, and not the variables and functions of other classes.<br />
+G15: Selector Arguments -> Better to have many functions than to pass some code into a function to select the behavior<br />
+G16: Obscured Intent<br />
+G17: Misplaced Responsibility<br />
+G18: Inappropriate Static<br />
+G19: Use Explanatory Variables<br />
+G20: Function Names Should Say What They Do -> if you have to look at the implementation (or documentation) of the function to know what it does, then you should work to find a better name [...]<br />
+G21: Understand the Algorithm<br />
+G22 : Make Logical Dependencies Physical<br />
+G23: Prefer Polymorphism to If/Else or Switch/Case -> Just one switch to have polymorphic objects used by the rest of the system<br />
+G24: Follow Standard Conventions<br />
+G25: Replace Magic Numbers with Named Constants<br />
+G26: Be Precise<br />
+G27: Structure over Convention > naming conventions are good, but they are inferior to structures that force compliance. For example, switch/cases with nicely named enumerations are inferior to base classes with abstract methods.<br />
+G28: Encapsulate Conditionals<br />
+G29: Avoid Negative Conditionals<br />
+G30: Functions Should Do One Thing<br />
+G31: Hidden Temporal Couplings<br />
+G32: Don't Be Arbitrary<br />
+G33: Encapsulate Boundary Conditions<br />
+G34: Functions Should Descend Only One Level of Abstraction<br />
+G35: Keep Configurable Data at High Levels<br />
 G36: Avoid Transitive Navigation
 
 Java
 
 P. 338
 
-J1: Avoid Long Import Lists By Using Wildcards
-J2: Don't Inherit Constants
+J1: Avoid Long Import Lists By Using Wildcards<br />
+J2: Don't Inherit Constants<br />
 J3: Constants versus Enums
 
-N1: Choose Descriptive Names
-N2: Choose Names at the Appropriate Level of Abstraction
-N3: Use Standard Nomenclature Where Possible
-N4: Unambiguous Names
-N5: Use Long Names For Long Scopes (i it's ok in a small for)
-N6: Avoid Encodings
+N1: Choose Descriptive Names<br />
+N2: Choose Names at the Appropriate Level of Abstraction<br />
+N3: Use Standard Nomenclature Where Possible<br />
+N4: Unambiguous Names<br />
+N5: Use Long Names For Long Scopes (i it's ok in a small for)<br />
+N6: Avoid Encodings<br />
 N7: Names Should Describe Side-Effects
 
 Tests
 
-T1: Insufficient Tests (= test everythings)
-T2: Use a Coverage Tool!
-T3: Don't Skip Trivial Tests
-T4: An Ignored Test Is a Question about an Ambiguity
-T5: Test Boundary Conditions
-T6: Exhaustively Test Near Bugs
-T7: Patterns of Failure Are Revealing
-T8: Test Coverage Patterns Can Be Revealing
+T1: Insufficient Tests (= test everythings)<br />
+T2: Use a Coverage Tool!<br />
+T3: Don't Skip Trivial Tests<br />
+T4: An Ignored Test Is a Question about an Ambiguity<br />
+T5: Test Boundary Conditions<br />
+T6: Exhaustively Test Near Bugs<br />
+T7: Patterns of Failure Are Revealing<br />
+T8: Test Coverage Patterns Can Be Revealing<br />
 T9: Tests Should Be Fast
 
 Appendix A! Concurrency II

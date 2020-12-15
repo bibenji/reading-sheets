@@ -1,3 +1,7 @@
+<h1>Design Patterns - Elements Of Reusabled Object Oriented Software</h1>
+
+# 1 Introduction
+
 MVC
 
 CompositeView
@@ -158,12 +162,11 @@ some common causes of redesign :
 5. Algorithmic dependencies.
 6. Tight coupling.
 7. Extending functionality by subclassing.
+8. Inability to alter classes conveniently.
 
 Object composition in general and delegation in particular provide flexible alternatives to inheritance for combining behavior.
 
-8. Inability to alter classes conveniently.
-
-2. A Case Study: Design a Document Editor
+# 2. A Case Study: Design a Document Editor
 
 P. 46
 
@@ -195,3 +198,35 @@ where guiFactory can be different type of factory for different look and fell
 Abstract Factory Pattern
 
 P. 64
+
+Command Pattern
+
+## 2.8 Spelling Checking and Hyphenation
+
+[...]
+
+Iterator Pattern
+
+Traversal versus Traversal Actions...
+
+[...]
+
+Visitor Class and Subclasses
+
+Visitor Pattern
+
+## 2.9 Summary
+
+Different patterns applied:
+1. Composite (represent the document's physical structure)
+2. Strategy (allow different formatting algorithms)
+3. Decorator (embellishing user interface)
+4. Abstract Factory (supporting multiple look-and-feel standards)
+5. Bridge (allow multiple windowing platforms)
+6. Command (undoable user operations)
+7. Iterator (accessing and traversing object structures)
+8. Visitor (allowing an open-ended number of analytical capabilities)
+
+# 3 Creational Patterns
+
+P. 81
