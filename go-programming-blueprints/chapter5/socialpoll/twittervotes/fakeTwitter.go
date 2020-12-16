@@ -7,13 +7,9 @@ import (
 	"net"
 	"net/http"
 	"net/url"
-	"strconv"
 	"strings"
 	"sync"
 	"time"
-
-	"github.com/garyburd/go-oauth/oauth" // to old I think, it's v1
-	"github.com/joeshaw/envdecode"
 )
 
 type tweet struct {
@@ -23,12 +19,8 @@ type tweet struct {
 var conn net.Conn
 var reader io.ReadCloser
 var (
-	authClient *oauth.Client
-	creds      *oauth.Credentials
-)
-var (
-	authSetupOnce sync.Once
-	httpClient    *http.Client
+	buildHTTPClientOnce sync.Once
+	httpClient          *http.Client
 )
 
 func dial(netw, addr string) (net.Conn, error) {
@@ -46,6 +38,7 @@ func dial(netw, addr string) (net.Conn, error) {
 	return netc, nil
 }
 
+// not used ???
 func closeConn() {
 	if conn != nil {
 		conn.Close()
@@ -55,34 +48,8 @@ func closeConn() {
 	}
 }
 
-func setupTwitterAuth() {
-	var ts struct {
-		ConsumerKey    string `env:"SP_TWITTER_KEY,required"`
-		ConsumerSecret string `env:"SP_TWITTER_SECRET,required"`
-		AccessToken    string `env:"SP_TWITTER_ACCESSTOKEN,required"`
-		AccessSecret   string `env:"SP_TWITTER_ACCESSSECRET,required"`
-	}
-
-	if err := envdecode.Decode(&ts); err != nil {
-		log.Fatalln(err)
-	}
-
-	creds = &oauth.Credentials{
-		Token:  ts.AccessToken,
-		Secret: ts.AccessSecret,
-	}
-
-	authClient = &oauth.Client{
-		Credentials: oauth.Credentials{
-			Token:  ts.ConsumerKey,
-			Secret: ts.ConsumerSecret,
-		},
-	}
-}
-
 func makeRequest(req *http.Request, params url.Values) (*http.Response, error) {
-	authSetupOnce.Do(func() {
-		setupTwitterAuth()
+	buildHTTPClientOnce.Do(func() {
 		httpClient = &http.Client{
 			Transport: &http.Transport{
 				Dial: dial,
@@ -91,9 +58,10 @@ func makeRequest(req *http.Request, params url.Values) (*http.Response, error) {
 	})
 
 	formEnc := params.Encode()
-	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
-	req.Header.Set("Content-Length", strconv.Itoa(len(formEnc)))
-	req.Header.Set("Authorization", authClient.AuthorizationHeader(creds, "POST", req.URL, params))
+	// req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
+	req.Header.Set("Content-Type", "application/json")
+	// req.Header.Set("Content-Length", strconv.Itoa(len(formEnc)))
+	// req.Header.Set("Authorization", authClient.AuthorizationHeader(creds, "POST", req.URL, params))
 
 	return httpClient.Do(req)
 }
@@ -107,16 +75,16 @@ func readFromTwitter(votes chan<- string) {
 	}
 
 	// we prepare query params
-	u, err := url.Parse("https://stream.twitter.com/1.1/statuses/filter.json")
+	u, err := url.Parse("http://localhost:8090")
 	if err != nil {
-		log.Println("creating filter request failed:", err)
+		log.Println("creating request failed:", err)
 		return
 	}
 	query := make(url.Values)
-	query.Set("track", strings.Join(options, ","))
+	// query.Set("track", strings.Join(options, ","))
 
 	// we make the query
-	req, err := http.NewRequest("POST", u.String(), strings.NewReader(query.Encode()))
+	req, err := http.NewRequest("GET", u.String(), strings.NewReader(query.Encode()))
 	if err != nil {
 		log.Println("Creating filter request failed:", err)
 		return
@@ -147,4 +115,27 @@ func readFromTwitter(votes chan<- string) {
 			}
 		}
 	}
+}
+
+func startTwitterStream(stopchan <-chan struct{}, votes chan<- string) <-chan struct{} {
+	stoppedchan := make(chan struct{}, 1)
+	go func() {
+		defer func() {
+			stoppedchan <- struct{}{}
+		}()
+
+		for {
+			select {
+			case <-stopchan:
+				log.Println("stopping Twitter...")
+				return
+			default:
+				log.Println("Querying Twitter...")
+				readFromTwitter(votes)
+				log.Println(" (waiting)")
+				time.Sleep(10 * time.Second) // wait before reconnecting
+			}
+		}
+	}()
+	return stoppedchan
 }
