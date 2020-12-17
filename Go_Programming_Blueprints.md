@@ -122,4 +122,14 @@ P. 156
 a lot of things to review for oauth in twitter.go
 and wait for validation of twitter's dev account
 
+Signal channels
+
 P. 160
+
+deadlines, cancelation and stopping for cross API boundaries (P. 162)
+
+you can close a channel to mean things are done or send something in it
+
+Look: A Channel Compendium by John Graham-Cumming
+
+p. 164
