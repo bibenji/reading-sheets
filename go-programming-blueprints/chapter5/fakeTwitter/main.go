@@ -31,7 +31,19 @@ func (h *randomJSONHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			Text: randOption(),
 		},
 		Tweet{
-			Text: options[0],
+			Text: randOption(),
+		},
+		Tweet{
+			Text: randOption(),
+		},
+		Tweet{
+			Text: randOption(),
+		},
+		Tweet{
+			Text: randOption(),
+		},
+		Tweet{
+			Text: options[4],
 		},
 	}
 

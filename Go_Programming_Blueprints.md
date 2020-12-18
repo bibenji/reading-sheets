@@ -138,4 +138,7 @@ pour suivre en direct the messagin queue topic and outputs any messages that it 
 
 `nsq_tail --topic="votes" --lookupd-http-address=localhost:4161`
 
+# 6 Exposing Data and Functionality through a RESTful Data Web Service API
+
+P. 177
 
