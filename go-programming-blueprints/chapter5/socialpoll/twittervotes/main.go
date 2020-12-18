@@ -6,6 +6,7 @@ import (
 	"os/signal"
 	"sync"
 	"syscall"
+	"time"
 
 	"github.com/bitly/go-nsq"
 
@@ -19,26 +20,50 @@ type poll struct {
 var db *mgo.Session
 
 func main() {
-	var stoplock sync.Mutex // protects stop
+	if err := dialdb(); err != nil {
+		log.Fatalln("failed to dial MongoDB:", err)
+	}
+	defer closedb()
+
+	var stoplock sync.Mutex // protects stop to access it from many go routines
 	stop := false
 	stopChan := make(chan struct{}, 1)
 	signalChan := make(chan os.Signal, 1)
 	go func() {
-		<-signalChan
+		<-signalChan // block until we get a signal on that channel
 		stoplock.Lock()
 		stop = true
 		stoplock.Unlock()
 		log.Println("Stopping...")
-		stopChan <- struct{}{}
+		stopChan <- struct{}{} // send signal through stopChan for twitterStreaming
 		closeConn()
 	}()
-	signal.Notify(signalChan, syscall.SIGINT, syscall.SIGTERM)
+	signal.Notify(signalChan, syscall.SIGINT, syscall.SIGTERM) // go send the signal down signalChan when someone try to kill with SIGINT or SIGTERM
+
+	votes := make(chan string)                                // votes = channel of strings
+	publisherStoppedChan := publishVotes(votes)               // stop signal channel
+	twitterStoppedChan := startTwitterStream(stopChan, votes) // idem, stop signal channel as return
+	go func() {
+		for {
+			time.Sleep(1 * time.Minute)
+			closeConn() // close the connnection to restart it and stream twitter api
+			stoplock.Lock()
+			if stop {
+				stoplock.Unlock()
+				return // we exit the go routine
+			}
+			stoplock.Unlock()
+		}
+	}()
+	<-twitterStoppedChan   // script is block waiting for a signal
+	close(votes)           // when there is a signal we close the votes channel
+	<-publisherStoppedChan // we wait for it before exit
 }
 
 func dialdb() error {
 	var err error
 	log.Println("dialing mongodb: localhost:32773")
-	db, err = mgo.Dial("localhot:32773")
+	db, err = mgo.Dial("localhost:32773")
 	return err
 }
 

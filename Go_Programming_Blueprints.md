@@ -133,3 +133,9 @@ you can close a channel to mean things are done or send something in it
 Look: A Channel Compendium by John Graham-Cumming
 
 p. 164
+
+pour suivre en direct the messagin queue topic and outputs any messages that it notices :
+
+`nsq_tail --topic="votes" --lookupd-http-address=localhost:4161`
+
+

@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"io"
 	"log"
 	"net"
@@ -12,9 +13,11 @@ import (
 	"time"
 )
 
-type tweet struct {
-	Text string
+type fakeTweet struct {
+	Text string `json:"text"`
 }
+
+type fakeTweets []fakeTweet
 
 var conn net.Conn
 var reader io.ReadCloser
@@ -57,7 +60,7 @@ func makeRequest(req *http.Request, params url.Values) (*http.Response, error) {
 		}
 	})
 
-	formEnc := params.Encode()
+	// formEnc := params.Encode()
 	// req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
 	req.Header.Set("Content-Type", "application/json")
 	// req.Header.Set("Content-Length", strconv.Itoa(len(formEnc)))
@@ -75,7 +78,7 @@ func readFromTwitter(votes chan<- string) {
 	}
 
 	// we prepare query params
-	u, err := url.Parse("http://localhost:8090")
+	u, err := url.Parse("http://localhost:8090/stream")
 	if err != nil {
 		log.Println("creating request failed:", err)
 		return
@@ -94,6 +97,13 @@ func readFromTwitter(votes chan<- string) {
 		log.Println("making request failed:", err)
 		return
 	}
+	if resp.StatusCode != 200 {
+		log.Println(
+			"making request failed with status:",
+			resp.StatusCode)
+		log.Println(fmt.Printf("Req: %s %s\n", req.Host, req.URL.Path))
+		return
+	}
 
 	// get a reader and a decoder
 	reader := resp.Body
@@ -101,17 +111,21 @@ func readFromTwitter(votes chan<- string) {
 
 	// infinite loop where we read tweets
 	for {
-		var t tweet
-		if err := decoder.Decode(&t); err != nil {
+		var fTweets fakeTweets
+		if err := decoder.Decode(&fTweets); err != nil {
+			log.Println("error when decoding resp:", err)
 			break
 		}
-		for _, option := range options {
-			if strings.Contains(
-				strings.ToLower(t.Text),
-				strings.ToLower(option),
-			) {
-				log.Println("vote:", option)
-				votes <- option
+
+		for _, fT := range fTweets {
+			for _, option := range options {
+				if strings.Contains(
+					strings.ToLower(fT.Text),
+					strings.ToLower(option),
+				) {
+					log.Println("vote:", option)
+					votes <- option
+				}
 			}
 		}
 	}
@@ -127,10 +141,10 @@ func startTwitterStream(stopchan <-chan struct{}, votes chan<- string) <-chan st
 		for {
 			select {
 			case <-stopchan:
-				log.Println("stopping Twitter...")
+				log.Println("stopping FakeTwitter...")
 				return
 			default:
-				log.Println("Querying Twitter...")
+				log.Println("Querying FakeTwitter...")
 				readFromTwitter(votes)
 				log.Println(" (waiting)")
 				time.Sleep(10 * time.Second) // wait before reconnecting
