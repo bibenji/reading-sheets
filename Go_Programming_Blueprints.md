@@ -138,7 +138,28 @@ pour suivre en direct the messagin queue topic and outputs any messages that it 
 
 `nsq_tail --topic="votes" --lookupd-http-address=localhost:4161`
 
+```
+use ballots
+db.polls.find().pretty()
+```
+
 # 6 Exposing Data and Functionality through a RESTful Data Web Service API
 
 P. 177
 
+use things like that for CORS : https://github.com/fasterness/cors
+
+DRY: Don't Repeat Yourself
+
+For path parsing, looks Goweb or Gorrillz's mux package
+
+To add polls in the database :
+```asp
+use ballots
+db.polls.insert({"title":"Test poll","options":["one","two","three"]})
+db.polls.insert({"title":"Test poll two","options":["kiwi","pomme","poire"]})
+```
+
+http://localhost:8070/polls/?key=abc123
+
+P. 193
