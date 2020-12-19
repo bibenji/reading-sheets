@@ -173,3 +173,7 @@ curl -X DELETE http://localhost:8070/polls/{id}?key=abc123
 ```
 
 A web client that consumes the API
+
+7 Random Recommendations Web Service
+
+P. 209
