@@ -163,3 +163,13 @@ db.polls.insert({"title":"Test poll two","options":["kiwi","pomme","poire"]})
 http://localhost:8070/polls/?key=abc123
 
 P. 193
+
+Test with curl:
+```asp
+curl -X GET http://localhost:8070/polls/?key=abc123
+curl --data '{"title":"test","options":["one","two","three"]}' -X POST http://localhost:8070/polls/?key=abc123
+curl -X GET http://localhost:8070/polls/{id}?key=abc123
+curl -X DELETE http://localhost:8070/polls/{id}?key=abc123
+```
+
+A web client that consumes the API
