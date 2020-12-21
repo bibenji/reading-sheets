@@ -177,3 +177,7 @@ A web client that consumes the API
 7 Random Recommendations Web Service
 
 P. 209
+
+Public views of Go structs
+
+P. 216
