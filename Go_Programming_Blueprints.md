@@ -195,3 +195,9 @@ Enumerators in Go:
 Querying the Google Places API
 
 P. 225
+
+Building recommendations
+
+P.226
+
++ tester requête à Google API
