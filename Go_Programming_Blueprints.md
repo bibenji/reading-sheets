@@ -192,5 +192,6 @@ Enumerators in Go:
 - implement a String method on the type that returns the appropriate string representation from the map
 - implement a ParseType function that converts from a string to your type using the map
 
+Querying the Google Places API
 
-
+P. 225
