@@ -181,3 +181,16 @@ P. 209
 Public views of Go structs
 
 P. 216
+
+can use tags to control fiel names and implement your own []string type that provides a MarshalJSON method which tells the encoder how to marshal your type
+
+Enumerators in Go:
+- define a new type based on a primitive integer type
+- use that type whenever you need users to specify one of the appropriate values
+- use the iota keyword to set the values in a const block, disregarding the first zero value
+- implement a map of sensible string representations to the values of your ennumerator
+- implement a String method on the type that returns the appropriate string representation from the map
+- implement a ParseType function that converts from a string to your type using the map
+
+
+
