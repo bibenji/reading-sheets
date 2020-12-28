@@ -201,3 +201,12 @@ Building recommendations
 P.226
 
 + tester requête à Google API
+
+Go to mygeoposition.com
+
+http://localhost:8040/recommendations?lat=51.520707&lng=-0.153809&radius=5000&journey=cafe|bar|casino|restaurant&cost=$...$$$
+
+Web application
+
+P. 232
+
