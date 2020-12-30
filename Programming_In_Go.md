@@ -337,10 +337,70 @@ func resizeRect(rect *rectangle, Δwidth, Δheight int) {
 
 P. 148
 
+Arrays are created using the syntaxes:
+[length]Type
+[N]Type{value1, value2, ... , valueN}
+[ ... ]Type{value1, value2, ... , valueN}
 
+array length is fix and unchangeable
+
+```
+var buffer [20]byte
+var grid1 [3][3]int
+grid1[1][0], grid1[1][1], grid1[1][2] = 8, 6, 2
+grid2 := [3][3]int{{4, 3}, {8, 6, 2}}
+cities := [...]string{"Shanghai", "Mumbai", "Istanbul", "Beijing"}
+cities[len(cities)-1] = "Karachi"
+fmt.Println("Type
+Len Contents")
+fmt.Printf("%-8T %2d %v\n", buffer, len(buffer), buffer)
+fmt.Printf("%-8T %2d %q\n", cities, len(cities), cities)
+fmt.Printf("%-8T %2d %v\n", grid1, len(grid1), grid1)
+fmt.Printf("%-8T %2d %v\n", grid2, len(grid2), grid2)
+```
+
+Arrays are of fixed size whereas slices can be resized.
+
+Better to use slices unless very specific need.
+
+We could store any type of items with the same interface.
+
+Slices are created using the syntaxes:
+make([]Type, length, capacity)
+make([]Type, length)
+[]Type{}
+[]Type{value1, value2, ... , valueN}
+
+in second, third and fourth syntaxes, capacity and length are the same
+
+s[n] The item at index position n in slice s
+s[n:m] A slice taken from slice s from index positions n to m - 1
+s[n:] A slice taken from slice s from index positions n to len(s) - 1
+s[:m] A slice taken from slice s from index positions 0 to m - 1
+s[:] A slice taken from slice s from index positions 0 to len(s) - 1
+cap(s) The capacity of slice s ; always ≥ len(s)
+len(s) The number of items in slice s ; always ≤ cap(s)
+s = s[:cap(s)] Increase slice s ’s length to its capacity if they are different
+
+The syntax []Type{} is equivalent to make([]Type, 0) ;
+
+append() to increase capacity
+
+s := new([7]string)[:]
+s[0], s[1], s[2], s[3], s[4], s[5], s[6] = "A", "B", "C", "D", "E", "F","G"
+
+...
+
+The buffer ’s contents are only the first len(buffer) items; the other items are
+inaccessible unless we reslice the buffer —something we will see how to do later
+on in this section.
+
+...
+
+4.2.1. Indexing and Slicing Slices
+
+P. 153 - Relire un peu au-dessus
 
 4.3.
 
 4.4.
-
-
