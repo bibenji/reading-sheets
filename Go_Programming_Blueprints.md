@@ -219,3 +219,14 @@ See fsnotify for go
 Checking for changes and initiating a backup
 
 P. 242
+
+The tool should be used the following ways :
+```asp
+backup -db=/path/to/db add {path} [paths...]
+backup -db=/path/to/db remove {path} [paths...]
+backup -db=/path/to/db list
+```
+
+The daemon backup tool
+
+P. 251

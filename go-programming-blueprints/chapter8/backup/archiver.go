@@ -9,10 +9,15 @@ import (
 
 // Archiver to archiver
 type Archiver interface {
+	DestFmt() string
 	Archive(src, dest string) error
 }
 
 type zipper struct{}
+
+func (z *zipper) DestFmt() string {
+	return "%d.zip"
+}
 
 func (z *zipper) Archive(src, dest string) error {
 	// create folders
