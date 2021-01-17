@@ -1,13 +1,17 @@
 ## En cours :
 
+JANVIER :
 - Go programming blueprints
+(- Programming in Go)
+(- Go In Action)
 
-- Programming in Go
-
+FEVRIER :
 - Design Patterns - Elements of reusable object oriented software
 
+MARS :
 - Microservices from day one
 
+AVRIL :
 - 100 Things Every Designer Needs To Know About People
 
 ## For later :
