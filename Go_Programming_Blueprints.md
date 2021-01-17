@@ -154,7 +154,7 @@ DRY: Don't Repeat Yourself
 For path parsing, looks Goweb or Gorrillz's mux package
 
 To add polls in the database :
-```asp
+```
 use ballots
 db.polls.insert({"title":"Test poll","options":["one","two","three"]})
 db.polls.insert({"title":"Test poll two","options":["kiwi","pomme","poire"]})
@@ -165,7 +165,7 @@ http://localhost:8070/polls/?key=abc123
 P. 193
 
 Test with curl:
-```asp
+```
 curl -X GET http://localhost:8070/polls/?key=abc123
 curl --data '{"title":"test","options":["one","two","three"]}' -X POST http://localhost:8070/polls/?key=abc123
 curl -X GET http://localhost:8070/polls/{id}?key=abc123
@@ -220,8 +220,8 @@ Checking for changes and initiating a backup
 
 P. 242
 
-The tool should be used the following ways :
-```asp
+The tool should be used the following ways:
+```
 backup -db=/path/to/db add {path} [paths...]
 backup -db=/path/to/db remove {path} [paths...]
 backup -db=/path/to/db list
@@ -230,3 +230,12 @@ backup -db=/path/to/db list
 The daemon backup tool
 
 P. 251
+
+How to use backupd:
+
+`./backupd -db="db_path" -archive="archive_path" - interval=5s`
+
+# 9 Building a Q&A Application for Google App Engine
+
+P. 259
+
