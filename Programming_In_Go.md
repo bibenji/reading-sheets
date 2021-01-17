@@ -399,7 +399,19 @@ on in this section.
 
 4.2.1. Indexing and Slicing Slices
 
-P. 153 - Relire un peu au-dessus
+4.2.2. Iterating Slices
+
+To create a slice of pointers to three Product:
+
+`products := []*Product{{"Spanner", 3.99}, {"Wrench", 2.49}, {"Screwdriver", 1.99}}`
+
+It's a shorthand for
+
+`products := []*Product{&Product{"Spanner", 3.99}, &Product{"Wrench", 2.49}, &Product{"Screwdriver", 1.99}}`
+
+4.2.3. Modifying Slices
+
+P. 156
 
 4.3.
 
