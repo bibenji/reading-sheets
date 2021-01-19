@@ -239,3 +239,15 @@ How to use backupd:
 
 P. 259
 
+https://cloud.google.com/appengine/downloads
+
+https://console.cloud.google.com
+
+```
+goapp serve
+goapp deploy
+```
+
+Transactions in Google Cloud Datastore
+
+P. 278
