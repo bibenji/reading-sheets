@@ -251,3 +251,25 @@ goapp deploy
 Transactions in Google Cloud Datastore
 
 P. 278
+
+- Align the happy path to the left edge so that you can scan down in a single column and see the expected flow of execution
+- Don't hide the happy path logic inside a nest of indented braces
+- Exit early from your function
+- Indent only to handle errors or edge cases
+- Extract functions and methods to keep bodies small and readable
+
+```
+if obj, ok := v.(interface{ OK() error }); ok {
+	// v has OK() method
+} else {
+	// v does not have OK() method
+}
+```
+
+but not so good because it hides the secret functionnality from users of the code
+so you must either document the function very well or perhaps promote the method to its own first-class interface and insist that all objects implement it
+always seek clear code over clever code
+
+P. 301
+
+REPRENDRE AT THE TOP OF THE P. 301 (creation of functionality to answers...)

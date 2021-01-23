@@ -12,8 +12,8 @@ import (
 // Question structure for a question
 type Question struct {
 	Key          *datastore.Key `json:"id" datastore:"-"`
-	CTime        time.Time      `json:"created"`
-	Question     string         `json:"question"`
+	CTime        time.Time      `json:"created" datastore:",noindex"`
+	Question     string         `json:"question" datastore:",noindex"`
 	User         UserCard       `json:"user"`
 	AnswersCount int            `json:"answers_count"`
 }
@@ -67,4 +67,33 @@ func GetQuestion(ctx context.Context, key *datastore.Key) (*Question, error) {
 	}
 	q.Key = key
 	return &q, nil
+}
+
+// TopQuestions to get the top questions
+func TopQuestions(ctx context.Context) ([]*Question, error) {
+	var questions []*Question
+	questionKeys, err := datastore.NewQuery("Question").Order("-AnswerCount").Order("-CTime").Limit(25).GetAll(ctx, &questions)
+	if err != nil {
+		return nil, err
+	}
+	for i := range questions {
+		questions[i].Key = questionKeys[i]
+	}
+	return questions, nil
+}
+
+// QuestionCard a question card
+type QuestionCard struct {
+	Key      *datastore.Key `json:"id" datastore:",noindex"`
+	Question string         `json:"question" datastore:",noindex"`
+	User     UserCard       `json:"user" datastore:",noindex"`
+}
+
+// Card return a QuestionCard from a card
+func (q Question) Card() QuestionCard {
+	return QuestionCard{
+		Key:      q.Key,
+		Question: q.Question,
+		User:     q.User,
+	}
 }
