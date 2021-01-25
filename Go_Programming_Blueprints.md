@@ -272,4 +272,16 @@ always seek clear code over clever code
 
 P. 301
 
-REPRENDRE AT THE TOP OF THE P. 301 (creation of functionality to answers...)
+`goapp serve dispatch.yaml default/app.yaml api/app.yaml web/app.yaml`
+
+`goapp deploy default/app.yaml api/app.yaml web/app.yaml`
+
+then use : appcfg.py
+
+`appcfg.py update_dispatch .`
+
+`appcfg.py update_indexes -A YOUR_APPLICATION_ID_HERE ./default`
+
+# 10 Micro-services in Go with the Go kit Framework
+
+P. 310
