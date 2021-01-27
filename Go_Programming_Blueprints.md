@@ -285,3 +285,25 @@ then use : appcfg.py
 # 10 Micro-services in Go with the Go kit Framework
 
 P. 310
+
+https://gokit.io/
+
+to solve SOA (service-oriented architecture) problems, such as service discovery, metrics, monitoring, logging, load balancing, circuit breaking, and others
+
+gRPC
+protocol buffers
+
+protoc vault.proto --go_out=plugins=grpc:.
+
+or
+
+```
+docker run -v `pwd`:/defs namely/protoc-all -f vault.proto -l go
+
+docker run --rm -v `pwd`:/defs -v `pwd`:/output namely/protoc-all -f vault.proto -o /output -l go
+docker run -v ${pwd}:/defs namely/protoc-all -f vault.proto -l go
+```
+
+Building the service
+
+P. 317
