@@ -307,3 +307,15 @@ docker run -v ${pwd}:/defs namely/protoc-all -f vault.proto -l go
 Building the service
 
 P. 317
+
+!!!:
+
+Note that the receiver in the Hash method is just (vaulService); we don't capture the variable because there is no way we can store state on an empty struct.
+
+An HTTP server in Go kit
+
+P. 327
+
+Creating a server command
+
+P. 331
