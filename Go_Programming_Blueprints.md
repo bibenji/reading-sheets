@@ -319,3 +319,19 @@ P. 327
 Creating a server command
 
 P. 331
+
+Add TLS (Transport Layer Security) for every service
+
+`go run main.go`
+
+```
+curl -XPOST -d '{"password":"hernandez"}' http://localhost:8080/hash
+
+curl -XPOST -d '{"password":"hernandez", "hash":"THE_HASH_HERE"}' http://localhost:8080/validate
+```
+
+Building a gRPC client
+
+P. 337
+
+première partie à tester...
