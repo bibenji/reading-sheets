@@ -104,14 +104,14 @@ func MakeValidateEndpoint(srv Service) endpoint.Endpoint {
 	}
 }
 
-// Endpoint an endpoint
-type Endpoint struct {
+// Endpoints the endpoints
+type Endpoints struct {
 	HashEndpoint     endpoint.Endpoint
 	ValidateEndpoint endpoint.Endpoint
 }
 
 // Hash hash
-func (e Endpoint) Hash(ctx context.Context, password string) (string, error) {
+func (e Endpoints) Hash(ctx context.Context, password string) (string, error) {
 	req := hashRequest{Password: password}
 	resp, err := e.HashEndpoint(ctx, req)
 	if err != nil {
@@ -125,7 +125,7 @@ func (e Endpoint) Hash(ctx context.Context, password string) (string, error) {
 }
 
 // Validate validate
-func (e Endpoint) Validate(ctx context.Context, password string, hash string) (bool, error) {
+func (e Endpoints) Validate(ctx context.Context, password string, hash string) (bool, error) {
 	req := validateRequest{Password: password, Hash: hash}
 	resp, err := e.ValidateEndpoint(ctx, req)
 	if err != nil {

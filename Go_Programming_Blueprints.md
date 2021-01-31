@@ -330,8 +330,17 @@ curl -XPOST -d '{"password":"hernandez"}' http://localhost:8080/hash
 curl -XPOST -d '{"password":"hernandez", "hash":"THE_HASH_HERE"}' http://localhost:8080/validate
 ```
 
-Building a gRPC client
+#### Building a gRPC client
 
 P. 337
 
-première partie à tester...
+`vaultcli hash MyPassword`
+
+`vaultcli hash MyPassword HASH_GOES_HERE`
+
+to build a script and put it in your path: `go install`
+
+inside cmd/vaultd:  `go run main.go`
+
+#### Rate limiting with service middleware
+
