@@ -9,10 +9,15 @@ import (
 	"os"
 	"os/signal"
 	"syscall"
+	"time"
+
+	vault "../../../vault"
+	pb "../../pb"
+
+	ratelimitkit "github.com/go-kit/kit/ratelimit"
+	"github.com/juju/ratelimit"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
-	"../../../vault"
-	"../../pb"
 )
 
 func main() {
@@ -31,12 +36,24 @@ func main() {
 		c := make(chan os.Signal, 1)
 		signal.Notify(c, syscall.SIGINT, syscall.SIGTERM)
 		errChan <- fmt.Errorf("%s", <-c)
-	}{}
+	}()
+
+	rlbucket := ratelimit.NewBucket(1*time.Second, 5)
 
 	hashEndpoint := vault.MakeHashEndpoint(srv)
+	{
+		hashEndpoint = ratelimitkit.NewTokenBucketThrottler(rlbucket, time.Sleep)(hashEndpoint)
+		// hashEndpoint = ratelimitkit.NewTokenBucketLimiter(rlbucket)(hashEndpoint)
+	}
+
 	validateEndpoint := vault.MakeValidateEndpoint(srv)
+	{
+		validateEndpoint = ratelimitkit.NewTokenBucketThrottler(rlbucket, time.Sleep)(validateEndpoint)
+		// validateEndpoint = ratelimitkit.NewTokenBucketLimiter(rlbucket(validateEndpoint))
+	}
+
 	endpoints := vault.Endpoints{
-		hashEndpoint: hashEndpoint,
+		hashEndpoint:     hashEndpoint,
 		ValidateEndpoint: validateEndpoint,
 	}
 

@@ -344,3 +344,23 @@ inside cmd/vaultd:  `go run main.go`
 
 #### Rate limiting with service middleware
 
+The token bucket is an algorithm used in packet switched computer networks and telecommunications networks.
+
+The general idea: we have a bucket of tokens, each request need a token, if no tokens, we have reached our limit. Buckets refill over time at a specific interval.
+
+```
+e := getEndpoint(srv)
+{
+	e = getSomeMiddleware()(e)
+	e = getLoggingMiddleware(logger)(e)
+	e = getAnotherMiddleware(something)(e)
+}
+```
+
+`go run main.go`
+
+`vautcli hash bourgon`
+
+11 Deploying Go Applications Using Docker
+
+P. 349

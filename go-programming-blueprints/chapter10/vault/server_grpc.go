@@ -15,18 +15,10 @@ type grpcServer struct {
 // NewGRPCServer gets a new pb.VaultServer.
 func NewGRPCServer(ctx context.Context, endpoints Endpoints) pb.VaultServer {
 	return &grpcServer{
-		hash: grpctransport.NewServer(
-			ctx,
-			endpoints.HashEndpoint,
-			DecodeGRPCHashRequest,
-			EncodeGRPCHashResponse,
-		),
-		validate: grpctransport.NewServer(
-			ctx,
-			endpoints.ValidateEndpoint,
-			DecodeGRPCValidateRequest,
-			EncodeGRPCValidateResponse,
-		),
+		// hash:     grpctransport.NewServer(ctx, endpoints.HashEndpoint, DecodeGRPCHashRequest, EncodeGRPCHashResponse),
+		hash: grpctransport.NewServer(endpoints.HashEndpoint, DecodeGRPCHashRequest, EncodeGRPCHashResponse),
+		// validate: grpctransport.NewServer(ctx, endpoints.ValidateEndpoint, DecodeGRPCValidateRequest, EncodeGRPCValidateResponse),
+		validate: grpctransport.NewServer(endpoints.ValidateEndpoint, DecodeGRPCValidateRequest, EncodeGRPCValidateResponse),
 	}
 }
 
@@ -38,7 +30,7 @@ func (s *grpcServer) Hash(ctx context.Context, r *pb.HashRequest) (*pb.HashRespo
 	return resp.(*pb.HashResponse), nil
 }
 
-func (s *grpctransport) Validate(ctx context.Context, r *pb.ValidateRequest) (*pb.ValidateResponse, error) {
+func (s *grpcServer) Validate(ctx context.Context, r *pb.ValidateRequest) (*pb.ValidateResponse, error) {
 	_, resp, err := s.validate.ServeGRPC(ctx, r)
 	if err != nil {
 		return nil, err

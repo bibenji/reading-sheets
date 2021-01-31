@@ -18,6 +18,31 @@ type Service interface {
 
 type vaultService struct{}
 
+type hashRequest struct {
+	Password string `json:"password"`
+}
+
+type hashResponse struct {
+	Hash string `json:"hash"`
+	Err  string `json:"err,omitempty"`
+}
+
+type validateRequest struct {
+	Password string `json:"password"`
+	Hash     string `json:"hash"`
+}
+
+type validateResponse struct {
+	Valid bool   `json:"valid"`
+	Err   string `json:"err,omitempty"`
+}
+
+// Endpoints the endpoints
+type Endpoints struct {
+	HashEndpoint     endpoint.Endpoint
+	ValidateEndpoint endpoint.Endpoint
+}
+
 // NewService makes a new Service
 func NewService() Service {
 	return vaultService{}
@@ -39,15 +64,6 @@ func (vaultService) Validate(ctx context.Context, password string, hash string) 
 	return true, nil
 }
 
-type hashRequest struct {
-	Password string `json:"password"`
-}
-
-type hashResponse struct {
-	Hash string `json:"hash"`
-	Err  string `json:"err,omitempty"`
-}
-
 func decodeHashRequest(ctx context.Context, r *http.Request) (interface{}, error) {
 	var req hashRequest
 	err := json.NewDecoder(r.Body).Decode(&req)
@@ -55,16 +71,6 @@ func decodeHashRequest(ctx context.Context, r *http.Request) (interface{}, error
 		return nil, err
 	}
 	return req, nil
-}
-
-type validateRequest struct {
-	Password string `json:"password"`
-	Hash     string `json:"hash"`
-}
-
-type validateResponse struct {
-	Valid bool   `json:"valid"`
-	Err   string `json:"err,omitempty"`
 }
 
 func decodeValidateRequest(ctx context.Context, r *http.Request) (interface{}, error) {
@@ -104,16 +110,10 @@ func MakeValidateEndpoint(srv Service) endpoint.Endpoint {
 	}
 }
 
-// Endpoints the endpoints
-type Endpoints struct {
-	HashEndpoint     endpoint.Endpoint
-	ValidateEndpoint endpoint.Endpoint
-}
-
 // Hash hash
-func (e Endpoints) Hash(ctx context.Context, password string) (string, error) {
+func (endpoints Endpoints) Hash(ctx context.Context, password string) (string, error) {
 	req := hashRequest{Password: password}
-	resp, err := e.HashEndpoint(ctx, req)
+	resp, err := endpoints.HashEndpoint(ctx, req)
 	if err != nil {
 		return "", err
 	}
@@ -125,9 +125,9 @@ func (e Endpoints) Hash(ctx context.Context, password string) (string, error) {
 }
 
 // Validate validate
-func (e Endpoints) Validate(ctx context.Context, password string, hash string) (bool, error) {
+func (endpoints Endpoints) Validate(ctx context.Context, password string, hash string) (bool, error) {
 	req := validateRequest{Password: password, Hash: hash}
-	resp, err := e.ValidateEndpoint(ctx, req)
+	resp, err := endpoints.ValidateEndpoint(ctx, req)
 	if err != nil {
 		return false, err
 	}
