@@ -364,3 +364,34 @@ e := getEndpoint(srv)
 11 Deploying Go Applications Using Docker
 
 P. 349
+
+Building Go binaries for different architectures
+
+`CGO_ENABLED=0 GOOS=linux go build -a ./cmd/vaultd/`
+
+`docker build -t vaultd`
+
+`docker run -p 6060:8080 -p 6061:8081 --name localtest --rm vaultd`
+
+Deploying to Docker Hub [...]
+
+Deploying to Digital Ocean [...]
+
+Platform as a Service (PaaS)
+
+Creating a droplet [...]
+
+### Good Practices for a Stable Go Environment
+
+GOPATH can contain a list of colon-separated folders, you can even have a different value for GOPATH depending on which project you are working
+but strongly recommended that you use a single GOPATH location for everything
+
+`go fmt -w`
+
+`go vet`
+
+go get golang.org/x/tools/cmd/goimports
+
+goimports -w *.go
+
+Finish.
