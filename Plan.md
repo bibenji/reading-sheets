@@ -7,6 +7,11 @@
 - Big data / Machine learning
 - Cracking code interview
 
+Idées :
+Erich Gamma, Richard Helm, Ralph Johnson, John M. Vlissides-Design Patterns_ Elements of Reusable Object-Oriented Software  -Addison-Wesley Professional (1994)
+CreateSpace.Problem.Solving.in.Data.Structures.and.Algorithms.Using.Java.1542396476
+Refactoring Improving the Design of Existing Code - Martin Fowler, Kent Beck, John Brant, William Opdyke, Don Roberts
+
 ## Old :
 
 JANVIER :
