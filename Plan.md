@@ -1,4 +1,13 @@
-## En cours :
+## En cours (new plan) :
+
+- C++
+- Graphes
+- Design Patterns - Elements of reusable object oriented software (ou autre à lire)
+- Audio plugins
+- Big data / Machine learning
+- Cracking code interview
+
+## Old :
 
 JANVIER :
 - Go programming blueprints
