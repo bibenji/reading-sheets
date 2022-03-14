@@ -18,3 +18,10 @@ cout << "Blabla" << endl;
 cin >> nomVar;
 
 P. 66
+
+int const nombre(2);
+unsigned int const autreNombre(2);
+
+`#include <cmath>`
+
+P. 88
