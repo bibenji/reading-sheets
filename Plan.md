@@ -1,11 +1,11 @@
 ## En cours (new plan) :
 
 - C++
-- Graphes
+- Traitement signal / Audio plugins
 - Design Patterns - Elements of reusable object oriented software (ou autre à lire)
-- Audio plugins
-- Big data / Machine learning
+- Graphes / Algorithme
 - Cracking code interview
+- Big data / Machine learning / IA
 
 Idées :
 Erich Gamma, Richard Helm, Ralph Johnson, John M. Vlissides-Design Patterns_ Elements of Reusable Object-Oriented Software  -Addison-Wesley Professional (1994)
