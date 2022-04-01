@@ -7,3 +7,6 @@ P. 10
 – la phase de maintien (sustain) ;
 – la chute (release).
 
+1.3 EFFETS DOPPLER SONORES
+
+P. 17
