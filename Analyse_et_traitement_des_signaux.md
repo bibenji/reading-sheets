@@ -10,3 +10,13 @@ P. 10
 1.3 EFFETS DOPPLER SONORES
 
 P. 17
+
+1.4 MICROPHONES
+
+EXERCICES
+
+P. 24
+
+---
+
+Théorie et Traitement du signal, tome 1 ?

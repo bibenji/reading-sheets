@@ -1,11 +1,12 @@
 ## En cours (new plan) :
 
+- Traitement du signal
 - C++
-- Traitement signal / Audio plugins
 - Design Patterns - Elements of reusable object oriented software (ou autre à lire)
+- Audio plugins
 - Graphes / Algorithme
-- Cracking code interview
 - Big data / Machine learning / IA
+- Cracking code interview
 
 Idées :
 Erich Gamma, Richard Helm, Ralph Johnson, John M. Vlissides-Design Patterns_ Elements of Reusable Object-Oriented Software  -Addison-Wesley Professional (1994)
