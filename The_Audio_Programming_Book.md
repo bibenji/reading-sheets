@@ -28,3 +28,10 @@ decimal = octal = hexadecimal
 0.6 Standard Input and Output
 
 P. 37
+
+scanf("%d %d",&i,&j);
+scanf("%lOd",&i)
+
+0.7 Control of Flow
+
+P. 41
