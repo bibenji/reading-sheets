@@ -59,4 +59,102 @@ x >> n	multiplication by 2 n .
 
 P. 54
 
+int a[5];
+int a[5] = {1,2,3,4,5};
 
+Strings are arrays of characters, and the C programming language uses the convention that the end of a string of characters is marked by a null character (ASCII code 0).
+
+"A" is a string constant and 'A' is a character constant
+
+char name[40] = "hello";
+
+Pointers
+
+int *pa;
+
+int *pa, a;
+declares pa, a pointer to int, and an int, and the instruction
+pa=&a;
+stores the address of a in pa. We say that pa is pointing at a.
+
+The operator ‘*’ is the indirection operator.
+
+```c++
+a = 10;
+b = *pa; /* b is now also 10 */
+*pa = 12; /* a is now 12 */
+```
+
+In summary:
+
+A pointer is declared by a ‘*’ in front of its name.
+The address of a variable is given by a ‘&’ in front of its name.
+To obtain or store the value of a variable (pointed at), use ‘*’ in front of a pointer.
+
+
+int a[10];
+
+you are also declaring a pointer a to the first element in the array. Here, a is equivalent to &a[0].
+
+The only difference between a and a pointer variable is that the array name is a constant pointer and cannot be used as a variable.
+
+In this sense, a[i] and *(a+i) are equivalent, which makes possible what is called pointer arithmetic, adding integers to pointers to step through a memory block.
+
+The compiler will know how many bytes to move forward when you add a certain number of memory slots to it.
+
+If it is an int, it will jump four bytes (system-dependent of course) each step, if it is a double, then it will jump eight bytes.
+
+This is one of the reasons why the compiler needs to know the type of a variable when you declare it.
+
+```c++
+int randarray(int *pa, int n)
+{
+	int i;
+	for (i=0; i < n; i++)
+	{
+		*pa = rand()%n + 1;
+		pa++;
+	}
+}
+
+// OU
+
+for(i=0; i<n; i++) *(pa+i)=rand()%n+1;
+
+// OU ENCORE
+
+for(i=0; i<n; i++) pa[i]=rand()%n+1;
+
+```
+
+char a[10], b[10];
+b = a;
+does not copy characters, just pointer b points to same set of char than pointer a
+we need functions for manipulation : strcopy, strcat, strcmp, etc.
+we can't do : a = "hello" but strcopy(a, "hello");
+
+Pointers to Functions
+
+```
+void (*pf)();
+void message(){ printf("my message\n"); }
+pf = message;
+// and call the function using a pointer:
+(*pf)(); /* will call message() */
+// or, even simpler,
+pf();
+```
+
+return-type (*pointer-name) (arguments);
+
+it's usefull for callbacks
+
+void message_printer(int times, void (*callback)(char *msg), char *user_mess);
+
+with
+
+void my_important_message(char *mess);
+
+0.13 Structures
+
+P. 62
