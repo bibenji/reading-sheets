@@ -158,3 +158,46 @@ void my_important_message(char *mess);
 0.13 Structures
 
 P. 62
+
+struct note
+{
+	char name[3];
+	int duration;
+	char intensity[5];
+}
+
+struct note first;
+
+typedef struct _note
+{
+} note;
+
+note first; (to avoid using struct everywhere)
+
+note first = { "Ab", 80, "mf" };
+
+passing big struct by value use a lot of memory, so you can use pointers instead
+
+person *ptr
+
+(*ptr).age
+
+prt->age
+
+---
+
+typedef struct comp {
+	double real, imag;
+	void (*incr)(struct comp *p);
+} complex;
+
+void incr1(complex *p){ p->real++; p->imag++; }
+
+complex a = { 0, 0, incr1 };
+a.incr(&a);
+
+0.14 Dynamic Memory Allocation
+
+P. 66
+
+
