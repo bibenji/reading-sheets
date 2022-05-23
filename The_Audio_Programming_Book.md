@@ -259,3 +259,66 @@ P. 69
 
 Moving to C++
 
+- variable declaration anywhere in the code
+- default value for arguments in functions
+- memory management: new and delete
+
+```cpp
+float *a = new float;
+int *b = new int;
+MyStruct *s = new MyStruct;
+
+int size = 512;
+float *array = new float[size];
+
+delete a;
+delete[] array;
+```
+
+- structures and Data Types (no need for typedef...)
+
+```cpp
+struct Osc {
+    // dataspace
+    float *table;
+    float phase;
+    // ...
+    
+    // methodspace
+    Osc(float *tab, float ph=0.f, int len=def_len);
+    -Osc() {
+        delete[] output;
+    }
+};
+```
+
+-Osc is a destructor auto called
+
+- Data Abstraction
+
+struct_name::member_func()
+
+Osc::Osc(float *tab, float ph, int len, int vsize, int sr) {
+    table = tab;
+    phase = ph;
+    length = len;
+    vecsize = vsize;
+    ndx = 0.f;
+    rate = sr;
+    output = new float[vecsize];
+}
+
+float *Osc::Proc(float amp, float freq) {
+    float incr = freq*length/rate;
+    for(int i=0; i < vecsize; i++) {
+        output[i] = amp*table[(int)ndx];
+        ndx += incr;
+        while(ndx >= length) ndx -= length;
+        while(ndx < 0) ndx += length;
+    }
+    return output;
+}
+
+- Function Overloading
+
+73
