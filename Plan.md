@@ -1,8 +1,16 @@
 ## En cours (new plan) :
 
-- Traitement du signal
+- Audio Programming Book
 - C++
+
 - Design Patterns - Elements of reusable object oriented software (ou autre à lire)
+- Design Patterns - Java / Php
+
+- Refactoring - Improving the Design of Existing Code
+
+-
+
+- Traitement du signal
 - Audio plugins
 - Graphes / Algorithme
 - Big data / Machine learning / IA
