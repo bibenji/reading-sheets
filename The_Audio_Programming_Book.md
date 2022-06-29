@@ -355,22 +355,28 @@ class Dodecaphonic {
     
     public:
     Dodecaphonic() {
-        for (int i=0; i < 12; i++= series[i] = 0;
+        for (int i=0; i < 12; i++) {
+            series[i] = 0;
+        }
     }
-    Dodecaphonic(int *notes= {
+    Dodecaphonic(int *notes) {
         for (int i=0; i < 12; i++) series[i] = mod12(notes[i]);
     }
+
     int get(int index) {
         return series[mod12(index)];
     }
     void set(int note, int index) {
         series[mod12(index)] = mod12(note);
     }
+    
+    /* The three basic operations. */
     Dodecaphonic transpose(int interval);
     Dodecaphonic invert();
     Dodecaphonic retrograde();
 };
 
+/* Defining the operations. */
 Dodecaphonic Dodecaphonic::transpose(int interval) {
     Dodecaphonic transp;
     for (int i=0; i < 12; i++)
@@ -381,9 +387,9 @@ Dodecaphonic Dodecaphonic::transpose(int interval) {
 Dodecaphonic Dodecaphonic::invert() {
     Dodecaphonic inv;
     inv.set(series[0], 0);
-    for (int i=0; i < 12; i++)
-        retr.set(series[i], 11-i);
-    return retr;
+    for (int i=1; i < 12; i++)
+        inv.set(mod12(inv.get(i-1) + series[i-1] - series[i]), i);
+    return inv;
 }
 
 Dodecaphonic Dodecaphonic::retrograde() {
@@ -404,27 +410,27 @@ int main(int argc, char** argv)
     int interval, n;
     
     if (argc != 14 || argv[1][0] != '-') {
-        printf("usage: %s [-oN | -rN | -iN | -irN ] ", "note1 note2 ... note12\n", argv[0]à;
+        printf("usage: %s [-oN | -rN | -iN | -irN ] ", "note1 note2 ... note12\n", argv[0]);
         return -1;
     }
     
     for (n = 0; n < 12; n++)
         row.set(atoi(argv[n+2]), n);
         
-    switch(argv[1][1] {
-        case 'o':
+    switch(argv[1][1]) {
+        case 'o': /* original transposed */
             interval = atoi(argv[1]+2);
             res = row.transpose(interval);
             break;
-        case 'r':
+        case 'r': /* retrograde */
             interval = atoi(argv[1]+2);
-            res = row.retrograve().transpose(interval);
+            res = row.retrograde().transpose(interval);
             break;
-        case 'i':
+        case 'i': /* inverted */
             if (argv[1][3] != 'r') {
                 interval = atoi(argv[1]+2);
                 res = row.invert().transpose(interval);
-            } else {
+            } else { /* inverted retrograde */
                 interval = atoi(argv[1]+3);
                 res = row.invert().retrograve().transpose(interval);
             }
@@ -445,3 +451,71 @@ int main(int argc, char** argv)
 - Inheritance
 
 P. 79
+
+class Osci : public Osc {
+    // ...
+};
+
+virtual functions (can be overridable)
+
+class Osc {
+    (...)
+    virtual float *Proc(float amp, float freq);
+};
+
+class Osci : public Osc {
+    (...)
+    virtual float *Proc(float amp, float freq);
+};
+
+0.18.5 Overloaded Operators
+The operators =, +, -, *, /, <<, and >> can be overloaded.
+
+class Osc {
+    (...)
+    float *operator*(float val) {
+        // adds val to every sample in the output block
+        for (int i=0; i < vecsize; i++) output[i] += val;
+        // returns the audiio block
+        return output;
+    }
+};
+
+Now using ‘+’ with an Osc object and a float has a definite meaning: add that number to every sample in the output audio block of the Osc object (and return a block of samples).
+
+Osc oscil(...);
+float a = 1000.f;
+float *buffer;
+(...)
+for(...) {
+    (...)
+    buffer = oscil + a;
+    (...)
+}
+
+1.1.1 Your First C Program
+
+P. 85
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
