@@ -497,6 +497,27 @@ for(...) {
 
 P. 85
 
+float takes 4 bytes
+double takes 8 bytes
+
+16 bits integer for numbers from 0 to 65,535
+16 bits signed integer for numbers from -32,768 to +32,767 (how audio samples are stored)
+
+32 bits signed integer => -2,147,483,648 to +2,147,483,647
+
+char => 1 byte
+short => 2 bytes
+long => 4 bytes
+int => * (dependent on the CPU integer size)
+
+name "long long" for 64 bits integer
+
+1.2.7 The sizeof() Operator
+
+P. 94
+
+
+
 
 
 
