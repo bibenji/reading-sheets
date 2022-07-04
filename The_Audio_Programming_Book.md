@@ -550,8 +550,35 @@ a good rule of thumb is to try to avoid names longer than 32 characters or so
 
 P. 99
 
+a = b = c;
+is equivalent to
+b =c;
+a = b;
 
+freq2midi
 
+```c++
+#include <stdio.h>
+#include <math.h>
+
+int main()
+{
+    /* find the nearest MIDI note to a given frequency in Hz */
+    /* uses the log rule: log_a(N) = log_b(N) / log_b(a) to find the log of a value to base 'semitone_rati' */
+    
+    frequency = 400.0
+    fracmidi = log(frequency / c0) / log(semitone_ratio);
+
+    /* round fracmidi to the nearest whole number */
+    midinote = (int) (fracmidi + 0.5);
+    
+    printf("The nearest MIDI note to the frequency %f is %d\n", frequency, midinote);
+}
+```
+
+1.3 Introduction to Pointers, Arrays, and the Problem of User Input
+
+P. 104
 
 
 
