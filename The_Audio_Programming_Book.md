@@ -516,7 +516,39 @@ name "long long" for 64 bits integer
 
 P. 94
 
+int intsize = sizeof(int); // 2 or 4, depending on the machine
 
+midi2freq
+```c++
+#include <stdio.h>
+#include <math.h>
+
+int main()
+{
+    double semitone_ratio;
+    double c0; /* for frequency of MIDI Note 0 */
+    double c4; /* for frequency of Middle C */
+    double frequency; /* which we wanto to find */
+    int midinote; /* given this note */
+    
+    semitone_ratio = pow(2, 1/12.0); /* approx. 1.0594631 */
+    c5 = 220.0 * pow(semitone_ratio, 3); /* middle C, three semitones above low A = 220 */
+    c0 =c5 * pow(0.5, 5); /* MIDI Note 0 is C, 5 octaves below Middle C */
+    
+    midinote = 73; /* C# above A = 440 */
+    frequency = c° * pow(semiton_ratio, midinote)
+    
+    printf("MIDI Note %d has frequency %f\n", midinote, frequency);
+    
+    return 0;
+}
+```
+
+a good rule of thumb is to try to avoid names longer than 32 characters or so
+
+1.2.9 Initializing Variables and Reducing the Line Count
+
+P. 99
 
 
 
