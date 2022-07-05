@@ -580,6 +580,94 @@ int main()
 
 P. 104
 
+pointer to char
+`char* message;`
+`char* message = "one two three four";`
+
+```
+char* two = "two";
+char* four = "four";
+char* six = "six";
+char* message = "%s %s %s eight";
+printf(message, two, four, six);
+```
+
+P. 106
+
+char message[256];
+// illegal
+char message[];
+char message[0];
+
+int FullChord[4] = {60,64,67,72}; /* MIDI notes for C Major */
+int root = 0, third = 1, rootnote;
+FullChord[third] = 63; /* change chord to C minor */
+rootnote = FullChord[root]; /* Middle C */
+
+the special value NULL (defined in stdlib.h)
+
+A subtle problem arises using indexing on strings used to initialize pointers:
+char* name = "John";
+name[2] = 'a'; /* DANGER: may crash! */
+
+1.3.5 Converting Number Strings to Variables: The const Keyword
+
+3 conversion functions: atof(), atoi(), atol()
+convert into double, int and long
+in stdlib.h
+
+```
+double atof(const char*);
+int atoi(const char*);
+long atol(const char*);
+```
+
+char* gets( char *buffer );
+
+strtod() aussi ?
+
+const char *name = "John";
+name[2] = 'a'; /* trigger a warning */
+
+P. 111
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
