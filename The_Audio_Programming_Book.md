@@ -631,9 +631,19 @@ name[2] = 'a'; /* trigger a warning */
 
 P. 111
 
+1.3.6 The if Keyword
 
+The key aspect to remember here is that a pointer to char can itself signify an array, in the
+sense of a character string
 
+1.4.3 The ** Notation for argv
 
+int main(int argc, char** argv)
+where ** means that argv is a ‘‘pointer to a pointer.’’
+
+1.5 Controlling Repetition: Looping and Counting
+
+P. 121
 
 
 
