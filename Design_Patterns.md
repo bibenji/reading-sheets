@@ -92,7 +92,19 @@ P. 28
 
 #### ADAPTER
 
+L’objectif du pattern ADAPTER est de fournir l’interface qu’un client attend en
+utilisant les services d’une classe dont l’interface est différente.
+
+un adaptateur d’objet, c’est-à-dire un adaptateur qui utilise
+la délégation plutôt que la dérivation de sous-classes
+
+un adaptateur de classe étend une classe existante et implé-
+mente une interface cible tandis qu’un adaptateur d’objet étend une classe cible et
+délègue à une classe existante
+
 #### FACADE
+
+P. 50
 
 #### COMPOSITE
 
