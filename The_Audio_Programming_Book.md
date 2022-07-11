@@ -645,8 +645,25 @@ where ** means that argv is a ‘‘pointer to a pointer.’’
 
 P. 121
 
+P. 129
 
+for(;;) {
+    sampsread = readsamps("tubularbells.wav");
+    if(sampsread == 0)
+        break; /* end of file */
+    process_samps(sampsread);
+    write_samps("plasticbells.wav," sampsread);
+}
 
+or
+
+while(1) {
+    // same code
+}
+
+1.5.7 Writing a Program to Create Unusual Musical Scales
+
+P. 130
 
 
 
