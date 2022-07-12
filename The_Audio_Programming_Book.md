@@ -669,6 +669,78 @@ P. 130
 
 P. 135
 
+Check: Csound [...]
+
+https://csound.com/
+
+1.6 Using Pointer Arithmetic and Adding Options to a Program
+
+double* ptr
+
+double buffer[1024];
+ptr = buffer;
+In C, the name of an array is in effect a pointer to the first element of it (buffer[0]).
+
+indirection
+
+buffer[0] = 1.0594631;
+
+we can now assign this value indirectly, via the pointer:
+*ptr = 1.0594631;
+
+double* ptr; /* pointer; currently uninitialized */
+double val; /* a simple number variable */
+ptr = buffer; /* now it has something to point to: the first element of buffer, i.e. buffer[0] */
+*ptr = 1.0594631; /* buffer[0] now contains 1.0594631 */
+
+/* read the contents of ptr: */
+val = *ptr;
+/* val now = 1.0594631 */
+
+This works because the name of the array is equivalent to the ‘‘address of’’ the first element
+of it.
+
+double* ptr;
+double val;
+ptr = &val; /* find the address of val, and assign it to ptr */
+
+we can initialize val indirectly, via the pointer:
+*ptr = 1.0594631;
+printf("%f,"val);
+
+So we can replace the assignment
+ptr = buffer;
+with the exactly equivalent (if rather more awkward-looking) statement
+ptr = &buffer[0];
+
+1.6.3 Moving Pointers Around
+
+P. 139
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
