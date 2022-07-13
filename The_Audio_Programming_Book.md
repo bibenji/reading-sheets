@@ -756,7 +756,7 @@ printf("the maximum sample is %f, at position %d\n", maxval, pos);
 It is often the case that auto-decrement is faster than auto-increment, and similarly
 that a comparison against zero is faster than comparison with some non-zero value.
 
-
+Reprendre P. 141
 
 
 
