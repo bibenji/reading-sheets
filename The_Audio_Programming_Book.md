@@ -717,6 +717,76 @@ ptr = &buffer[0];
 
 P. 139
 
+for (i = 0; i < 1024; i++) {
+    *ptr = 0.0;
+    ptr++; /* move pointer to next element of the array */
+}
+
+it results in faster code than the array index notation
+
+for(i = 0; i < 1024; i++)
+    *ptr++ = 0.0;
+
+=> such combinations are often available as single machine instructions
+
+More generally, C supports the use of the addition, subtraction, and comparison opera-
+tions on pointers.
+
+Pointer arith-
+metic is both one of the most widely exploited features of C, and also one of the most
+criticized.
+
+```
+double* ptr = buffer + 1024; /* point to last element */
+double maxval = 0.0;
+unsigned long pos = 0;
+
+while(--ptr != buffer) {
+    if (*ptr >= maxval) {
+        maxval = *ptr;
+        pos = ptr - buffer;
+    }
+}
+
+printf("the maximum sample is %f, at position %d\n", maxval, pos);
+```
+
+[...]
+
+It is often the case that auto-decrement is faster than auto-increment, and similarly
+that a comparison against zero is faster than comparison with some non-zero value.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
