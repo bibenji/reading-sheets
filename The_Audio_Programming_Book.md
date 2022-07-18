@@ -769,10 +769,77 @@ that a comparison against zero is faster than comparison with some non-zero valu
 
 P. 146
 
+```
+float buffer[1024];
+float* bufptr = buffer;
+int ascending = 0;
 
+if (ascending) {
+    int i;
+    for (i = 0; i < 1024; i++)
+        *bufptr++ = (float) i;
+}
+else {
+    int i;
+    for (i = 1024; i; i--)
+        *bufptr-- = (float) i;
+}
+```
 
+1.6.7 Creating a Text File—the Special FILE Type
 
+These all use a pointer to a strange object called FILE.
 
+// Open a file for reading or writing.
+FILE *fopen(const char* name, const char* mode);
+
+// Write formatted text to FILE.
+int fprintf(FILE *fp, const char* format, ...);
+
+// Close an open FILE.
+int fclose(FILE *fp);
+
+an instance of
+a file, that it must always be typed in upper case, and that it is always referred to indirectly
+via a pointer
+
+fprintf() like printf() but with an initial FILE pointer argument
+same format
+
+fopen() for read and for write
+
+perror(), can be used to display the cause of the error
+
+Listing 1.6.10
+
+P. 153
+
+```
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+
+/* usage iscale [-m][-i] N startval [outfile.txt]
+    -m : sets format of startval as MIDI note
+    -i : prints the calculated interval as well as the abs freq
+    outfile: optional text filename for output data
+*/
+
+int main(int argc, char* argv[])
+{
+    int notes, i;
+    int ismidi = 0;
+    int write_interval = 0;
+    int err = 0;
+    double startval, basefreq, ratio;
+    FILE* fp;
+    doublie intervals[25];
+    
+    ...
+}
+```
+
+Reprendre au-dessus.
 
 
 
