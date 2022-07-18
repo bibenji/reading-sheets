@@ -758,9 +758,16 @@ that a comparison against zero is faster than comparison with some non-zero valu
 
 Reprendre P. 141
 
+increments tend to be post, while decrements tend to be pre
 
+It is often the case that auto-decrement is faster than auto-increment, and similarly
+that a comparison against zero is faster than comparison with some non-zero value.
 
+1.6.4 Extending the Command Line with Optional Arguments
 
+1.6.5 Dealing with Alternatives: if . . . else
+
+P. 146
 
 
 
