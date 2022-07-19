@@ -945,16 +945,130 @@ Exercises [...]
 
 P. 157
 
+1.7.1 The Time/Value Breakpoint File
 
+breakpoint file
 
+1.7.2 Defining Custom Objects in C using the struct Keyword
 
+```c
+struct breakpoint {
+	double time;
+	double value;
+};
 
+struct tickpoint {
+	unsigned long ticks;
+	double value;
+};
+```
 
+struct breakpoint point;
 
+struct breakpoint {
+	double time;
+	double value;
+} point;
 
+point.time = 0.0;
+point.value = 0.5;
 
+struct breakpoint point = {0.0,0.5};
 
+An important operation allowed for structs is assignment or copy:
+struct breakpoint point1,point2 = {0.0,0.5};
+point1 = point2; /* point1 now contains {0.0,0.5} */
 
+struct breakpoint point3;
+point3 = point1 + point2; /* error: + not allowed with structs */
+
+1.7.3 Defining Custom Types using the typedef Keyword
+
+typedef <existing type> <typename> ;
+
+typedef unsigned short WORD;
+typedef unsigned long DWORD;
+
+long size = sizeof(DWORD);
+
+/* define an object describing a soundfile */
+typedef struct soundfile_info {
+	DWORD nSamples;
+	DWORD samplerate;
+	WORD nChannels;
+	char* name;
+} SFINFO;
+
+/* create an instance of the SFINFO object, and initialize it */
+SFINFO info;
+info.nSamples = 1234567;
+info.samplerate = 96000;
+info.name = "main title";
+info.nChannels = 6;
+
+typedef struct {
+	DWORD nSamples;
+	DWORD samplerate;
+	WORD nChannels;
+	char* name;
+} SFINFO;
+
+typedef struct breakpoint {
+	double time;
+	double value;
+} BREAKPOINT;
+
+array of BREAKPOINTS:
+BREAKPOINT points[64];
+
+point[0].time = 0.0;
+point[0].value = 1.0;
+
+1.7.4 Text Substitution: Introducing the #define Preprocessor Directive
+
+`#define BUFFERSIZE 1024`
+
+Note that there is no semicolon terminating the line—this is not C code as such, but instruc-
+tions to the preprocessor.
+
+short sampbuf[BUFFERSIZE];
+
+`#define SAMPLE float`
+
+`#define SAMPLE double`
+
+prototype declaration
+at the top
+or in a header file included with #
+
+```
+/* The prototype*/
+BREAKPOINT maxpoint(const BREAKPOINT* points, long npoints);
+
+/* input: points = array of BREAKPOINTS,
+   npoints gives the length of the array */
+/* output: copy of the BREAKPOINT containing largest value */
+/* the function definition */
+
+BREAKPOINT maxpoint(const BREAKPOINT* points, long npoints)
+{
+	int i;
+	BREAKPOINT point;
+	point.time = points[0].time; /* initialize from first point */
+	point.value = points[0].value;
+	for (i=0; i < npoints; i++) {
+		if (point.value < points[i].value) {
+			point.value = points[i].value;
+			point.time = points[i].time;
+		}
+	}
+	return point;
+}
+```
+
+1.7.6 The void and size_t Types: Creating Memory and Dealing with Variable Quantities
+
+P. 139
 
 
 
