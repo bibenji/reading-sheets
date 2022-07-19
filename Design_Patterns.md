@@ -106,7 +106,21 @@ délègue à une classe existante
 
 P. 50
 
+L’objectif du pattern FACADE est de fournir une interface simplifiant l’emploi
+d’un sous-système.
+
+Les équations paramétriques
+simplifient la modélisation
+de courbes lorsque y n’est pas
+une fonction monovaluée
+de x. [...]
+
+Une façade est une classe configurable et réutilisable,
+avec une interface de plus haut niveau qui simplifie l’emploi du sous-système.
+
 #### COMPOSITE
+
+P. 62
 
 #### BRIDGE
 
