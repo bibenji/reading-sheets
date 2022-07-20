@@ -1070,9 +1070,60 @@ BREAKPOINT maxpoint(const BREAKPOINT* points, long npoints)
 
 P. 139
 
+dynamic memory allocation
 
+void* malloc(size_t size);
+void* calloc(size_t nobj, size_t size);
+void* realloc(void *p, size_t size);
+void free(void *p);
 
+size_t: This is a symbol #defined by the compiler (in <stdio.h>) according to the target machine architecture
 
+void*: Of the two types, this is by far the more important. As a C programmer you will
+be working with the void keyword a great deal of the time. A memory request to the system
+is simply for a block of bytes, and all the system can do is return a generic or type-agnostic
+pointer to this block
+
+[...] P. 166
+
+```
+/* request enough memory to hold a lot of samples */
+#define SAMPLELEN 1048576
+
+float* sampbuf;
+
+sampbuf = (float*) malloc(SAMPLELEN * sizeof(float));
+if (sampbuf == NULL) {
+	puts("Sorry - not that much memory available!\n");
+	exit(1);
+}
+
+/* do something useful with all this memory... */
+process_sample(sampbuf);
+
+/* and remember to return it at the end */
+free(sampbuf);
+```
+
+how NULL is defined: #define NULL ((void*) 0)
+integer 0 cast to a 'pointer to void'
+so, it can be compared to any pointer type
+that's why we can do: if (sampbuf == NULL) (and not if (sampbuf == (float*) NULL))
+
+printf() needs memory allocation, so puts() is better to used to report memory allocation errors
+
+1.7.7 Expanding Allocated Memory on Demand: Reading Breakpoints from a File
+
+realloc
+
+char *fgets(char *line, int maxline, FILE *fp);
+int *sscanf(char *string, const char* format, ...);
+
+The continue Keyword
+
+1.7.10 Exercises
+
+P. 173
 
 
 
