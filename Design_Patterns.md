@@ -122,7 +122,36 @@ avec une interface de plus haut niveau qui simplifie l’emploi du sous-système
 
 P. 62
 
+Un COMPOSITE est un groupe d’objets contenant aussi bien des éléments individuels
+que des éléments contenant d’autres objets.
+
+groupes et feuilles
+
+L’objectif du pattern COMPOSITE est de permettre aux clients de traiter de
+façon uniforme des objets individuels et des compositions d’objets.
+
+[...]
+
+Vous pouvez
+implémenter une méthode isTree() sur la classe abstraite MachineComponent afin
+de déléguer l’appel à une méthode isTree() conservant un ensemble des nœuds
+parcourus.
+(pour éviter de compter plusieurs fois le même noeud)
+
+[...]
+
+En procédant avec soin, vous pouvez garantir qu’un modèle objet reste un arbre en
+refusant tout changement qui ferait retourner false par isTree(). D’un autre côté,
+vous pouvez décider d’autoriser l’existence de composites qui ne sont pas des arbres,
+surtout lorsque le domaine de problèmes que vous modélisez contient des cycles.
+
+en gros : on passe un Set (en java) qui contient les références aux composants déjà visités
+
+[...] PARTIE A REVOIR
+
 #### BRIDGE
+
+P. 76
 
 ### Patterns de responsabilité
 
