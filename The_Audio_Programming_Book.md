@@ -1259,6 +1259,175 @@ int main(int argc, char** argv)
 
 P. 181
 
+A standard scale for amplitude values is
+the Decibel, defined by the formula:
+P(dB) = 20.0 log 10 (x).
+
+gnuplot:
+
+`plot "longdecay.txt" using (20.0 * log10($2)) with lines`
+
+`plot "longdecay.txt" using (20.0*log10($2+0.00001)) with lines`
+
+1.8.6 Exercises
+
+P. 182
+
+musicdsp
+
+https://www.musicdsp.org/
+
+[...]
+
+1.9 Toward the Soundfile: From Text to Binary
+
+P. 184
+
+study the appendixes in this book on computer architecture, number representations, and mathematics
+
+1.9.2 The sin Function: Creating a Sine Wave
+
+tuning fork
+
+./sinetext >sine.txt
+
+```
+/* sinetext.c */
+/* write sinewave as text */
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+
+/* conditional compilation - is M_PI defined? */
+#ifndef M_PI
+#define M_PI (3.141592654)
+#endif
+
+int main(int argc, char** argv)
+{
+    int i, nsamps;
+    double samp;
+    double twopi = 2.0 * M_PI;
+    double angleincr;
+    
+    /* set number of points to create */
+    nsamps = 50;
+
+    /* make one complete cycle */
+    angleincr = twopi / nsamps;
+    
+    for (i = 0; i < nsamps; i++) {
+        samp = sin(angleincr * i);
+        fprintf(stdout, "%.8lf\n", samp);
+    }
+    
+    fprintf(stderr, "done\n");
+    return 0;
+}
+```
+
+When Gnuplot is
+given a single column of numbers, it automatically treats then as equally spaced in this
+way.
+
+`plot "sine.txt" with impulses`
+
+`plot "sine.txt" with steps`
+
+1.9.3 Toward the Tuning Fork: Frequency Generation and the Keyword enum
+
+elaborate the arithmetic to incorporate a sample rate
+
+```
+/* sinetext2.c */
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+
+#ifndef M_PI
+#define M_PI (3.141592654)
+#endif
+
+/* define our program argument list */
+enum {ARG_NAME,ARG_NSAMPS,ARG_FREQ,ARG_SR,ARG_NARGS};
+
+int main(int argc, char** argv)
+{
+    int i, nsamps;
+    double samp, freq, srate;
+    double twopi = 2.0 * M_PI;
+    double angleincr;
+    
+    if (argc != ARG_NARGS) {
+        fprintf(stderr, "Usage: sinetext2 nsamps freq srate\n");
+        return 1;
+    }
+    
+    nsamps = atoi(argv[ARG_NSAMPS]);
+    freq = atof(argv[ARG_FREQ]);
+    srate = atof(argv[ARG_SR]);
+
+    angleincr = twopi * freq / srate;
+    
+    for (i = 0; i < nsamps; i++) {
+        samp = sin(angleincr * i);
+        fprintf(stdout, "%.8lf\n", samp);
+    }
+    
+    fprintf(stderr, "done.\n");
+    return 0;
+}
+```
+
+1.9.4 The Utility Program text2sf: Converting Text to a Soundfile
+
+P. 189
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---
+
+https://www.musicdsp.org/
+
+https://www.mastersynth.com/dossiers/27-les-lfo-caracteristiques-et-applications-avec-les-synthetiseurs
+
+Oscillateur
+LFO = Low Frequency Oscillator
+
+0,1 Hz correspond à une période toutes les dix secondes, 20 Hz à vingt périodes par seconde, etc
+
+l'égaliseur
+reverb
+delay
+phaser
+fader
 
 
 
