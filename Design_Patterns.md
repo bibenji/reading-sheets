@@ -153,9 +153,24 @@ en gros : on passe un Set (en java) qui contient les références aux composants
 
 P. 76
 
+L’objectif du pattern BRIDGE est de découpler une abstraction de l’implémenta-
+tion de ses opérations abstraites, permettant ainsi à l’abstraction et à son
+implémentation de varier indépendamment.
+
 ### Patterns de responsabilité
 
+Le code compile sans problème. L’accès est défini au niveau classe et non au niveau
+objet. Aussi un objet Firework peut-il accéder aux variables et méthodes privées
+d’un autre objet Firework, par exemple.
+
+le développement OO promeut l’encapsulation, l’idée
+qu’un objet travaille sur ses propres données.
+
+patterns qui sont exceptions à la règle de responsabilité répartie
+
 #### SINGLETON
+
+P. 94
 
 #### OBSERVER
 
