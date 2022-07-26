@@ -23,3 +23,19 @@ P. 823
 
 H An Audio Programmer’s Guide to Mathematical Expressions
 P. 855
+
+(a ^ p) * (a ^ q) = a ^ (p + q)
+
+(a ^ p) / (a ^ q) = a ^ (p - q)
+
+(a ^ p) ^ q = a ^ (p * q)
+
+a ^ (-p) = 1 / (a ^ p)
+
+a ^ 0 = 1 (if a != 0)
+
+[...]
+
+
+
+

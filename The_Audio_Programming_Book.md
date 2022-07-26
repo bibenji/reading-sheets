@@ -1385,7 +1385,61 @@ int main(int argc, char** argv)
 
 P. 189
 
+`text2sf infile outfile srate chans gain`
 
+where infile = input text data file
+outfile = output soundfile (.wav or .aiff formats),
+srate = sample rate of the data
+chans = number of interleaved audio channels in infile
+and gain = amplitude factor applied to input data (1.0 = no change)
+
+`plot "stereo.txt" using($1) with lines, "stereo.txt" using($2) with lines`
+
+plot "stereo.txt" using($1) with lines, "stereo.txt" using($2) with
+lines
+
+1.9.5 Our First Tuning Fork Emulation
+
+P. 191
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Handbook of Mathematical Functions, With Formulas, Graphs, and Mathematical Tables
+
+Mathématiques pour l'informatique
+
+Toutes les mathématiques et les bases de l'informatique
+
+Outils mathématiques pour le génie des procédés
+
+Eléments De Mathématiques Du Signal
+
+Mathématiques pour le traitement du signal
+
+Mathématiques de la Terminale S à la prépa scientifique
 
 
 
