@@ -172,7 +172,29 @@ patterns qui sont exceptions à la règle de responsabilité répartie
 
 P. 94
 
+L’objectif du pattern SINGLETON est de garantir qu’une classe ne possède
+qu’une seule instance et de fournir un point d’accès global à celle-ci.
+
+private static Factory factory = new Factory();
+
+Cette classe pourrait rendre son unique instance disponible par l’intermédiaire
+d’une méthode getFactory() publique et statique.
+
+initialisation tardive, dite "paresseuse", ou lazy-initialization
+
+public static Factory getFactory() {
+    if (factory == null)
+        factory = new Factory();
+        // ...
+
+    return factory;
+}
+
+Voir Concurrent Programming in Java™
+
 #### OBSERVER
+
+P. 100
 
 #### MEDIATOR
 
