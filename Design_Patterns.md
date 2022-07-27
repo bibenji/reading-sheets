@@ -217,7 +217,16 @@ Exercice 9.4
 
 P. 108
 
+Observer, PropertyChangeSupport
+
+Pour une
+grande GUI, envisagez la possibilité de passer à une conception MVC, en permet-
+tant à chaque objet intéressé de gérer son besoin d’être notifié au lieu d’introduire
+un objet central médiateur.
+
 #### MEDIATOR
+
+P. 116
 
 #### PROXY
 
