@@ -196,6 +196,27 @@ Voir Concurrent Programming in Java™
 
 P. 100
 
+L’objectif du pattern OBSERVER est de définir une dépendance du type un-à-
+plusieurs (1,n) entre des objets de manière que, lorsqu’un objet change d’état,
+tous les objets dépendants en soient notifiés afin de pouvoir réagir conformément.
+
+un seul objet,
+l’application, sait quels objets actualiser et se charge d’émettre les interrogations
+appropriées => pas observer
+laisser chaque objet s’enregistrer lui-même de manière indi-
+viduelle => observer
+
+Modèle-Vue-Contrôleur
+
+Cette conception permet de n’effectuer qu’une seule fois le travail de traduction de
+la valeur du curseur en valeur de temps crête. L’application actualise un seul objet
+Tpeak, et tous les objets de GUI intéressés par un changement peuvent interroger
+l’objet pour en connaître la nouvelle valeur.
+
+Exercice 9.4
+
+P. 108
+
 #### MEDIATOR
 
 #### PROXY
