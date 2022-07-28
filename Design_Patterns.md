@@ -157,6 +157,23 @@ L’objectif du pattern BRIDGE est de découpler une abstraction de l’impléme
 tion de ses opérations abstraites, permettant ainsi à l’abstraction et à son
 implémentation de varier indépendamment.
 
+Les drivers sont des abstractions. Le résultat de l’exécution de l’application dépend
+du driver en place. Chaque driver est une instance du pattern ADAPTER, fournissant
+l’interface qu’un client attend en utilisant les services d’une classe comportant une
+interface différente.
+
+Une conception globale qui utilise des drivers est une instance de BRIDGE.
+
+Vous pouvez
+inclure des méthodes que certains drivers ne supporteront pas, ou exclure des
+méthodes pour limiter ce que les abstractions pourront faire avec un driver ou bien
+les forcer à inclure du code pour un cas particulier.
+
+(pour garder une fonctionnalité de certaines drivers, les autres l'ignoreront)
+
+Un exemple banal d’application utilisant des drivers est l’accès à une base de
+données.
+
 ### Patterns de responsabilité
 
 Le code compile sans problème. L’accès est défini au niveau classe et non au niveau
