@@ -1402,7 +1402,11 @@ lines
 
 P. 191
 
+[...] Unable to use text2sf...
 
+1.9.6 Tuning Fork Program Version 2
+
+P. 193 
 
 
 
