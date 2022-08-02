@@ -17,7 +17,7 @@ BREAKPOINT* get_breakpoints(FILE* fp, long* psize)
     long npoints = 0; // number of points?
     long size = 64; // the size of...
     double lasttime = 0.0;
-    BREAKPOINT* points = NULL; // pointer to points
+    BREAKPOINT * points = NULL; // pointer to points
     char line[80]; // use to put a line read by fgets
 
     if (fp == NULL)

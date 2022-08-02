@@ -1487,7 +1487,11 @@ delay
 phaser
 fader
 
+https://www.easyzic.com/dossiers/les-fonctions-de-synthese,d68.html
 
+http://subaru.univ-lemans.fr/AccesLibre/UM/Pedago/physique/02/meca/ondeprog.html#:~:text=La%20fr%C3%A9quence%20est%20%C3%A9gale%20%C3%A0,anim%C3%A9s%20d'un%20mouvement%20sinuso%C3%AFdal.
+
+https://zestedesavoir.com/tutoriels/2451/les-signaux-sinusoidaux-en-physique/les-signaux-sinusoidaux/
 
 
 
