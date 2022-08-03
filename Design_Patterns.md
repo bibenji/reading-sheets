@@ -245,6 +245,20 @@ un objet central médiateur.
 
 P. 116
 
+L’objectif du pattern MEDIATOR est de définir un objet qui encapsule la façon
+dont un ensemble d’objets interagissent. Cela promeut un couplage lâche,
+évitant aux objets d’avoir à se référer explicitement les uns aux autres, et
+permet de varier leur interaction indépendamment.
+
+Un exemple classique : médiateur de GUI
+
+Cela promeut le couplage lâche (loose coupling), c’est-à-dire une réduc-
+tion de la responsabilité que chaque objet entretient vis-à-vis de chaque autre.
+
+Médiateur d’intégrité relationnelle
+
+P. 121
+
 #### PROXY
 
 #### CHAIN OF RESPONSABILITY
