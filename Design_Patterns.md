@@ -259,7 +259,22 @@ Médiateur d’intégrité relationnelle
 
 P. 121
 
+Intégrité relationnelle
+
+Un modèle objet présente une cohérence relationnelle si chaque fois que l’objet a pointe
+vers l’objet b , l’objet b pointe vers l’objet a .
+
+Le moyen le plus simple de garantir l’intégrité relationnelle est de replacer les
+informations relationnelles dans une seule table gérée par un objet médiateur.
+
+Le pattern MEDIATOR promeut le couplage lâche, évitant à des objets en relation de
+devoir se référer explicitement les uns aux autres. Il intervient le plus souvent dans
+le développement d’applications GUI, lorsque vous voulez éviter d’avoir à gérer la
+complexité liée à l’actualisation mutuelle d’objets.
+
 #### PROXY
+
+P. 130
 
 #### CHAIN OF RESPONSABILITY
 
