@@ -1408,14 +1408,269 @@ P. 191
 
 P. 193 
 
+Listing 1.9.4: Tuning fork v2 with maxsamp report
 
+```
+/* tfork2.c alternate tuning fork generator based on expbrk.c
+* - decay is always to ~silence regardless of duration. */
 
+#include <stdio.h>
+include <stdlib.h>
+#include <math.h>
 
+#ifndef M_PI
+#define M_PI (3.141592654)
+#endif
 
+enum {ARG_NAME,ARG_OUTFILE,ARG_DUR, ARG_HZ,ARG_SR,ARG_AMP,ARG_NARGS};
 
+int main(int argc, char** argv)
+{
+	int i,sr,nsamps;
+	double samp,dur,freq,srate,amp,maxsamp;
+	double start,end,fac,angleincr;
+	double twopi = 2.0 * M_PI;
+	FILE* fp = NULL;
+	
+	if (argc != ARG_NARGS) {
+		printf("Usage: tfork2 outfile.txt dur freq srate amp\n");
+		return 1;
+	}
+	
+	fp = fopen(argv[ARG_OUTFILE],"w");
+    
+    if (fp==NULL) {
+    	printf("Error creating output file %s\n", argv[ARG_OUTFILE]);
+    	return 1;
+    }
+    
+    dur = atof(argv[ARG_DUR]);
+    freq = atof(argv[ARG_HZ]);
+    srate = atof(argv[ARG_SR]);
+    amp = atof(argv[ARG_AMP]);
+    nsamps = (int)(dur * srate);
+    angleincr = twopi * freq / nsamps;
+    start = 1.0;
+    end = 1.0e-4; /* = -80dB */
+    maxsamp = 0.0;
+    
+    fac = pow(end / start, 1.0 / nsamps);
+    
+    for (i=0;i < nsamps; i++) {
+    	samp = amp * sin(angleincr*i);
+    	samp *= start;
+    	start *= fac;
+    	fprintf(fp,"%.8lf\n",samp);
+    	
+    	if (fabs(samp) > maxsamp) {
+    		maxsamp = fabs(samp);
+    	}
+    }
+    
+    fclose(fp);
+    
+    printf("done. Maximum sample value = %.8lf\n", maxsamp);
+    
+    return 0;
+}
+```
 
+1.9.7 The Raw Binary Soundfile
 
+the format specified for fopen (line 25) to indicate ‘binary’ mode: fp = fopen(argv[ARG_OUTFILE],"wb");
 
+and replace fprintf (writes formatted text) by fwrite (writes arbitrary blocks of memory to disk):
+
+size_t fwrite(const void * ptr,size_t size,size_t count, FILE* fp);
+
+- size_t is defined by the compiler as an integer type appropriate to the platform. It can be
+assumed to be at least a 32-bit unsigned type, but it may be larger (e.g. 64 bits on a 64-bit
+platform).
+- ptr is a pointer to the memory block to be written; being a pointer-to-void the address
+can be that of any object, whether a single local variable or a large block of memory.
+- Together, size and count define the size of the memory block to be written. Typically,
+size will refer to the size of any standard or user-defined type such as char or int (i.e.
+where its size can be found using the sizeof() operator), while count defines the number
+of such elements to be written. This is also the value returned by the function.
+- fp is the pointer-to-FILE to be written, as created by fopen.
+
+```
+float fsamp; /* declared at the top of the code block */
+
+fsamp = (float) samp;
+
+if (fwrite(&fsamp,sizeof(float),1,fp) != 1) {
+	printf("error writing data to disk\n");
+	return 1;
+}
+```
+
+1.9.8 Platform Particulars: The Endianness Issue
+
+Big-endian and little-endian storage.
+
+1.9.9 A Raw Binary Version of tfork2.c
+
+Listing 1.9.5: tforkraw.c
+
+```
+/* tforkraw.c gen raw sfile with native endianness */
+/* based on tfork2.c */
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+
+#ifndef M_PI
+#define M_PI (3.141592654)
+#endif
+
+enum {ARG_NAME,ARG_OUTFILE,ARG_DUR,ARG_HZ,ARG_SR,ARG_AMP,ARG_TYPE,ARG_NARGS};
+
+enum samptype {RAWSAMP_SHORT,RAWSAMP_FLOAT};
+
+/* thanks to the SNDAN programmers for this */
+/* return 0 for big-endian machine, 1 for little-endian machine*/
+/* so we can tell user what order the data is */
+int byte_order()
+{
+	int one = 1;
+	char* endptr = (char *)
+	return (*endptr);
+}
+
+const char* endianness[2] = {"big_endian","little_endian"};
+
+int main(int argc, char** argv)
+{
+	unsigned int i,nsamps;
+	unsigned int maxframe = 0;
+	unsigned int samptype, endian, bitreverse;
+	double samp,dur,freq,srate,amp,step;
+	double start,end,fac,maxsamp;
+	double twopi = 2.0 * M_PI;
+	double angleincr;
+	FILE* fp = NULL;
+	float fsamp;
+	short ssamp;
+
+	if (argc != ARG_NARGS) {
+		printf("Usage: tforkraw outsfile.raw dur freq srate amp isfloat\n");
+		return 1;
+	}
+
+	dur = atof(argv[ARG_DUR]);
+	freq = atof(argv[ARG_HZ]);
+	srate = atof(argv[ARG_SR]);
+	amp = atof(argv[ARG_AMP]);
+	samptype = (unsigned int) atoi(argv[ARG_TYPE]);
+	
+	if (samptype > 1) {
+		printf("error: sampletype can be only 0 or 1\n");
+		return 1;
+	}
+
+	/* create binary file: not all systems require the 'b' */
+	fp = fopen(argv[ARG_OUTFILE], "wb");
+
+	if (fp==NULL) {
+		fprintf(stderr,"Error creating output file %s\n", argv[ARG_OUTFILE]);
+		return 1;
+	}
+	
+	// nb samples = duration en secondes * nb de samples par seconde	
+	nsamps = (int)(dur * srate);
+	
+	// ??? TODO
+	angleincr = twopi * freq / nsamps;
+	
+	// ??? à quoi ça sert ??? période ???
+	step = dur / nsamps;
+
+	/* normalized range always - just scale by amp */
+	start =1.0;
+	end = 1.0e-4;
+	maxsamp = 0.0;
+	
+	// ratio end sur start puissance (1 divisé par nbre de samples)
+	// pour faire rentrer la diminution de 0 à 1 
+	fac = pow(end / start, 1.0 / nsamps);
+	
+	endian = byte_order();
+	printf("Writing %d %s samples\n", nsamps, endianness[endian]);
+
+	/* run the loop for this samptype */
+	if (samptype == RAWSAMP_SHORT) {
+		for(i=0;i < nsamps; i++) {
+			// on calcule la valeur du son avec l'amplitude
+			samp = amp * sin(angleincr*i);
+			
+			// on applique le decay
+			samp *= start;
+			
+			// on passe au start suivant en multipliant par le facteur
+			start *= fac;
+
+			/* use 32767 to avoid overflow problem */
+			ssamp = (short) (samp * 32767.0);
+			
+			if(fwrite(&ssamp,sizeof(short),1,fp) != 1) {
+				printf("Error writing data to file\n");
+				return 1;
+			}
+			
+			if(fabs(samp) > maxsamp) {
+				maxsamp = fabs(samp);
+				maxframe = i;
+			}
+		}
+	}
+	else {
+		for(i=0;i < nsamps; i++) {
+			samp = amp * sin(angleincr*i);
+			samp *= start;
+			start *= fac;
+			fsamp = (float) samp;
+			
+			if(fwrite(&fsamp,sizeof(float),1,fp) != 1) {
+				printf("Error writing data to file\n");
+				return 1;
+			}
+			
+			if(fabs(samp) > maxsamp) {
+				maxsamp = fabs(samp);
+				maxframe = i;
+			}
+		}
+	}
+	
+	fclose(fp);
+	printf("done. Maximum sample value = %.8lf at frame %d\n",maxsamp,maxframe);
+	return 0;
+}
+```
+
+srate = samples per second or Hertz
+
+P. 197
+
+dans sinetext :
+
+comprendre pourquoi on fait ça : angleincr = twopi * freq / srate
+(diviser frequence en Hz par number of samples recorded every second ???)
+
+dans expdecay :
+
+comprendre pourquoi on fait ça :
+k = dur / nsteps; /* the constant time increment */
+a = exp(-k / T); /* calc the constant ratio value */
+avec T = ???
+
+The exp() function in C++ returns the exponential (Euler’s number) e (or 2.71828) raised to the given argument.
+
+One general formula for an exponential decay is
+x = ae ^ -k/T
+where a and k are constants and T represents the time constant—the rate of decay.
 
 
 

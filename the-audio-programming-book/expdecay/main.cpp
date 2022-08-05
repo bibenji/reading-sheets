@@ -33,8 +33,10 @@ int main(int argc, char** argv)
     step = 0.0;
     for (i = 0; i < nsteps; i++) {
         printf("%.4lf\t%.8lf\n", step, x);
-        x = a * x;
+        // temps de la step
         step += k;
+        // valeur de la step
+        x = a * x;
     }
 
     return 0;
