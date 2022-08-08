@@ -1654,6 +1654,62 @@ srate = samples per second or Hertz
 
 P. 197
 
+1.9.10 Auditioning Raw Soundfiles: the Audacity Soundfile Editor
+
+Opening raw soundfiles in Audacity.
+
+float x = 1.0;
+x += 2.1; (results in a double operation)
+x += 2.1f; (force a float operation)
+
+stdout /* primary output stream */
+stderr /* stream to receive error messages */
+stdin /* stream from which input is received e.g. teletype keyboard */
+
+The difference between printf and
+fprintf is that printf outputs only to stdout, whereas the more general fprintf can write to any
+named stream. It is often used, for example, to write to stderr:
+fprintf(stderr,"there was an error\n");
+
+#define SQUARE(n) n * n
+This is a small macro definition, replacing any instance of the text represented by the symbol n (which is
+not a variable but a placeholder for whatever text the programmer supplies)
+
+exit()
+immediately quits the program, releasing all resources (memory, open files) in the process
+
+```
+void* stress_malloc(size_t size)
+{
+    size_t limit = 1024 * 1024 * 2; /* limit to 2MB */
+    if(size < limit)
+        return malloc(size);
+    else
+        return NULL;
+}
+```
+
+You can then use #define to make all calls to malloc become calls to your wrapper function:
+#define stress_malloc malloc
+
+2 Audio Programming in C
+
+P. 212
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 dans sinetext :
 
 comprendre pourquoi on fait ça : angleincr = twopi * freq / srate
