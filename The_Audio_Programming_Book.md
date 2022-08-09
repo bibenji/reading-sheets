@@ -1696,7 +1696,56 @@ You can then use #define to make all calls to malloc become calls to your wrappe
 
 P. 212
 
+makefile
 
+2.1 A Simple Soundfile Library: portsf
+
+libsndfile > the pro version (to check)
+
+ieee80.c
+ieee80.h
+portsf.c
+portsf.h
+
+2.1.3 Soundfile Formats—enum and typedef
+
+`typedef enum {
+STDWAVE, MC_STD, MC_MONO, MC_STEREO, MC_QUAD,MC_LCRS, MC_BFMT, MC_DOLBY_5_1, MC_WAVE_EX
+} psf_channelformat;`
+
+STD_WAVE serves as a ‘‘default’’ value, representing any ‘‘stan-
+dard’’ soundfile with no special speaker positions
+
+`typedef enum {
+PSF_FMT_UNKNOWN = 0,
+PSF_STDWAVE,
+PSF_WAVE_EX,
+PSF_AIFF,
+PSF_AIFC
+} psf_format;`
+
+[...]
+
+typedef struct psf_props
+{
+    long                srate;
+    long                chans;
+    psf_stype           samptype;
+    psf_format          format;
+    psf_channelformat   chformat;
+} PSF_PROPS;
+
+In a multi-channel file, the sample rate defines the frame rate, where
+one frame contains one sample for each channel
+
+2.1.4 Initializing the portsf Library
+
+P. 220
+
+
+TODO: try rawsoundfile in audacity
+
+TODO : chercher bouquins maths et ddl pour dvd or achat
 
 
 
@@ -1727,6 +1776,14 @@ The exp() function in C++ returns the exponential (Euler’s number) e (or 2.718
 One general formula for an exponential decay is
 x = ae ^ -k/T
 where a and k are constants and T represents the time constant—the rate of decay.
+
+
+
+
+
+
+
+
 
 
 
