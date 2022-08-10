@@ -2,12 +2,15 @@
 
 - Audio Programming Book
 - C++
+- Maths du signal
+- Maths de l'ingénieur ?
+- Autres livres audio ?
 
 - Design Patterns - Elements of reusable object oriented software (ou autre à lire)
 - Design Patterns - Java / Php
 
 - Refactoring - Improving the Design of Existing Code
-
+  
 -
 
 - Traitement du signal

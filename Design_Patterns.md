@@ -276,7 +276,48 @@ complexité liée à l’actualisation mutuelle d’objets.
 
 P. 130
 
+L’objectif du pattern PROXY est de contrôler l’accès à un objet en fournissant
+un intermédiaire pour cet objet.
+
+Un exemple classique : proxy d’image
+
+[...]
+
+Proxy distant
+
+RMI [...]
+
+Proxy dynamique
+
+il faut la liste des interfaces
+
+[...] La création d’un proxy dynamique nécessite deux
+autres ingrédients : un chargeur de classe (loader) et une classe contenant le
+comportement que vous voulez exécuter lorsque votre proxy intercepte un appel.
+
+Comme son nom l'indique, c'est un proxy créé dynamiquement
+
+... vous pouvez envelopper l’ensemble dans un objet ImpatientProxy, [...]
+
+exemple avec ImpatientProxy ...
+
+Après avoir écrit une classe de proxy dynamique, vous
+pouvez l’utiliser pour envelopper n’importe quel objet dès lors que celui-ci est une
+instance d’une classe qui implémente une interface déclarant le comportement que
+vous voulez intercepter.
+
+la programmation orientée aspect
+ou POA (AOP, Aspect-Oriented Programming)
+
+Un proxy dynamique vous permet d’envelopper un objet dans un proxy qui inter-
+cepte les appels destinés à cet objet et qui ajoute un comportement avant ou après le
+passage de ces appels à l’objet enveloppé. Vous pouvez ainsi créer des comporte-
+ments réutilisables applicables à n’importe quel objet, comme en programmation
+orientée aspect.
+
 #### CHAIN OF RESPONSABILITY
+
+P. 150
 
 #### FLYWEIGHT
 
