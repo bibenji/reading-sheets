@@ -319,7 +319,26 @@ orientée aspect.
 
 P. 150
 
+L’objectif du pattern CHAIN OF RESPONSABILITY est d’éviter de coupler l’émet-
+teur d’une requête à son récepteur en permettant à plus d’un objet d’y répondre.
+
+L’objectif de CHAIN OF RESPONSABILITY est d’exonérer le code appelant de l’obli-
+gation de savoir quel objet peut traiter une requête.
+
+Lorsque vous appliquez le pattern CHAIN OF RESPONSABILITY, vous dispensez un
+client de devoir savoir quel objet d’un ensemble supporte un certain comportement.
+En permettant à l’action de recherche de responsabilité de se produire le long de la
+chaîne d’objets, vous dissociez le client de tout objet spécifique de la chaîne.
+
+Ce pattern intervient occasionnellement lorsqu’une chaîne d’objets arbitraire peut
+appliquer une série de stratégies diverses pour répondre à un certain problème, tel
+que l’analyse d’une entrée utilisateur.
+
 #### FLYWEIGHT
+
+P. 158
+
+
 
 ### Patterns de construction
 
