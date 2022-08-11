@@ -1742,20 +1742,36 @@ one frame contains one sample for each channel
 
 P. 220
 
+2.1.5 Basic Soundfile Handling in portsf—the switch. . .case Keywords
+
+2.1.7 Streamlining Error Handling—The goto Keyword
+
+```
+if(sndWriteFloatFrames(ofd,frame,1) != 1)
+	goto cleanup;
+
+	/* lots of code. . .. */
+
+cleanup:
+	if(frame)
+		free(frame);
+```
+
+Listing 2.1.3: sf2float.c
+
+P. 230
+
+2.1.9 Building Programs with portsf
+
+P. 233
+
+
+
+
 
 TODO: try rawsoundfile in audacity
 
-TODO : chercher bouquins maths et ddl pour dvd or achat
-
-
-
-
-
-
-
-
-
-
+TODO: build with portsf the sf2float
 
 
 
@@ -1796,8 +1812,9 @@ where a and k are constants and T represents the time constant—the rate of dec
 
 
 
+---
 
-
+TODO : chercher bouquins maths et ddl pour dvd or achat
 
 Handbook of Mathematical Functions, With Formulas, Graphs, and Mathematical Tables
 
@@ -1812,31 +1829,6 @@ Eléments De Mathématiques Du Signal
 Mathématiques pour le traitement du signal
 
 Mathématiques de la Terminale S à la prépa scientifique
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 ---
 
