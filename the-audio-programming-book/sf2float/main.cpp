@@ -1,12 +1,20 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <portsf.h>
+#include "portsf.h"
 
 enum {ARG_PROGNAME, ARG_INFILE, ARG_OUTFILE, ARG_NARGS};
 
 int main(int argc, char* argv[])
 {
     PSF_PROPS props;
+
+    /* define a hi-res 5.1 surround WAVE-EX file, with PEAK chunk support */
+    props.srate = 96000;
+    props.chans = 6;
+    props.samptype = PSF_SAMP_24;
+    props.format = PSF_WAVE_EX;
+    props.chformat = MC_DOLBY_5_1;
+
     long framesread, totalread;
     /* init all resource vars to default states */
     int ifd = -1, ofd = -1;
@@ -32,9 +40,10 @@ int main(int argc, char* argv[])
         return 1;
     }
 
-    ifd = psd_sndOpen(argv[ARG_INFILE], &props, 0);
+    ifd = psf_sndOpen(argv[ARG_INFILE], &props, 0);
     if (ifd < 0) {
         printf("Error: unable to open infile %s\n", argv[ARG_INFILE]);
+
         return 1;
     }
 
@@ -44,10 +53,10 @@ int main(int argc, char* argv[])
         printf("Info: infile is already in floats format.\n");
     }
 
-    props.samptype = PSF_SAMP_IEE_FLOAT;
+    props.samptype = PSF_SAMP_IEEE_FLOAT;
 
     /* check outfile extension is one we know about */
-    outformat = psd_getFormatExt(argv[ARG_OUTFILE]);
+    outformat = psf_getFormatExt(argv[ARG_OUTFILE]);
 
     if (outformat == PSF_FMT_UNKNOWN) {
         printf(
@@ -63,7 +72,7 @@ int main(int argc, char* argv[])
     ofd = psf_sndCreate(argv[2], &props, 0, 0, PSF_CREATE_RDWR);
 
     if (ofd < 0) {
-        printf("Error: unable to create outfile %s\n", argv[ARG_OUTFILE]);
+        printf("Error: unable to create outfile %s, %i\n", argv[ARG_OUTFILE], ofd);
         error++;
         goto exit;
     }
@@ -89,7 +98,7 @@ int main(int argc, char* argv[])
     printf("copying...\n");
 
     /* single-frame loop to do copy, report any errors */
-    framesread = psf_sndReadFloatFrame(ifd, frame, 1);
+    framesread = psf_sndReadFloatFrames(ifd, frame, 1);
     totalread = 0; /* running count of sample frames */
     while (framesread == 1) {
         totalread++;
@@ -102,7 +111,7 @@ int main(int argc, char* argv[])
 
         /* <--- do any processing here! ---> */
 
-        framesread = psf_sndReadFloatFrame(ifd, frame, 1);
+        framesread = psf_sndReadFloatFrames(ifd, frame, 1);
     }
 
     if (framesread < 0) {

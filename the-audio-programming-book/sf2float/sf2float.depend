@@ -1,0 +1,29 @@
+# depslib dependency file v1.0
+1660322118 source:/home/benjix/CProjects/sf2float/ieee80.c
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	"ieee80.h"
+
+1660322194 /home/benjix/CProjects/sf2float/ieee80.h
+
+1660324909 source:/home/benjix/CProjects/sf2float/main.cpp
+	<stdio.h>
+	<stdlib.h>
+	"portsf.h"
+
+1660322514 /home/benjix/CProjects/sf2float/portsf.h
+
+1660324752 source:/home/benjix/CProjects/sf2float/portsf.c
+	<stdio.h>
+	<unistd.h>
+	<stdlib.h>
+	<memory.h>
+	<string.h>
+	<math.h>
+	<time.h>
+	"ieee80.h"
+	<assert.h>
+	"portsf.h"
+	<ctype.h>
+

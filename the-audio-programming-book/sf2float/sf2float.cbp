@@ -11,6 +11,7 @@
 				<Option object_output="obj/Debug/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
+				<Option parameters="/home/benjix/CProjects/sf2float/a.wav /home/benjix/CProjects/sf2float/output/ab.aif" />
 				<Compiler>
 					<Add option="-g" />
 				</Compiler>
@@ -32,7 +33,15 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="ieee80.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="ieee80.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="portsf.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="portsf.h" />
 		<Extensions>
 			<code_completion />
 			<debugger />
