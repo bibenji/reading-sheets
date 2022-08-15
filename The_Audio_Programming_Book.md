@@ -1658,6 +1658,10 @@ P. 197
 
 Opening raw soundfiles in Audacity.
 
+‘‘Start offset’’ entry box (the byte position
+at which conversion should start) is pre-filled with the value 1. Expect to set this value to
+zero for the plain raw soundfiles considered here.
+
 float x = 1.0;
 x += 2.1; (results in a double operation)
 x += 2.1f; (force a float operation)
@@ -1735,14 +1739,56 @@ typedef struct psf_props
     psf_channelformat   chformat;
 } PSF_PROPS;
 
-In a multi-channel file, the sample rate defines the frame rate, where
-one frame contains one sample for each channel
+A soundfile contains audio data at a particular sample rate (number of samples per second).
+Most audio systems support a range of standard sample rates—22,050, 44,100, 48,000,
+96,000 and even 192,000 hertz for DVD audio. We can store this parameter in
+PSF_PROPS structure element: srate
+
+A soundfile can contain several channels of audio—one for mono, two for stereo, six for
+Dolby 5.1, and so on. In a multi-channel file, the sample rate defines the frame rate, where
+one frame contains one sample for each channel.
+PSF_PROPS element: chans
+
+soundfile can contain audio samples in a range of data formats. By far the most common
+format is 16-bit, represented by the C short data type. [...]
+PSF_PROPS element: samptype
+
+A soundfile can be written in a number of file formats.
+
+soundfile can contain audio channels associated with specific speaker positions. This
+property is relatively new, but has greatly increased in importance thanks to the popularity
+of surround sound. With a stereo signal, it is established largely by convention that channel
+1 is front left, and channel 2 is front right.
+
+PSF_PROPS element: chformat
 
 2.1.4 Initializing the portsf Library
 
 P. 220
 
+(2) The argument int clip_floats is used to set the way in which floating-point data is
+written to the file. As was noted above, the unique aspect of floating-point soundfiles is that
+the samples can contain over-range values. Depending on the application, you may or many
+not want these to be clipped to the normal maxima, 1.0 and þ1.0. Use of this facility
+depends on whether you have requested that the soundfile include the PEAK chunk, which
+records the maximum values in the file. As not all applications will even know about the
+PEAK chunk (and will simply ignore it when reading), the safe approach is to set this argu-
+ment to 1; but for experimental purposes you may want, for example, to offer the user the
+choice. Needless to say, this parameter is ignored for all other sample formats.
+(3) int minheader: it is an unfortunate fact of life that many applications fail to deal
+with WAVE formats that contain optional chunks before the audio data—many older
+UNIX-originated programs suffer from this. By setting minheader to 1, the soundfile is cre-
+ated with a ‘‘minimum header’’ containing just the required format and data chunks—this
+therefore means that no PEAK data will be written to the file. Ideally, of course, minheader
+should be set to 0 always, and will be in all the examples presented here.
+
 2.1.5 Basic Soundfile Handling in portsf—the switch. . .case Keywords
+
+2.1.6 Reading and Writing—The Sample Frame
+
+Note that the
+nFrames argument is defined as a custom DWORD type. This name is borrowed from Win-
+dows usage, and signifies (on a 32-bit platform) an unsigned long.
 
 2.1.7 Streamlining Error Handling—The goto Keyword
 
@@ -1757,6 +1803,10 @@ cleanup:
 		free(frame);
 ```
 
+2.1.8 Using portsf for Soundfile Conversion with PEAK Support
+
+P. 229
+
 Listing 2.1.3: sf2float.c
 
 P. 230
@@ -1767,7 +1817,9 @@ P. 233
 
 
 
+TODO : relire 1.2.8 A Musical Computation (et peut-être un peu après) (P. 95)
 
+TODO: relire les trucs avec les fréquences des notes dans les gammes
 
 TODO: try rawsoundfile in audacity
 
