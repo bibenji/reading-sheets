@@ -1815,6 +1815,91 @@ P. 230
 
 P. 233
 
+2.1.10 Exercises
+
+[...]
+
+Use the
+format specifier ‘‘\r’’ (carriage return) within printf to overwrite the same line with the
+updating message string.
+
+...
+
+The cal-
+culation to convert a normalized amplitude (within e 1.0) to dB is
+loudness (dB) = 20.0 * log 10 (amp);
+
+[...]
+
+2.2 Processing Audio
+
+P. 235
+
+2.2.1 The First Audio Process: Changing Level
+
+[...], to make this a truly neutral template program: delete lines 39–45, [...]
+
+sfgain
+
+Stage 1: Define variables.
+Stage 2: Obtain and validate arguments from user.
+Stage 3: Allocate memory, open infile and outfile.
+Stage 4: Perform main processing loop.
+Stage 5: Report to the user.
+Stage 6: Close files, free memory.
+
+```
+int i;
+float ampfac;
+
+printf("SFGAIN: change level of soundfile\n");
+
+if (argc < 4) {
+    printf("insufficient arguments.\n" "usage:\n\t" "sfgain infile outfile ampfac\n" "\twhere ampfac must be > 0\n");
+    return 1;
+}
+
+ampfac = (float) atof(argv[3]);
+if (ampfac <= 0.0) {
+    printf("Error: ampfac must be positive.\n");
+    return 1;
+}
+
+while (framesread == 1) {
+    totalread++;
+        for (i=0; i < props.chans; i++ )
+            frame[i] *= ampfac;
+        
+        if (psf_sndWriteFloatFrames(ofd, frame, 1) != 1)  {
+            printf("Error writing to outfile\n");
+            error++;
+            break;
+        }
+    framesread = psf_sndReadFloatFrames(ifd,frame,1);
+}
+```
+
+2.2.2 Amplitude vs. Loudness—the Decibel
+
+P. 237
+
+Exercise 2.1.5 introduced the calculation for converting an amplitude value into decibels
+(dB):
+loudness dB = 20 x log 10 amp
+(1)
+where amp is in the range 0 to 1.0. We also need the complementary formula for converting
+dB to amplitude:
+amp = 10 ^ ( loudness db /20 )
+
+
+
+
+
+
+
+
+
+
 
 
 TODO : relire 1.2.8 A Musical Computation (et peut-être un peu après) (P. 95)
