@@ -1891,26 +1891,148 @@ where amp is in the range 0 to 1.0. We also need the complementary formula for c
 dB to amplitude:
 amp = 10 ^ ( loudness db /20 )
 
+2.2.3 Extending sfgain—Normalization
+
+sfnorm
+
+Stage 1: Set up variables.
+Stage 2: Obtain and validate arguments from user.
+Stage 3: Allocate memory, open the infile.
+Stage 4a: Read PEAK amplitude of the infile; if not found,
+Stage 4b: Scan the whole infile to obtain peak value; rewind file ready for processing stage.
+Stage 4c: If peak 4 0, open outfile; otherwise, quit.
+Stage 5: Perform main processing loop.
+Stage 6: Report to the user.
+Stage 7: Close files, free memory.
+
+
+```
+double dbval, inpeak = 0.0;
+float ampfac, scalefac;
+
+if (argc < 4) {
+	printf("insufficient arguments.\n" "usage:\n\t" "sfnorm infile outfile dBval\n" "\twhere dBval <= 0.0\n");
+	return 1;
+}
+
+dbval = (atof(argv[3]));
+if (dbval > 0.0) {
+	printf("Error: dBval cannot be positive.\n");
+	return 1;
+}
+ampfac = (float) pow(10.0, dbval / 20.0);
+
+```
+
+int abs(int val);
+double fabs(double val);
+
+function that returns the maximum absolute value of a sample buffer:
+```
+double maxsamp(float* buf, unsigned long blocksize)
+{
+	double absval, peak = 0.0;
+	unsigned long i;
+	
+	for (i = 0; i < blocksize; i++) {
+		absval = fabs(buf[i]);
+		if (absval > peak)
+			peak = absval;
+	}
+	
+	return peak;
+}
+```
+
+You can place this function anywhere in sfnorm.c, so long as it is outside main.
+
+Either way, you will have to add the declaration of the function:
+double maxsamp(float* buf, unsigned long blocksize);
+
+```
+framesread = psf_sndReadFloatFrames(ifd,frame,1);
+
+while (framesread == 1) {
+	double thispeak;
+	blocksize = props.chans;
+	thispeak = maxsamp(frame,blocksize);
+	if (thispeak > inpeak)
+		inpeak = thispeak;
+	framesread = psf_sndReadFloatFrames(ifd,frame,1);
+}
+```
+
+#define NFRAMES (1024)
+
+unsigned long nframes = NFRAMES;
+
+```
+frame = (float*) malloc(NFRAMES * props.chans * sizeof(float));
+
+...
+
+framesread = psf_sndReadFloatFrames(ifd,frame,nframes);
+
+while (framesread > 0) {
+	double thispeak;
+	blocksize = framesread * props.chans;
+	thispeak = maxsamp(frame,blocksize);
+	if (thispeak > inpeak)
+		inpeak = thispeak;
+	framesread = psf_sndReadFloatFrames(ifd,frame,nframes);
+}
+```
+
+```
+/* get peak info: scan file if required */
+/* inpeak has been initialized to 0 */
+if (psf_sndReadPeaks(ifd,peaks,NULL) > 0) {
+	long i;
+	for (i=0; i < props.chans; i++) {
+	if (peaks[i].val > inpeak)
+		inpeak = peaks[i].val;
+	}
+}
+else {
+	/* scan the file, and rewind */
+	
+	/* rewind */
+	if ((psf_sndSeek(ifd, 0, PSF_SEEK_SET)) < 0) {
+    	printf("Error: unable to rewind infile.\n");
+    	error++;
+    	goto exit;
+    }
+}
+
+/* check file is not silent */
+if (inpeak==0.0) {
+	printf("infile is silent! Outfile not created.\n");
+	goto exit;
+}
+
+/* code that create the outfile */
+
+/* immediately above the final processing loop */
+/* calculate the scaling factor from db given by user */
+scalefac = (float) (ampfac / inpeak);
+
+```
+
+2.2.4 Exercises
+
+P. 245
 
 
 
-
-
-
-
-
-
-
+TODO: try rawsoundfile in audacity
+TODO : faire sfgain et sfnorm
+TODO : faire le son en boucle
 
 TODO : relire 1.2.8 A Musical Computation (et peut-être un peu après) (P. 95)
 
 TODO: relire les trucs avec les fréquences des notes dans les gammes
 
-TODO: try rawsoundfile in audacity
-
 TODO: build with portsf the sf2float
-
-
 
 dans sinetext :
 
