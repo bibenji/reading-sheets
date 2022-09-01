@@ -2022,6 +2022,21 @@ scalefac = (float) (ampfac / inpeak);
 
 P. 245
 
+#define max(x,y) ((x) > (y) ? (x) : (y))
+
+With this macro, code such as
+	absval = fabs(buf[i]);
+	if(absval > peak)
+		peak = absval;
+
+can be rewritten more concisely, but also more expressively:
+	absval = fabs(buf[i]);
+	peak = max(absval,peak);
+
+2.3 Stereo Panning
+
+P. 246
+
 
 
 TODO: try rawsoundfile in audacity
