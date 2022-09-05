@@ -338,9 +338,24 @@ que l’analyse d’une entrée utilisateur.
 
 P. 158
 
+L’objectif du pattern FLYWEIGHT est d’utiliser le partage pour supporter effica-
+cement un grand nombre d’objets à forte granularité.
 
+Pour créer des flyweights, vous avez besoin d’une factory
+
+La classe Chemical-
+Factory est une
+factory flyweight qui
+retourne des objets
+Chemical .
+
+L’approche par classe imbriquée est bien plus complexe mais plus complète pour
+s’assurer que seule la classe ChemicalFactory2 peut instancier de nouveaux objets
+flyweight.
 
 ### Patterns de construction
+
+P. 166 
 
 #### BUILDER
 
