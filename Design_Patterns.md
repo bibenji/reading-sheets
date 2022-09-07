@@ -359,7 +359,22 @@ P. 166
 
 #### BUILDER
 
+L’objectif du pattern BUILDER est de déplacer la logique de construction d’un
+objet en dehors de la classe à instancier.
+
+```
+new ReservationParser(builder).parse(sample);
+Reservation res = builder.build();
+```
+
+A partir d’une chaîne de requête de réservation, le code instancie un builder et un
+analyseur, et demande à celui-ci d’analyser la chaîne. A mesure qu’il lit la chaîne,
+l’analyseur transmet les attributs de réservation au builder en utilisant ses méthodes
+set.
+
 #### FACTORY METHOD
+
+P. 180
 
 #### ABSTRACT FACTORY
 
