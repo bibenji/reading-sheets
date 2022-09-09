@@ -1,6 +1,0 @@
-# depslib dependency file v1.0
-1659005550 source:/home/benjix/CProjects/expdecay/main.cpp
-	<stdio.h>
-	<stdlib.h>
-	<math.h>
-

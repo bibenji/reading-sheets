@@ -1513,6 +1513,8 @@ Big-endian and little-endian storage.
 
 Listing 1.9.5: tforkraw.c
 
+tforkraw > see src
+
 ```
 /* tforkraw.c gen raw sfile with native endianness */
 /* based on tfork2.c */
@@ -2037,11 +2039,120 @@ can be rewritten more concisely, but also more expressively:
 
 P. 246
 
+Stage 3: Allocate memory, open infile.
+Stage 4a: Perform any special data pre-processing, opening of extra data files, etc.
+Stage 4b: Open outfile, once all required resources are obtained.
+Stage 5: Perform main processing loop.
+Stage 6: Report to the user.
+Stage 7: Close files, free memory.
+
+sfpan
+
+usage : sfpan infile outfile panpos
+
+```
+enum {ARG_PROGRAMME, ARG_INFILE, ARG_OUTFILE, ARG_PANPOS, ARG_NARGS};
+
+typedef struct panpos
+	double left;
+	double right;
+} PANPOS;
+
+PANPOS simplepan(double position)
+{
+	PANPOS pos;
+	position *= 0.5;
+	pos.left = position - 0.5;
+	pos.right = position + 0.5;
+	return pos;
+}
+
+int main(int argc, char** argv)
+{
+    float * outframe = NULL; /* STAGE 1 */
+    PANPOS thispos; /*STAGE 1 */
+    
+	pos = atof(argv[ARG_PANPOS]);
+	
+	if ( (pos < 1.0) || (pos > 1.0) ) {
+    	printf("Error: panpos value out of range -1 to +1\n");
+    	error++;
+    	goto exit;
+    }
+
+	...
+	
+	if (inprops.chans != 1) {
+    	printf("Error: infile must be mono.\n");
+    	error++;
+    	goto exit;
+    }
+    
+    outprops = inprops;
+    
+    // to switch from mono to stereo
+    outprops.chans = 2;
+    
+    /* create stereo output buffer */
+    outframe = (float *) malloc(nframes * outprops.chans * sizeof(float));
+    if (outframe == NULL) {
+    	puts("No memory!\n");
+    	error++;
+    	goto exit;
+    }
+    
+	...
+	
+	thispos = simplepan(position);
+    while ((framesread = psf_sndReadFloatFrames(ifd,inframe,nframes)) > 0)
+    {
+    	int i, out_i;
+    	for (i=0, out_i = 0; i < framesread; i++) {
+    		outframe[out_i++] = (float)(inframe[i]*thispos.left);
+    		outframe[out_i++] = (float)(inframe[i]*thispos.right);
+		}
+		if (psf_sndWriteFloatFrames(ofd,outframe,framesread) != framesread) {
+        	printf("Error writing to outfile\n");
+        	error++;
+        	break;
+        }
+    }
+	
+	...
+	
+    exit:
+    	if (outframe) free (outframe);
+}
+```
+
+2.3.6 Extending sfpan with Breakpoint-File Support
+
+P. 253
+
+2.3.8 Completing and Testing the New sfpan
+
+P. 259
+
+Exemple of breakpoint file:
+0.0 -1.0
+2.0 1.0
+4.0 -1.0
+
+2.3.9 A Better Panner—The Constant-Power Function
+
+P. 261
 
 
-TODO: try rawsoundfile in audacity
-TODO : faire sfgain et sfnorm
-TODO : faire le son en boucle
+
+
+
+
+
+DONE: try rawsoundfile in audacity
+
+TODO: faire tfork2:
+TODO: faire sfgain et sfnorm:
+TODO: faire le son en boucle:
 
 TODO : relire 1.2.8 A Musical Computation (et peut-être un peu après) (P. 95)
 

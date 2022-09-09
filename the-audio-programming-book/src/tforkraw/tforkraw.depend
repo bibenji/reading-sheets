@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1662194858 source:/home/benjix/CProjects/tforkraw/main.cpp
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+

@@ -1,0 +1,11 @@
+# depslib dependency file v1.0
+1662731661 source:/home/benjix/CProjects/sfpan/breakpoints.cpp
+	<iostream>
+	"breakpoints.h"
+
+1662732111 /home/benjix/CProjects/sfpan/breakpoints.h
+
+1662731647 source:/home/benjix/CProjects/sfpan/main.cpp
+	<iostream>
+	"breakpoints.h"
+
