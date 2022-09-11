@@ -1,11 +1,43 @@
 # depslib dependency file v1.0
-1662731661 source:/home/benjix/CProjects/sfpan/breakpoints.cpp
+1662733348 source:/home/benjix/CProjects/sfpan/breakpoints.cpp
 	<iostream>
 	"breakpoints.h"
 
-1662732111 /home/benjix/CProjects/sfpan/breakpoints.h
+1662733642 /home/benjix/CProjects/sfpan/breakpoints.h
 
-1662731647 source:/home/benjix/CProjects/sfpan/main.cpp
+1662905805 source:/home/benjix/CProjects/sfpan/main.cpp
 	<iostream>
+	<stdio.h>
+	<stdlib.h>
 	"breakpoints.h"
+	"portsf.h"
+
+1662905989 /home/benjix/CProjects/sfpan/portsf.h
+
+1662905932 source:/home/benjix/CProjects/sfpan/ieee80.cpp
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	"ieee80.h"
+
+1662905878 /home/benjix/CProjects/sfpan/ieee80.h
+
+1662906096 source:/home/benjix/CProjects/sfpan/portsf.c
+	<stdio.h>
+	<unistd.h>
+	<stdlib.h>
+	<memory.h>
+	<string.h>
+	<math.h>
+	<time.h>
+	"ieee80.h"
+	<assert.h>
+	"portsf.h"
+	<ctype.h>
+
+1662906195 source:/home/benjix/CProjects/sfpan/ieee80.c
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	"ieee80.h"
 

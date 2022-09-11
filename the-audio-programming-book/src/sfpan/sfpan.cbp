@@ -34,7 +34,15 @@
 		</Compiler>
 		<Unit filename="breakpoints.cpp" />
 		<Unit filename="breakpoints.h" />
+		<Unit filename="ieee80.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="ieee80.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="portsf.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="portsf.h" />
 		<Extensions>
 			<code_completion />
 			<debugger />
