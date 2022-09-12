@@ -376,7 +376,15 @@ set.
 
 P. 180
 
+L’objectif du pattern FACTORY METHOD est de laisser un autre développeur défi-
+nir l’interface permettant de créer un objet, tout en gardant un contrôle sur le
+choix de la classe à instancier.
+
+Application de FACTORY METHOD dans une hiérarchie parallèle
+
 #### ABSTRACT FACTORY
+
+P. 188
 
 #### PROTOTYPE
 
