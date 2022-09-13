@@ -386,7 +386,15 @@ Application de FACTORY METHOD dans une hiérarchie parallèle
 
 P. 188
 
+L’objectif du pattern ABSTRACT FACTORY, ou KIT, est de permettre la création
+de familles d’objets ayant un lien ou interdépendants.
+
+On peut quasiment dire qu’un package contient habituellement une famille de classes,
+et qu’une classe factory abstraite produit une famille d’objets.
+
 #### PROTOTYPE
+
+P. 198
 
 #### MEMENTO
 
