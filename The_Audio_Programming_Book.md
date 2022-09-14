@@ -2142,6 +2142,53 @@ Exemple of breakpoint file:
 
 P. 261
 
+and intensity (which relates to the
+power of the signal) is measured by reading not the amplitude but the square of the ampli-
+tude
+
+The formulae for a constant-power pan function are:
+
+A = square(2) / 2 * (cos (Delta) + sin (Delta))
+
+Delta = angle of the panned signal
+
+constpower to replace simplepan
+```
+PANPOS constpower(double position)
+{
+    PANPOS pos
+    /* pi/2: 1/4 cycle of a sinusoid */
+    const double piovr2 = 4.0 * atan(1.0) * 0.5; // = PI / 2
+    const double root2ovr2 = sqrt(2.0) * 0.5; // = qrt(2) / 2
+    
+    /* scale position to fit the pi/2 range */
+    double thispos = position * piovr2;
+    
+    /* each channel uses a 1/4 of a cycle */
+    double angle = thispos * 0.5;
+    
+    pos.left = root2ovr2 * (cos(angle) - sin(angle));
+    pos.right = root2ovr2 * (cos(angle) + sin(angle));
+
+    return pos;
+}
+```
+
+optimization => merge lines together
+
+2.3.10 Objections to sfpan
+
+sfpan: it is extremely inefficient!
+
+[...]
+
+- val_at_brktime
+
+2.3.11 Exercises 
+
+P. 265
+
+
 
 
 
