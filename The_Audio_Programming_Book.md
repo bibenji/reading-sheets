@@ -2188,12 +2188,173 @@ sfpan: it is extremely inefficient!
 
 P. 265
 
+2.4 Envelopes as Signals—Amplitude Processing
+
+envx and sfenv
+
+2.4.2 The envx Program—Describing the Task
+
+We use linear interpolation to generate a stream of amplitude values, which
+are multiplied with the audio samples, thus ‘‘enveloping’’ the source. In the context of real-
+time audio processing, the combination of these two procedures is usually termed envelope
+following.
+
+2.4.3 Extracting Envelope Data from a Soundfile
+
+envx.c
+```
+/* envx.c : extract amplitude envelope from mono soundfile*/
+#define DEFAULT_WINDOW_MSECS (15)
+
+void main()
+{
+	/* duration of the window in msecs */
+	// double windur;
+	double windur = DEFAULT_WINDOW_MSECS;
+	
+	unsigned long winsize;
+	
+	double brktime; /* holds the time for the current breakpoint time */
+	
+	// to count the number of breakpoints I think
+	unsigned long npoints;
+	
+	/*STAGE 2 */
+	printf("ENVX: extract amplitude envelope from mono soundfile\n");
+
+	// Implementation of the -wN Flag
+	if (argc > 1) {
+    	char flag;
+    	while (argv[1][0] == '-') {
+    		flag = argv[1][1];
+    		
+    		switch(flag) {
+				/*TODO: handle any flag arguments here */
+				
+				case('\0'):
+					printf("Error: missing flag name\n");
+					return 1;
+					
+				case('w'):
+					windur = atof(&argv[1][2]);
+					if (windur <= 0.0) {
+						printf("bad value for Window Duration. Must be positive.\n");
+						return 1;
+					}
+					break;
+					
+				default:
+					break;
+    		}
+    		
+    		argc--;
+    		argv++;
+    	}
+    }
+	
+	/* check rest of commandline */
+	if (argc < ARG_NARGS) {
+		printf(
+			"insufficient arguments.\n"
+			"usage: envx [-wN] insndfile outfile.brk\n"
+			"	-wN: set extraction window size to N msecs\n"
+			"		(default: 15)\n"
+			"usage: envx insndfile outfile.brk\n");
+	
+		return 1;
+	}
+	
+
+	
+	/* TODO: verify infile format for this application */
+	
+	/* verify infile format is acceptable */
+	if (inprops.chans > 1) {
+		printf("Soundfile contains %d channels: must be mono.\n",inprops.chans);
+		error++;
+		goto exit;
+	}
+	
+	// STAGE 3 ---
+	/* set buffersize to the required envelope window size */
+    windur /= 1000.0;
+    /* convert to secs */
+    winsize = (unsigned long)(windur * inprops.srate);
+    inframe = (float*) malloc(winsize * sizeof(float));
+    if (inframe == NULL) {
+    	puts("No memory!\n");
+    	error++;
+    	goto exit;
+    }
+	
+	// STAGE 4 ---
+	
+	/* create output breakpoint file */
+	fp = fopen(argv[ARG_OUTFILE],"w");
+	if (fp == NULL) {
+		printf(
+			"envx: unable to create breakpoint file %s\n",
+			argv[ARG_OUTFILE]);
+			
+		error++;
+		goto exit;
+	}
+	
+	// don't know if it is here
+	brktime = 0.0;
+	npoints = 0;
+	
+	while ((framesread = psf_sndReadFloatFrames(ifd, inframe, winsize)) > 0) {
+    	double amp;
+    	/* find peak sample of this block */
+    	amp = maxsamp(inframe, framesread);
+    	
+    	/* store brktime and amp as a breakpoint */
+    	if (fprintf(fp, "%f\t%f\n", brktime, amp) < 2) {
+        	printf("Failed to write to breakpoint file %s\n",argv[ARG_OUTFILE]);
+        	error++;
+        	break;
+        }
+    	
+    	brktime += windur;
+    	npoints++;
+    }
+	
+	if (framesread < 0) {
+    	printf("Error reading infile. Outfile is incomplete.\n");
+    	error++;
+    }
+    else
+    	printf("Done: %d errors\n",error);
+    	
+    printf("%d breakpoints written to %s\n", npoints, argv[ARGV_OUTFILE]);
+    
+    
+	
+	// STAGE 7 ---
+	
+	/*TODO: cleanup any other resources */
+	if (fp)
+		if (fclose(fp))
+			printf("envx: failed to close output file %s\n", argv[ARG_OUTFILE]);
+}
+```
+
+2.4.4 Implementation of Envelope Extraction
+
+As a rule of thumb, a 15-millisecond window is sufficient to capture the envelope of most
+sounds—this gives around 66 envelope points per second.
+
+2.4.5 Efficient Envelope Processing—The Program sfenv
+
+P. 275
 
 
 
 
 
-
+TODO: make envx
+TODO: make sfpan work
 
 DONE: try rawsoundfile in audacity
 
