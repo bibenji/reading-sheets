@@ -2349,7 +2349,86 @@ sounds—this gives around 66 envelope points per second.
 
 P. 275
 
+format very similar to sfpan
 
+1. Step through the array from the beginning until the required breakpoint span is found.
+2. If the target time is after last available span, return the final value of the final span.
+3. If the span times are the same (in other words, we have a vertical jump in value), use the
+right-hand value.
+4. If the span times are not the same, calculate the required value using linear interpolation.
+
+sfenv
+```
+main()
+{
+	* init time position counter for reading envelope */
+	incr = 1.0 / inprops.srate;
+	/* setup counters to track through the breakpoint data */
+	curpos = 0.0;
+	ileft = 0;
+	iright = 1;
+	/* setup first span */
+	leftpoint = points[ileft];
+	rightpoint = points[iright];
+	width = rightpoint.time - leftpoint.time;
+	height = rightpoint.value - leftpoint.value;
+	
+	
+	int more_points = 1;
+	
+	for (i = 0; i < framesread; i++) {
+    	
+    	if (more_points) {
+			if (width == 0.0)
+				thisamp = rightpoint.value;
+			else {
+				/* not vertical: get interp value from this span */
+				frac = (curpos - leftpoint.time) / width;
+				thisamp = leftpoint.value + (height * frac);
+			}
+	
+			/* move up ready for next sample */
+			curpos += incr;
+        
+			/* if end of this span, step to next one if available*/
+			if (curpos > rightpoint.time) {
+				ileft++; iright++;
+				
+				if (iright < npoints) {
+					/*we have another span, move up */
+					leftpoint = points[ileft];
+					rightpoint = points[iright];
+					width = rightpoint.time - leftpoint.time;
+					height = rightpoint.value - leftpoint.value;
+				} else {
+					/* otherwise, we have reached the end of the data */
+					more_points = 0;
+				}
+			}
+		}
+		inframe[i] = (float)(inframe[i] * thisamp);
+	}
+}
+```
+
+An envelope with a vertical jump.
+x		y
+0.0		0.0
+2.0		0.5
+2.0		1.0
+3.5		0.85
+3.5		0.25
+4.5		0.1
+
+You can then move onto more musical explorations, using envx and sfenv in combination.
+Create an envelope from a soundfile using envx, and apply that breakpoint file to another
+soundfile
+
+2.4.6 Exercises
+
+2.5 Waveform Synthesis
+
+P. 281
 
 
 
