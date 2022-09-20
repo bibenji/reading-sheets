@@ -396,7 +396,15 @@ et qu’une classe factory abstraite produit une famille d’objets.
 
 P. 198
 
+L’objectif du pattern PROTOTYPE est de fournir de nouveaux objets par la copie
+d’un exemple plutôt que de produire de nouvelles instances non initialisées
+d’une classe.
+
 #### MEMENTO
+
+P. 204
+
+Read refacto guru for prototype
 
 ### Patterns d'opérations
 
