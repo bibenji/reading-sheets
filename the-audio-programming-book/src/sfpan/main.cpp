@@ -1,3 +1,5 @@
+// usage example : sfpan mono.wav new.wav break.txt
+
 #include <iostream>
 #include <stdio.h>
 #include <stdlib.h>
@@ -93,6 +95,7 @@ int main(int argc, char**argv)
     /* open infile */
     ifd = psf_sndOpen(argv[ARG_INFILE], &inprops, 0);
     if (ifd < 0) {
+        printf("%i", ifd);
         printf("Error: unable to open \"%s\"\n", argv[ARG_INFILE]);
         return 1;
     }
