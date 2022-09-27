@@ -411,6 +411,13 @@ L’ouvrage Design Patterns décrit ainsi l’objectif du pattern MEMENTO : "San
 enfreindre les règles d’encapsulation, il capture et externalise l’état interne d’un
 objet afin de pouvoir le restaurer ultérieurement."
 
+From Refactoring Guru :
+
+Le mémento délègue la création des états des photos à leur propriétaire, l’objet créateur (originator).
+Plutôt que d’essayer de copier l’état de l’éditeur depuis « l’extérieur »,
+la classe de l’éditeur de texte peut prendre la photo elle-même,
+car elle a accès à son propre état.
+
 ### Patterns d'opérations
 
 P. 218
