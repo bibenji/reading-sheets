@@ -404,9 +404,16 @@ d’une classe.
 
 P. 204
 
-Read refacto guru for prototype
+L’objectif du pattern MEMENTO est de permettre le stockage et la restauration
+de l’état d’un objet.
+
+L’ouvrage Design Patterns décrit ainsi l’objectif du pattern MEMENTO : "Sans
+enfreindre les règles d’encapsulation, il capture et externalise l’état interne d’un
+objet afin de pouvoir le restaurer ultérieurement."
 
 ### Patterns d'opérations
+
+P. 218
 
 #### TEMPLATE METHOD
 
