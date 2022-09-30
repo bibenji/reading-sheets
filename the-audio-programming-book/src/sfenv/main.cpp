@@ -4,7 +4,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <../portsf/include/portsf.h>
-#include <../breakpoints/include/breakpoints.h>
+
+#include <breakpoints.h>
+
+/*
+
+#include "brkp2.h"
+*/
+
+
+
 #include <math.h>
 
 #define NFRAMES 100
@@ -13,7 +22,7 @@ enum {ARG_PROGRAMME, ARG_INSNDFILE, ARG_INBRKFILE, ARG_OUTSNDFILE, ARG_NARGS};
 
 int main(int argc, char**argv)
 {
-    brk_test();
+    //brk_test();
 
 	PSF_PROPS inprops, outprops;
 

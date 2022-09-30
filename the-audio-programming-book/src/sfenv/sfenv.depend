@@ -1,0 +1,204 @@
+# depslib dependency file v1.0
+1662199676 source:/home/benjix/CProjects/portsf/portsf/portsf.c
+	<stdio.h>
+	<unistd.h>
+	<stdlib.h>
+	<memory.h>
+	<string.h>
+	<math.h>
+	<time.h>
+	"ieee80.h"
+	<assert.h>
+	<portsf.h>
+	<ctype.h>
+
+1663931745 /home/benjix/CProjects/portsf/portsf/ieee80.h
+
+1664536185 source:/home/benjix/CProjects/breakpoints/breakpoints.c
+	<stdio.h>
+	<stdlib.h>
+	<breakpoints.h>
+	"breakpoints.h"
+
+1651573179 /usr/include/stdio.h
+	<bits/libc-header-start.h>
+	<stddef.h>
+	<bits/types.h>
+	<bits/types/__FILE.h>
+	<bits/types/FILE.h>
+	<bits/libio.h>
+	<stdarg.h>
+	<bits/stdio_lim.h>
+	<bits/sys_errlist.h>
+	<bits/getopt_posix.h>
+	<bits/stdio.h>
+	<bits/stdio2.h>
+	<bits/stdio-ldbl.h>
+
+1651573179 /usr/include/stdlib.h
+	<bits/libc-header-start.h>
+	<stddef.h>
+	<bits/waitflags.h>
+	<bits/waitstatus.h>
+	<bits/floatn.h>
+	<bits/types/locale_t.h>
+	<sys/types.h>
+	<alloca.h>
+	<bits/stdlib-bsearch.h>
+	<bits/stdlib-float.h>
+	<bits/stdlib.h>
+	<bits/stdlib-ldbl.h>
+
+1651573179 /usr/include/alloca.h
+	<features.h>
+	<stddef.h>
+
+1651573179 /usr/include/features.h
+	<stdc-predef.h>
+	<sys/cdefs.h>
+	<gnu/stubs.h>
+
+1651573179 /usr/include/stdc-predef.h
+
+1664534861 /usr/include/breakpoints.h
+	<stdio.h>
+
+1651573179 /usr/include/unistd.h
+	<features.h>
+	<bits/posix_opt.h>
+	<bits/environments.h>
+	<bits/types.h>
+	<stddef.h>
+	<bits/confname.h>
+	<bits/getopt_posix.h>
+	<bits/unistd.h>
+
+1651573179 /usr/include/memory.h
+	<features.h>
+	<string.h>
+
+1651573179 /usr/include/string.h
+	<bits/libc-header-start.h>
+	<stddef.h>
+	<bits/types/locale_t.h>
+	<strings.h>
+	<bits/string_fortified.h>
+
+1651573179 /usr/include/strings.h
+	<features.h>
+	<stddef.h>
+	<bits/types/locale_t.h>
+	<bits/strings_fortified.h>
+
+1651573179 /usr/include/math.h
+	<bits/libc-header-start.h>
+	<bits/types.h>
+	<bits/math-vector.h>
+	<bits/floatn.h>
+	<bits/flt-eval-method.h>
+	<bits/fp-logb.h>
+	<bits/fp-fast.h>
+	<bits/mathcalls-helper-functions.h>
+	<bits/mathcalls.h>
+	<bits/mathcalls-helper-functions.h>
+	<bits/mathcalls.h>
+	<bits/mathcalls-helper-functions.h>
+	<bits/mathcalls.h>
+	<bits/mathcalls-helper-functions.h>
+	<bits/mathcalls.h>
+	<bits/mathcalls-helper-functions.h>
+	<bits/mathcalls.h>
+	<bits/mathcalls-helper-functions.h>
+	<bits/mathcalls.h>
+	<bits/mathcalls-helper-functions.h>
+	<bits/mathcalls.h>
+	<bits/mathcalls-helper-functions.h>
+	<bits/mathcalls.h>
+	<bits/mathcalls-helper-functions.h>
+	<bits/mathcalls.h>
+	<bits/mathcalls-helper-functions.h>
+	<bits/mathcalls.h>
+	<bits/iscanonical.h>
+	<bits/mathinline.h>
+	<bits/math-finite.h>
+	<bits/math-finite.h>
+	<bits/math-finite.h>
+	<bits/math-finite.h>
+	<bits/math-finite.h>
+	<bits/math-finite.h>
+	<bits/math-finite.h>
+	<bits/math-finite.h>
+	<bits/math-finite.h>
+	<bits/math-finite.h>
+
+1651573179 /usr/include/time.h
+	<features.h>
+	<stddef.h>
+	<bits/time.h>
+	<bits/types/clock_t.h>
+	<bits/types/time_t.h>
+	<bits/types/struct_tm.h>
+	<bits/types/struct_timespec.h>
+	<bits/types/clockid_t.h>
+	<bits/types/timer_t.h>
+	<bits/types/struct_itimerspec.h>
+	<bits/types/locale_t.h>
+
+1651573179 /usr/include/assert.h
+	<features.h>
+
+1663830040 /usr/include/portsf.h
+
+1651573179 /usr/include/ctype.h
+	<features.h>
+	<bits/types.h>
+	<endian.h>
+	<bits/types/locale_t.h>
+
+1651573179 /usr/include/endian.h
+	<features.h>
+	<bits/endian.h>
+	<bits/byteswap.h>
+	<bits/uintn-identity.h>
+
+1664536140 source:/home/benjix/CProjects/sfenv/main.cpp
+	<stdio.h>
+	<stdlib.h>
+	<../portsf/include/portsf.h>
+	<breakpoints.h>
+	"brkp2.h"
+	<math.h>
+
+1662199676 source:/home/benjix/CProjects/portsf/portsf/ieee80.c
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	"ieee80.h"
+
+1664535508 /home/benjix/CProjects/breakpoints/include/breakpoints.h
+	<stdio.h>
+
+1664535427 source:/home/benjix/CProjects/sfenv/brkp2.c
+	"brkp2.h"
+
+1664536122 /home/benjix/CProjects/sfenv/brkp2.h
+	<stdio.h>
+
+1664535625 /home/benjix/CProjects/sfenv//brkp2.h
+
+1663930472 /home/benjix/CProjects/portsf/include/portsf.h
+
+1664535516 source:/home/benjix/CProjects/breakpoints/breakpoints.cpp
+	<stdio.h>
+	<stdlib.h>
+	<breakpoints.h>
+	"breakpoints.h"
+
+1664536313 source:/home/benjix/CProjects/sfenv/brkp2.cpp
+	<iostream>
+	"brkp2.h"
+	<stdio.h>
+	<stdlib.h>
+	<breakpoints.h>
+	"breakpoints.h"
+

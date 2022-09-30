@@ -34,6 +34,7 @@
 			<Add option="-fpermissive" />
 			<Add directory="/home/benjix/CProjects/sfenv/" />
 			<Add directory="/usr/include" />
+			<Add directory="/home/benjix/CProjects/breakpoints" />
 		</Compiler>
 		<Unit filename="../breakpoints/breakpoints.c">
 			<Option compilerVar="CC" />
@@ -47,6 +48,10 @@
 		<Unit filename="../portsf/portsf/portsf.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="brkp2.cpp">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="brkp2.h" />
 		<Unit filename="main.cpp" />
 		<Extensions>
 			<code_completion />

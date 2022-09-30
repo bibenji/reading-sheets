@@ -2430,6 +2430,15 @@ soundfile
 
 P. 281
 
+2.5.1 Periodicity, Phase Increments, and the Trigonometric Functions
+
+2.5.1.1 Sine and Cosine—Going Round in Circles
+
+2.5.1.2 Moving in Steps—The Sampled Phase Increment
+
+P. 285
+
+
 
 
 TODO: make envx
