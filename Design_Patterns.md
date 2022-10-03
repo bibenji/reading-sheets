@@ -422,9 +422,32 @@ car elle a accès à son propre état.
 
 P. 218
 
+• Implémenter un algorithme dans une méthode, remettant à plus tard
+la définition de certaines étapes de l’algorithme pour permettre à des
+sous-classes de les redéfinir TEMPLATE METHOD
+• Distribuer une opération afin que chaque classe représente un état
+différent STATE
+• Encapsuler une opération, rendant les implémentations interchan-
+geables STRATEGY
+• Encapsuler un appel de méthode dans un objet COMMAND
+• Distribuer une opération de façon que chaque implémentation
+s’applique à un type différent de composition INTERPRETER
+
 #### TEMPLATE METHOD
 
+L’objectif du pattern TEMPLATE METHOD est d’implémenter un algorithme dans
+une méthode, laissant à d’autres classes le soin de définir certaines étapes de
+l’algorithme.
+
+Hooks
+Un hook est un appel de méthode placé par un développeur à un point spécifique
+d’une procédure pour permettre à d’autres développeurs d’y insérer du code.
+
++ READ REFACO GURU
+
 #### STATE
+
+P. 238
 
 #### STRATEGY
 
