@@ -2438,6 +2438,247 @@ P. 281
 
 P. 285
 
+sample rate
+phase increment
+
+For example, if we divide the circle into clock seconds, record
+one complete revolution second by second, and read the view of the second hand from
+the x axis, we will create a single-cycle sine wave comprising 60 samples (figure 2.10).
+So the sample rate is 1 sample per second, and the phase increment is 1/60 of the complete
+circle.
+
+amplitude (the radius of the rotating point)
+size of a complete revolution
+angle increment
+
+2.5.1.3 pi and the Radian
+
+the ratio of the circumference C of a circle to its diameter D
+
+pi = C / D
+D = 2R
+C = pi * D = pi * 2R = 2 * pi * R
+
+2 pi radians = complete rotation
+
+cos repeat those of sin offset by one quadrant (quarter of a circle), or pi/2
+= phase difference between the two sinusoids
+
+phase increment of pi / 2 each time
+
+2.5.1.4 The Aliasing Problem
+
+the Nyquist limit
+
+We really need to keep frequencies just below the Nyquist limit to be sure not to incur aliasing.
+
+2.5.2 A Sine-Wave Oscillator in C—Calculating Sample Increments
+
+incr = 2 * M_PI / SR ;
+(2 * M_PI) radians is a full cycle
+SR = sample rate (nb sample par seconde ?)
+
+and for any frequency:
+incr = freq * 2 * M_PI / SR ;
+
+Listing 2.5.2: A Basic Sine-Wave Oscillator
+```
+double startphase = 0.0; 
+double srate= 44100.0; 
+double freq = 440.0;
+double curphase = 0.0; /* use M_PI/2 for cosine */
+double incr = freq * TWOPI / srate; 
+
+for (i = 0; i < outsamps; i++) {
+    output[i] = (float) sin(curphase);
+    curphase += incr;
+    if (curphase >= TWOPI)
+        curphase -= TWOPI;
+}
+```
+
+if (curphase < 0.0)
+    curphase += TWOPI;
+
+2.5.3 Creation of Oscillator Objects—Code Encapsulation
+
+```wave.h
+#ifndef M_PI
+#define M_PI (3.1415926535897932)
+#endif
+#define TWOPI (2.0 * M_PI)
+
+typedef struct t_oscil
+{
+    double twopiovrsr; /* to hold a constant value 2PI/sr */
+    double curfreq;
+    double curphase;
+    double incr;
+} OSCIL;
+
+
+```
+
+```wave.c
+#include "wave.h"
+
+OSCIL* oscil(void)
+{
+    OSCIL* osc = (OSCIL*) malloc(sizeof(OSCIL));
+    if (osc == NULL)
+        return NULL;
+    return osc;
+}
+
+OSCIL* new_oscil(unsigned long srate)
+{
+    OSCIL* p_osc;
+    p_osc = (OSCIL*) malloc(sizeof(OSCIL));
+    if (p_osc == NULL)
+        return NULL;
+    
+    p_osc->twopiovrsr = TWOPI / (double) srate;
+    p_osc->curfreq = 0.0;
+    p_osc->curphase = 0.0;
+    p_osc->incr = 0.0;
+    return p_osc;
+}
+
+void oscil_init(OSCIL* osc, unsigned long srate)
+{
+    osc->twopiovrsr = TWOPI / (double) srate;
+    osc->curfreq = 0.0;
+    osc->curphase = 0.0;
+    osc->incr = 0.0;
+}
+
+void main()
+{
+    OSCIL *osc = new_oscil(44100);
+}
+```
+
+the pointer indirection notation ->
+
+with c++: facility known as ‘‘function overloading,’’
+
+Listing 2.5.5: A Combined OSCIL Creation and Initialization Function
+
+Note that incr is recalculated only when curfreq changes, so that in the case of an
+unchanging frequency redundant processing is kept to a minimum.
+
+Note also that no error
+checking is performed on the input pointer—this is for reasons of efficiency, as this function
+will be called very frequently.
+
+Listing 2.5.6 Sample Generation Function for the OSCIL Type
+
+```
+double sinetick(OSCIL* p_osc, double freq)
+{
+    double val;
+    val = sin(p_osc->curphase);
+    
+    if (p_osc->curfreq != freq) {
+        p_osc->curfreq = freq;
+        p_osc->incr = p_osc->twopiovrsr * freq;
+    }
+    
+    p_osc->curphase += p_osc->incr;
+    
+    if (p_osc->curphase >= TWOPI)
+        p_osc->curphase -= TWOPI;
+
+    if (p_osc->curphase < 0.0)
+        p_osc->curphase += TWOPI;
+    
+    return val;
+}
+
+/* used like this: */
+for (i = 0; i < nframes; i++)
+    outframe[i] = sinetick(osc, freq); /* modify freq ad lib.*/
+```
+
+2.5.4 Create a Plain Test Program
+
+siggen
+
+sinetest outfile dur srate amp freq
+
+```
+enum {ARG_PROGNAME, ARG_OUTFILE, ARG_DUR, ARG_SRATE, ARG_AMP, ARG_FREQ, ARG_NARGS};
+
+void main()
+{
+    unsigned long nbufs, outframes, remainder;
+    
+    /* define outfile format - this sets mono 16bit format */
+    srate = atof[ARG_SRATE];
+        
+    outprops.srate = srate;
+    outprops.chans = 1;
+    outprops.samptype = PSF_SAMP_16; /* or whatever is required */
+    outprops.chformat = STDWAVE;
+
+    dur = atof(argv[ARG_DUR]);
+
+    outframes = (unsigned long) (dur * outprops.srate + 0.5);
+    nbufs = outframes / nframes;
+    remainder = outframes - nbufs * nframes;
+    if (remainder > 0)
+        nbufs++;
+
+    for (i = 0; i < nbufs; i++) {
+        if (i == nbufs - 1)
+            nframes = remainder;
+        
+        for (j = 0; j < nframes; j++)
+            outframe[j] = (float) (amp * sinetick(p_osc, freq));
+        
+        if (psf_sndWriteFloatFrames(ofd, outframe, nframes) != nframes) {
+            printf("Error writing to outfile\n");
+            error++;
+            break;
+        }
+    }
+```
+
+Listing 2.5.7: Processing Loop for Synthesis
+
+With the program working correctly, you now have a means of generating source files with
+which to test programs such as sfenv.
+
+2.5.5 Generating Other Standard Waveforms
+
+P. 297
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
