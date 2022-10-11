@@ -449,7 +449,12 @@ d’une procédure pour permettre à d’autres développeurs d’y insérer du 
 
 P. 238
 
+L’objectif du pattern STATE est de distribuer la logique dépendant de l’état
+d’un objet à travers plusieurs classes qui représentent chacune un état différent.
+
 #### STRATEGY
+
+P. 250
 
 #### COMMAND
 
