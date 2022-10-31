@@ -456,7 +456,17 @@ d’un objet à travers plusieurs classes qui représentent chacune un état dif
 
 P. 250
 
+L’objectif du pattern STRATEGY est d’encapsuler des approches, ou stratégies,
+alternatives dans des classes distinctes qui implémentent chacune une opéra-
+tion commune.
+
+Strategy et State
+
+Strategy et Template Method
+
 #### COMMAND
+
+P. 260
 
 #### INTERPRETER
 
