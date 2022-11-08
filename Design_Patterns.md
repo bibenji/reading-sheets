@@ -468,12 +468,98 @@ Strategy et Template Method
 
 P. 260
 
+L’objectif du pattern COMMAND est d’encapsuler une requête dans un objet.
+
+Le pattern COMMAND représente une conception alternative à TEMPLATE METHOD pour les hooks
+
+vous pourriez combiner COMMAND et MEDIATOR dans une conception MVC
+
 #### INTERPRETER
 
+INTERPRETER ressemble aussi au pattern COMPOSITE
+
+L’objectif du pattern INTERPRETER est de vous permettre de composer des
+objets exécutables d’après un ensemble de règles de composition que vous
+définissez.
+
+l’objectif du pattern INTERPRETER : vous permettre de composer des objets exécutables.
+
+objets Term
+
+l’idée de termes booléens
+
+L’objectif du pattern INTERPRETER est de vous
+permettre de composer des objets exécutables à partir d’une hiérarchie de classes
+fournissant différentes interprétations d’une opération commune. L’objectif du
+pattern COMMAND est simplement d’encapsuler une requête dans un objet.
+
+utiliser un analyseur syntaxique (parser)
+
 ### Patterns d'extension
+
+P. 282
 
 #### DECORATOR
 
 #### ITERATOR
 
 #### VISITOR
+
+interface, responsabilité, construction, opération, extension
+1. brun -> interface marron d'un logiciel
+2. boeuf -> pour s'occuper des boeufs dont on est responsable
+3. pois -> leur construire une maison à pois
+4. pattes -> les opérer des pattes pour qu'ils rentrent
+5. trinque -> on trinque à l'extension pour ne plus les opérer, on étend le bras pour trinquer
+
+Patterns d’interface
+ADAPTER
+FACADE
+COMPOSITE
+BRIDGE
+
+1. ordinateur dans le bureau, avec une interface (interface)
+faut adapter la hauteur du siège (adapter)
+fond d'écran avec un pont (bridge) et une grande facade (facade)
+logiciel pour composer de la musique (composer)
+
+Patterns de responsabilité
+SINGLETON
+OBSERVER
+MEDIATOR
+PROXY
+CHAIN OF RESPONSABILITY
+FLYWEIGHT
+
+2. bureau (= responsabilité)
+dans un mirador pour observer (observer)
+où il y a des mouches (flyweight)
+décoration avec des chaînes (chain of responsabilité)
+un mediator pour faire de la guitare (mediator)
+on est seul (singleton)
+et en même temps y'a un téléphone pour la proximité (proxy)
+
+Patterns de construction
+BUILDER
+FACTORY METHOD
+ABSTRACT FACTORY
+PROTOTYPE
+MEMENTO
+
+3. garage avec bétonneuse (construction)
+construction mur (builder) d'une usine (factory method)
+y'a les plans de l'usine au mur (abstract factory)
+et une maquette (prototype)
++ plein de postit au mur pour se souvenir (= memento)
+
+Patterns d’opération
+TEMPLATE METHOD
+STATE
+STRATEGY
+COMMAND
+INTERPRETER
+
+Patterns d’extension
+DECORATOR
+ITERATOR
+VISITOR
