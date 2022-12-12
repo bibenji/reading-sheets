@@ -499,7 +499,27 @@ utiliser un analyseur syntaxique (parser)
 
 P. 282
 
+Le principe de substitution de Liskov
+
+Une instance d’une classe devrait fonctionner comme une instance de sa super-
+classe.
+
+La loi de Demeter
+
+Pour refactoriser, lire :
+
+Refactoring: Improving the Design of Existing Code
+
 #### DECORATOR
+
+P. 292
+
+L’objectif du pattern DECORATOR est de vous permettre de composer de nouvelles
+variations d’une opération lors de l’exécution.
+
+Enveloppeurs de fonctions
+
+P. 300
 
 #### ITERATOR
 
@@ -558,6 +578,13 @@ STATE
 STRATEGY
 COMMAND
 INTERPRETER
+
+y'a tunnel vers salle opérations
+dans la salle y'a tente plate (template method)
+c'est salle d'opérations des states (state)
+y'a un commandant (command)
+et interprete (interpreter)
+et on décide de la stratégie (strategy)
 
 Patterns d’extension
 DECORATOR
