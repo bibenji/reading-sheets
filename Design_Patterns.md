@@ -521,9 +521,29 @@ Enveloppeurs de fonctions
 
 P. 300
 
+[...] à relire
+
 #### ITERATOR
 
+L’objectif du pattern ITERATOR est de fournir un moyen d’accéder de façon
+séquentielle aux éléments d’une collection.
+
+[...] mutex
+
+La deuxième solution consiste à cloner la collection dans une opération avec un
+mutex puis de lire le contenu du clone. => mais peut poser problème
+
+Itération sur un objet composite
+
+P. 318
+
+[...] à relire
+
 #### VISITOR
+
+P. 330
+
+
 
 interface, responsabilité, construction, opération, extension
 1. brun -> interface marron d'un logiciel
