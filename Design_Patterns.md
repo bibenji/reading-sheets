@@ -543,6 +543,22 @@ P. 318
 
 P. 330
 
+L’objectif du pattern VISITOR est de vous permettre de définir une nouvelle
+opération pour une hiérarchie sans changer ses classes.
+
+double dispatching
+
+VISITOR est un pattern sujet à controverse.
+
+[...]
+
+Lu rapidement [...]
+
+VI Annexes
+
+P. 346
+
+
 
 
 interface, responsabilité, construction, opération, extension
